@@ -15,9 +15,11 @@ const ThemeContext = createContext<ThemeContextType>({
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('portfolio-theme') as Theme) || 'light';
+      const saved = localStorage.getItem('portfolio-theme') as Theme | null;
+      if (saved) return saved;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     }
-    return 'light';
+    return 'dark';
   });
 
   useEffect(() => {
