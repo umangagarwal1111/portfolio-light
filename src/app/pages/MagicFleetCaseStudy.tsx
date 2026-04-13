@@ -408,13 +408,13 @@ export default function MagicFleetCaseStudy() {
         {/* ── HERO MOCKUP: 3D MOBILE SCREENS ── */}
         <section className="mb-12 md:mb-20">
           <div
-            className="relative w-full flex items-center justify-center overflow-hidden py-20"
+            className="relative w-full flex items-center justify-center overflow-visible py-20"
             style={{
               perspective: '1200px',
             }}
           >
             {/* Mobile Mockups Container */}
-            <div className="relative flex items-center justify-center gap-0.5 md:gap-2 px-0 w-full overflow-x-auto md:overflow-visible">
+            <div className="relative flex items-center justify-center px-0 w-full overflow-x-auto md:overflow-visible">
               {/* Mockup 1 - Rider Screen (Surge Hours) */}
               <motion.div
                 initial={{ opacity: 0, y: 40, rotateX: 15 }}
@@ -425,17 +425,17 @@ export default function MagicFleetCaseStudy() {
                 className="flex-shrink-0 relative cursor-pointer group"
                 style={{
                   transformStyle: 'preserve-3d',
-                  width: '300px',
+                  width: '560px',
                 }}
               >
                 <motion.img
                   src="https://www.figma.com/api/mcp/asset/02a5a244-e387-4505-97ac-f50331b6ff88"
                   alt="Rider App - Surge Hours"
-                  className="w-full md:w-full lg:w-full h-auto rounded-3xl transition-all duration-300"
+                  className="w-full h-auto rounded-3xl transition-all duration-300"
                   whileHover={{ boxShadow: '0 50px 120px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3)' }}
                   style={{
                     boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2)',
-                    clipPath: 'inset(0 12% 0 12%)',
+                    clipPath: 'inset(0 18% 0 18%)',
                   }}
                 />
               </motion.div>
@@ -450,17 +450,18 @@ export default function MagicFleetCaseStudy() {
                 className="flex-shrink-0 relative cursor-pointer group"
                 style={{
                   transformStyle: 'preserve-3d',
-                  width: '295px',
+                  width: '560px',
+                  marginLeft: '-195px',
                 }}
               >
                 <motion.img
                   src="https://www.figma.com/api/mcp/asset/bae52dc3-e03b-45e8-9a44-877f659ba25b"
                   alt="Ledger App - Earnings Data"
-                  className="w-full md:w-full lg:w-full h-auto rounded-3xl transition-all duration-300"
+                  className="w-full h-auto rounded-3xl transition-all duration-300"
                   whileHover={{ boxShadow: '0 50px 120px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3)' }}
                   style={{
                     boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2)',
-                    clipPath: 'inset(0 12% 0 12%)',
+                    clipPath: 'inset(0 18% 0 18%)',
                   }}
                 />
               </motion.div>
@@ -475,17 +476,18 @@ export default function MagicFleetCaseStudy() {
                 className="flex-shrink-0 relative cursor-pointer group"
                 style={{
                   transformStyle: 'preserve-3d',
-                  width: '298px',
+                  width: '560px',
+                  marginLeft: '-195px',
                 }}
               >
                 <motion.img
                   src="https://www.figma.com/api/mcp/asset/356b939a-4873-427b-b2b2-d398c95e8923"
                   alt="Earnings App - Withdrawal Options"
-                  className="w-full md:w-full lg:w-full h-auto rounded-3xl transition-all duration-300"
+                  className="w-full h-auto rounded-3xl transition-all duration-300"
                   whileHover={{ boxShadow: '0 50px 120px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3)' }}
                   style={{
                     boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2)',
-                    clipPath: 'inset(0 12% 0 12%)',
+                    clipPath: 'inset(0 18% 0 18%)',
                   }}
                 />
               </motion.div>
@@ -500,17 +502,18 @@ export default function MagicFleetCaseStudy() {
                 className="flex-shrink-0 relative cursor-pointer group"
                 style={{
                   transformStyle: 'preserve-3d',
-                  width: '302px',
+                  width: '560px',
+                  marginLeft: '-195px',
                 }}
               >
                 <motion.img
                   src="https://www.figma.com/api/mcp/asset/85f2a276-eadb-4c74-a2ea-7b74d50f2196"
                   alt="Profile App - User Settings"
-                  className="w-full md:w-full lg:w-full h-auto rounded-3xl transition-all duration-300"
+                  className="w-full h-auto rounded-3xl transition-all duration-300"
                   whileHover={{ boxShadow: '0 50px 120px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3)' }}
                   style={{
                     boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2)',
-                    clipPath: 'inset(0 12% 0 12%)',
+                    clipPath: 'inset(0 18% 0 18%)',
                   }}
                 />
               </motion.div>
