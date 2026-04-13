@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
+import { useTheme } from '../context/ThemeContext';
 
 // ── Reusable fade-up wrapper ──────────────────────────────────────
 function FadeUp({
@@ -339,6 +340,7 @@ const IMG: Record<string, string | undefined> = {
 // ── MAIN PAGE ────────────────────────────────────────────────────
 export default function MagicFleetCaseStudy() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -369,7 +371,26 @@ export default function MagicFleetCaseStudy() {
           >
             <span>←</span> UA
           </button>
-          <span className="text-xs tracking-widest opacity-65">CASE STUDY</span>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="opacity-60 hover:opacity-100 transition-opacity focus:outline-none"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <svg width="15" height="15" viewBox="0 0 20 20" fill="none" style={{ color: 'var(--portfolio-fg)' }}>
+                  <circle cx="10" cy="10" r="3" fill="currentColor" />
+                  {[0,45,90,135,180,225,270,315].map((deg) => { const r = (deg*Math.PI)/180; return <line key={deg} x1={10+Math.cos(r)*5} y1={10+Math.sin(r)*5} x2={10+Math.cos(r)*7.5} y2={10+Math.sin(r)*7.5} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />; })}
+                </svg>
+              ) : (
+                <svg width="15" height="15" viewBox="0 0 20 20" fill="none" style={{ color: 'var(--portfolio-fg)' }}>
+                  <circle cx="10" cy="10" r="7" fill="currentColor" />
+                  <circle cx="13" cy="8" r="5.5" fill="var(--portfolio-bg)" />
+                </svg>
+              )}
+            </button>
+            <span className="text-xs tracking-widest opacity-65">CASE STUDY</span>
+          </div>
         </div>
       </motion.nav>
 

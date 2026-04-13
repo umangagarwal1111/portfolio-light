@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router';
+import { useTheme } from '../context/ThemeContext';
 
 // ── Reusable fade-up wrapper ──────────────────────────────────────
 function FadeUp({
@@ -514,6 +515,217 @@ function CaseImage({
   );
 }
 
+// ── Game Metrics Dashboard ────────────────────────────────────────
+const GAMES_DATA = [
+  { id: 0, name: 'Red Flag / Green Flag', short: 'Red/Green', date: 'Feb 3',  emoji: '🚩', engagement: 62, dau: '15K', dauPct: 27, retention: 42, devDays: 8, quality: 78 },
+  { id: 1, name: 'Mario',                 short: 'Mario',     date: 'Feb 10', emoji: '🍄', engagement: 71, dau: '22K', dauPct: 40, retention: 48, devDays: 6, quality: 70 },
+  { id: 2, name: 'Her Holi',              short: 'Her Holi',  date: 'Feb 17', emoji: '🎨', engagement: 85, dau: '31K', dauPct: 56, retention: 56, devDays: 5, quality: 74 },
+  { id: 3, name: 'Border Game',           short: 'Border',    date: 'Feb 24', emoji: '🏳️', engagement: 78, dau: '27K', dauPct: 49, retention: 52, devDays: 4, quality: 80 },
+  { id: 4, name: 'Dhurandargiri',         short: 'Dhura',     date: 'Mar 3',  emoji: '🎯', engagement: 88, dau: '35K', dauPct: 64, retention: 61, devDays: 4, quality: 86 },
+  { id: 5, name: 'Dharmic Score',         short: 'Dharmic',   date: 'Mar 10', emoji: '⚖️', engagement: 82, dau: '29K', dauPct: 53, retention: 58, devDays: 3, quality: 83 },
+  { id: 6, name: 'Navratri Festive',      short: 'Navratri',  date: 'Mar 17', emoji: '🪔', engagement: 91, dau: '42K', dauPct: 76, retention: 67, devDays: 3, quality: 88 },
+  { id: 7, name: 'Scratch Card Shuffle',  short: 'Scratch',   date: 'Mar 24', emoji: '🃏', engagement: 86, dau: '38K', dauPct: 69, retention: 63, devDays: 3, quality: 90 },
+  { id: 8, name: 'Metro Dash',            short: 'Metro',     date: 'Mar 31', emoji: '🚇', engagement: 93, dau: '48K', dauPct: 87, retention: 71, devDays: 3, quality: 97 },
+  { id: 9, name: 'IPL Prediction',        short: 'IPL',       date: 'Apr 7',  emoji: '🏏', engagement: 97, dau: '55K', dauPct: 100, retention: 76, devDays: 3, quality: 93 },
+];
+
+// Quality ranking: low → high  (Mario < Her Holi < Red/Green < Border < Dharmic < Dhura < Navratri < Scratch < IPL < Metro)
+const QUALITY_ORDER = [1, 2, 0, 3, 5, 4, 6, 7, 9, 8];
+
+const WEEKLY_TREND = [
+  { week: 'W1 Feb', engagement: 58 },
+  { week: 'W2 Feb', engagement: 65 },
+  { week: 'W3 Feb', engagement: 72 },
+  { week: 'W4 Feb', engagement: 78 },
+  { week: 'W1 Mar', engagement: 83 },
+  { week: 'W2 Mar', engagement: 86 },
+  { week: 'W3 Mar', engagement: 90 },
+  { week: 'W4 Mar', engagement: 94 },
+];
+
+function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
+  const [activeGame, setActiveGame] = useState(9);
+  const game = GAMES_DATA[activeGame];
+
+  const metrics = [
+    { label: 'Engagement Score', value: `${game.engagement}/100`, pct: game.engagement },
+    { label: 'Daily Active Users', value: game.dau,              pct: game.dauPct },
+    { label: 'D7 Retention',       value: `${game.retention}%`,  pct: game.retention },
+    { label: 'Quality Score',      value: `${game.quality}/100`, pct: game.quality },
+    { label: 'Dev Efficiency',     value: `${game.devDays}d`,    pct: Math.round(100 - ((game.devDays - 3) / 5) * 80) },
+  ];
+
+  return (
+    <FadeUp delay={delay}>
+      <div className="overflow-hidden" style={{ border: '1px solid var(--portfolio-border)' }}>
+        {/* Header */}
+        <div className="px-6 md:px-8 py-4 flex items-center justify-between flex-wrap gap-2" style={{ borderBottom: '1px solid var(--portfolio-border)' }}>
+          <div>
+            <div className="text-[10px] tracking-widest opacity-50 mb-0.5">GAME PERFORMANCE DASHBOARD</div>
+            <div className="text-sm font-bold tracking-tight">Feb 2026 – Apr 2026 · 10 Games · AI-Powered Workflow</div>
+          </div>
+          <div className="flex items-center gap-4 text-[10px] opacity-60">
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-green-500 inline-block" />High Performing
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-black/25 inline-block" />Baseline
+            </span>
+          </div>
+        </div>
+
+        {/* Game Tabs */}
+        <div className="px-4 md:px-6 py-3 overflow-x-auto" style={{ borderBottom: '1px solid var(--portfolio-border)' }}>
+          <div className="flex gap-2 min-w-max">
+            {GAMES_DATA.map((g) => (
+              <button
+                key={g.id}
+                onClick={() => setActiveGame(g.id)}
+                className={`px-3 py-1.5 rounded-full text-[11px] font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
+                  activeGame === g.id
+                    ? 'bg-green-500 text-black'
+                    : 'border border-black/15 opacity-50 hover:opacity-80 hover:border-black/30'
+                }`}
+              >
+                <span>{g.emoji}</span>
+                <span>{g.short}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Selected Game Detail */}
+        <div className="grid md:grid-cols-[260px_1fr]" style={{ borderBottom: '1px solid var(--portfolio-border)' }}>
+          {/* Screenshot slot */}
+          <div className="p-6 flex flex-col items-center justify-center gap-4 bg-black/[0.02]" style={{ borderRight: '1px solid var(--portfolio-border)' }}>
+            <div className="relative w-28 h-52 rounded-[1.6rem] border-2 border-black/20 overflow-hidden flex items-center justify-center bg-black/5">
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 rounded-full bg-black/15" />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeGame}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                  className="text-center"
+                >
+                  <div className="text-4xl mb-2">{game.emoji}</div>
+                  <div className="text-[9px] tracking-wider opacity-30 uppercase">Screenshot</div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeGame}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.18 }}
+                className="text-center"
+              >
+                <div className="text-sm font-bold tracking-tight">{game.name}</div>
+                <div className="text-[11px] opacity-50 mt-0.5">Released {game.date}</div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Metric bars */}
+          <div className="p-6 md:p-8">
+            <div className="text-[10px] tracking-widest opacity-50 mb-5">KEY METRICS</div>
+            <div className="space-y-4">
+              {metrics.map((m, i) => (
+                <div key={m.label}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs opacity-70">{m.label}</span>
+                    <span className="text-xs font-bold">{m.value}</span>
+                  </div>
+                  <div className="h-1.5 bg-black/10 rounded-full overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={`${activeGame}-${m.label}`}
+                        className="h-full rounded-full bg-green-500"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${m.pct}%` }}
+                        transition={{ duration: 0.5, delay: i * 0.06, ease: [0.215, 0.61, 0.355, 1] }}
+                      />
+                    </AnimatePresence>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Charts row */}
+        <div className="grid md:grid-cols-2 gap-4 p-4 md:p-6" style={{ borderTop: '1px solid var(--portfolio-border)' }}>
+          {/* Engagement trend */}
+          <div className="p-6 md:p-8" style={{ border: '1px solid var(--portfolio-border)' }}>
+            <div className="text-[10px] tracking-widest opacity-50 mb-1">ENGAGEMENT TREND</div>
+            <div className="text-sm font-bold mb-6">8-Week Rolling Average</div>
+            <div className="flex items-end gap-1.5 h-20">
+              {WEEKLY_TREND.map((w, i) => (
+                <div key={w.week} className="flex-1 flex flex-col items-center gap-1.5">
+                  {/* track */}
+                  <div className="w-full rounded-sm flex flex-col justify-end" style={{ height: '80px', background: 'rgba(255,255,255,0.07)' }}>
+                    <motion.div
+                      className="w-full rounded-sm bg-green-500"
+                      initial={{ height: 0 }}
+                      whileInView={{ height: `${(w.engagement / 100) * 80}px` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.1 + i * 0.06 }}
+                    />
+                  </div>
+                  <span className="text-[8px] opacity-40 whitespace-nowrap">{w.week}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 flex gap-6 border-t border-black/10 pt-4">
+              <div>
+                <div className="text-xl font-black text-green-500">+62%</div>
+                <div className="text-[11px] opacity-60 mt-0.5">Engagement growth</div>
+              </div>
+              <div>
+                <div className="text-xl font-black">3.7x</div>
+                <div className="text-[11px] opacity-60 mt-0.5">DAU increase</div>
+              </div>
+              <div>
+                <div className="text-xl font-black">↓63%</div>
+                <div className="text-[11px] opacity-60 mt-0.5">Dev time saved</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quality comparison */}
+          <div className="p-6 md:p-8" style={{ border: '1px solid var(--portfolio-border)' }}>
+            <div className="text-[10px] tracking-widest opacity-50 mb-1">QUALITY COMPARISON</div>
+            <div className="text-sm font-bold mb-4">All 10 Games · Quality Score</div>
+            <div className="space-y-2">
+              {QUALITY_ORDER.map((gid, i) => {
+                const g = GAMES_DATA[gid];
+                return (
+                  <div key={g.id} className="flex items-center gap-2">
+                    <span className="text-[10px] opacity-50 w-16 shrink-0 truncate">{g.short}</span>
+                    <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.10)' }}>
+                      <motion.div
+                        className={`h-full rounded-full transition-colors duration-300 ${g.id === activeGame ? 'bg-green-500' : 'bg-white/40'}`}
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${g.quality}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.05 + i * 0.04 }}
+                      />
+                    </div>
+                    <span className="text-[10px] font-bold w-5 text-right shrink-0">{g.quality}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </FadeUp>
+  );
+}
+
 // ── Image placeholders ─────────────────────────────────────────────
 const IMG: Record<string, string | undefined> = {
   heroMockup: undefined, // INSERT: Hero mockup showing AI game design workflow
@@ -530,6 +742,7 @@ const IMG: Record<string, string | undefined> = {
 // ── MAIN PAGE ────────────────────────────────────────────────────
 export default function AIGameDesignCaseStudy() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [showWorkflow, setShowWorkflow] = useState(false);
 
   useEffect(() => {
@@ -561,7 +774,26 @@ export default function AIGameDesignCaseStudy() {
           >
             <span>←</span> UA
           </button>
-          <span className="text-xs tracking-widest opacity-65">CASE STUDY</span>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="opacity-60 hover:opacity-100 transition-opacity focus:outline-none"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <svg width="15" height="15" viewBox="0 0 20 20" fill="none" style={{ color: 'var(--portfolio-fg)' }}>
+                  <circle cx="10" cy="10" r="3" fill="currentColor" />
+                  {[0,45,90,135,180,225,270,315].map((deg) => { const r = (deg*Math.PI)/180; return <line key={deg} x1={10+Math.cos(r)*5} y1={10+Math.sin(r)*5} x2={10+Math.cos(r)*7.5} y2={10+Math.sin(r)*7.5} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />; })}
+                </svg>
+              ) : (
+                <svg width="15" height="15" viewBox="0 0 20 20" fill="none" style={{ color: 'var(--portfolio-fg)' }}>
+                  <circle cx="10" cy="10" r="7" fill="currentColor" />
+                  <circle cx="13" cy="8" r="5.5" fill="var(--portfolio-bg)" />
+                </svg>
+              )}
+            </button>
+            <span className="text-xs tracking-widest opacity-65">CASE STUDY</span>
+          </div>
         </div>
       </motion.nav>
 
@@ -618,19 +850,16 @@ export default function AIGameDesignCaseStudy() {
             <StatCard number="∞" label="Scalability potential with AI-first workflow" delay={0.25} />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 mt-10">
-            <TimelineComparison delay={0.3} />
-            <EngagementMetrics delay={0.4} />
-          </div>
-
-          <FadeUp delay={0.5} className="mt-10">
-            <CaseImage
-              src={IMG.metrics}
-              alt="Detailed metrics dashboard"
-              label="INSERT: Comprehensive metrics dashboard showing game-by-game performance, engagement trends over time, and quality metrics (retention, DAU, engagement score)"
-              aspect="16/9"
-            />
+          <FadeUp delay={0.3} className="mt-10">
+            <div className="p-4 md:p-6" style={{ border: '1px solid var(--portfolio-border)' }}>
+              <div className="grid md:grid-cols-2 gap-4">
+                <TimelineComparison />
+                <EngagementMetrics />
+              </div>
+            </div>
           </FadeUp>
+
+          <GameMetricsDashboard delay={0.5} />
         </section>
 
         <Divider />
@@ -861,18 +1090,9 @@ export default function AIGameDesignCaseStudy() {
           </FadeUp>
 
           {/* Game Performance Dashboard */}
-          <FadeUp delay={0.05} className="mb-12">
-            <div className="border border-black/15 p-8 md:p-12">
-              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Game-by-Game Performance Metrics</h3>
-              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
-              <CaseImage
-                src={undefined}
-                alt="Game performance dashboard"
-                label="INSERT: Dashboard showing each game with engagement score, DAU, retention rate, development time, and quality metrics (bugs, player feedback score)"
-                aspect="16/9"
-              />
-            </div>
-          </FadeUp>
+          <div className="mb-12">
+            <GameMetricsDashboard delay={0.05} />
+          </div>
 
           <div className="grid gap-6">
             <FeatureCard
