@@ -1,0 +1,70 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* ── Header name glitch animation ────────────────────────────── */
+/* Used by the "glitch" style in HeaderNameAnimation.tsx.
+   ::before / ::after use clip-path to create chromatic slice copies. */
+@keyframes glitch-slice-1 {
+  0%,100% { clip-path: inset(0% 0 92% 0);  transform: translate(-3px,0); }
+  16%     { clip-path: inset(40% 0 40% 0); transform: translate(3px,0); }
+  33%     { clip-path: inset(75% 0 10% 0); transform: translate(-2px,0); }
+  50%     { clip-path: inset(10% 0 70% 0); transform: translate(2px,0); }
+  66%     { clip-path: inset(55% 0 25% 0); transform: translate(-3px,0); }
+  83%     { clip-path: inset(20% 0 60% 0); transform: translate(1px,0); }
+}
+@keyframes glitch-slice-2 {
+  0%,100% { clip-path: inset(85% 0 0% 0);  transform: translate(3px,0); }
+  16%     { clip-path: inset(20% 0 60% 0); transform: translate(-2px,0); }
+  33%     { clip-path: inset(0%  0 85% 0); transform: translate(3px,0); }
+  50%     { clip-path: inset(65% 0 15% 0); transform: translate(-3px,0); }
+  66%     { clip-path: inset(30% 0 50% 0); transform: translate(2px,0); }
+  83%     { clip-path: inset(80% 0 5%  0); transform: translate(-1px,0); }
+}
+.header-glitch { position: relative; display: inline-block; }
+.header-glitch::before,
+.header-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.header-glitch::before {
+  animation: glitch-slice-1 0.55s steps(1) infinite;
+  color: #00ffc8;
+  opacity: 0.75;
+}
+.header-glitch::after {
+  animation: glitch-slice-2 0.55s steps(1) infinite;
+  animation-delay: 0.08s;
+  color: #ff3c3c;
+  opacity: 0.65;
+}
+
+/* ── Marquee CSS animation ────────────────────────────────────── */
+/* Runs on the compositor thread (off JS main thread), so it never
+   competes with scroll events or Framer Motion's scheduler.       */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Smooth theme transition ──────────────────────────────────── */
+/* Crossfade background and text when toggling dark/light mode.   */
+/* Only colour/fill — NOT layout or transform — so no jank.       */
+*,
+*::before,
+*::after {
+  transition-property: background-color, color, border-color, fill, stroke;
+  transition-duration: 250ms;
+  transition-timing-function: ease;
+}
+
+/* Exclude elements where instant updates are expected (animations, etc.) */
+.no-theme-transition,
+.no-theme-transition * {
+  transition: none !important;
+}

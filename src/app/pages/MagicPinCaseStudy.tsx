@@ -1,0 +1,795 @@
+import { useEffect } from 'react';
+import { motion } from 'motion/react';
+import { useNavigate } from 'react-router';
+
+// ── Reusable fade-up wrapper ──────────────────────────────────────
+function FadeUp({
+  children,
+  delay = 0,
+  className = '',
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.7, delay, ease: [0.215, 0.61, 0.355, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ── Impact metrics visualization ───────────────────────────────
+function ImpactMetricsDisplay({
+  delay = 0,
+}: {
+  delay?: number;
+}) {
+  return (
+    <FadeUp delay={delay}>
+      <div className="border border-black/15 p-6 md:p-8">
+        <h3 className="text-lg md:text-xl font-bold mb-8 tracking-tight">Impact Distribution Across Metrics</h3>
+        <div className="space-y-6">
+          {[
+            { label: 'AOV Increase', value: 32, unit: '%' },
+            { label: 'Category Selection', value: 80, unit: '%' },
+            { label: 'Personalized Conversion', value: 65, unit: '%' },
+            { label: 'Onboarding', value: 50, unit: '%' },
+            { label: 'DAU Growth', value: 30, unit: '%' },
+            { label: 'Retention', value: 12, unit: '%' },
+          ].map((item, i) => (
+            <motion.div key={item.label} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+              <div className="flex items-center justify-between gap-4 mb-2">
+                <span className="text-sm font-medium">{item.label}</span>
+                <span className="text-sm font-bold text-green-500">+{item.value}{item.unit}</span>
+              </div>
+              <motion.div
+                className="h-2 rounded-full bg-green-500/20"
+                initial={{ width: 0 }}
+                whileInView={{ width: '100%' }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: i * 0.05 }}
+              >
+                <div className="h-full rounded-full bg-green-500" style={{ width: `${(item.value / 80) * 100}%` }} />
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </FadeUp>
+  );
+}
+
+// ── Section divider ───────────────────────────────────────────────
+function Divider() {
+  return <div className="w-full h-[1px] bg-black/10 my-16 md:my-24" />;
+}
+
+// ── Stat card ────────────────────────────────────────────────────
+function StatCard({
+  number,
+  label,
+  delay = 0,
+}: {
+  number: string;
+  label: string;
+  delay?: number;
+}) {
+  return (
+    <FadeUp delay={delay}>
+      <div className="border border-black/15 p-6 md:p-8 hover:border-black/30 transition-colors duration-500">
+        <div className="text-4xl md:text-6xl font-black tracking-tighter mb-2 text-[var(--portfolio-fg)]">
+          {number}
+        </div>
+        <div className="text-sm md:text-base opacity-75 leading-relaxed">{label}</div>
+      </div>
+    </FadeUp>
+  );
+}
+
+// ── Problem card ─────────────────────────────────────────────────
+function ProblemCard({
+  number,
+  title,
+  sample,
+  impact,
+  imageUrl,
+  delay = 0,
+}: {
+  number: string;
+  title: string;
+  sample: string;
+  impact: string;
+  imageUrl?: string;
+  delay?: number;
+}) {
+  return (
+    <FadeUp delay={delay}>
+      <div className="border border-black/15 hover:border-black/20 transition-colors duration-500 overflow-hidden">
+        {/* Screenshot evidence */}
+        <CaseImage
+          src={imageUrl}
+          alt={`Problem ${number}: ${title}`}
+          label={`BEFORE — ${title.toUpperCase()} (export from Figma node 47:${number === '01' ? '1263' : number === '02' ? '4485' : number === '03' ? '5287' : '6088'})`}
+          aspect="3/2"
+          className="border-b border-black/15"
+          contain
+        />
+        <div className="p-6 md:p-8">
+          <div className="text-xs tracking-widest opacity-60 mb-4">{number}</div>
+          <h3 className="text-xl md:text-2xl font-bold mb-6 tracking-tight">{title}</h3>
+          <div className="space-y-4">
+            <div>
+              <div className="text-xs tracking-widest opacity-65 mb-2">SAMPLE</div>
+              <p className="text-sm md:text-base opacity-75 leading-relaxed">{sample}</p>
+            </div>
+            <div className="w-full h-[1px] bg-black/10" />
+            <div>
+              <div className="text-xs tracking-widest opacity-65 mb-2">IMPACT</div>
+              <p className="text-sm md:text-base opacity-75 leading-relaxed">{impact}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </FadeUp>
+  );
+}
+
+// ── Archetype card ───────────────────────────────────────────────
+function ArchetypeCard({
+  name,
+  description,
+  todo,
+  delay = 0,
+}: {
+  name: string;
+  description: string;
+  todo: string;
+  delay?: number;
+}) {
+  return (
+    <FadeUp delay={delay}>
+      <div className="border-t border-black/15 pt-8">
+        <div className="text-xs tracking-widest opacity-60 mb-3">USER ARCHETYPE</div>
+        <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight">{name}</h3>
+        <p className="opacity-75 leading-relaxed mb-6 text-sm md:text-base">{description}</p>
+        <div className="bg-black/[0.04] p-4 border-l-2 border-black/30">
+          <div className="text-xs tracking-widest opacity-65 mb-2">TO DO</div>
+          <p className="text-sm opacity-75 leading-relaxed italic">"{todo}"</p>
+        </div>
+      </div>
+    </FadeUp>
+  );
+}
+
+// ── Learning card ────────────────────────────────────────────────
+function LearningCard({
+  title,
+  body,
+  delay = 0,
+}: {
+  title: string;
+  body: string;
+  delay?: number;
+}) {
+  return (
+    <FadeUp delay={delay}>
+      <div className="border border-black/15 p-6 md:p-8">
+        <h3 className="text-lg md:text-xl font-bold mb-3 tracking-tight">{title}</h3>
+        <p className="opacity-75 leading-relaxed text-sm md:text-base">{body}</p>
+      </div>
+    </FadeUp>
+  );
+}
+
+// ── Image placeholder (swap src="" with actual path when ready) ──
+function CaseImage({
+  src,
+  alt,
+  label,
+  aspect = '16/9',
+  className = '',
+  contain = false,
+}: {
+  src?: string;
+  alt: string;
+  label: string;
+  aspect?: string;
+  className?: string;
+  contain?: boolean;
+}) {
+  if (src) {
+    return (
+      <div
+        className={`w-full overflow-hidden bg-black/[0.03] ${className}`}
+        style={{ aspectRatio: aspect }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          className={`w-full h-full ${contain ? 'object-contain' : 'object-cover'}`}
+        />
+      </div>
+    );
+  }
+  return (
+    <div
+      className={`w-full border border-dashed border-black/20 bg-black/[0.02] flex flex-col items-center justify-center gap-2 ${className}`}
+      style={{ aspectRatio: aspect }}
+    >
+      <div className="w-8 h-8 border border-black/20 flex items-center justify-center">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="1" width="14" height="14" stroke="var(--portfolio-fg)" strokeOpacity="0.3" strokeWidth="1" />
+          <line x1="1" y1="1" x2="15" y2="15" stroke="var(--portfolio-fg)" strokeOpacity="0.2" strokeWidth="1" />
+          <line x1="15" y1="1" x2="1" y2="15" stroke="var(--portfolio-fg)" strokeOpacity="0.2" strokeWidth="1" />
+        </svg>
+      </div>
+      <span className="text-xs tracking-widest opacity-60 text-center px-4">{label}</span>
+    </div>
+  );
+}
+
+// Image sources — drop exported files into public/case-studies/magicpin/
+// and uncomment each line. Export nodes from Figma file eOlrNDmrH4DhyApKv9f3mD
+const IMG: Record<string, string | undefined> = {
+  heroFinalDesigns: undefined, // node 82:2537 → final-designs.jpg
+  problem1:         undefined, // node 47:1263 → problem1.jpg
+  problem2:         undefined, // node 47:4485 → problem2.jpg
+  problem3:         undefined, // node 47:5287 → problem3.jpg
+  problem4:         undefined, // node 47:6088 → problem4.jpg
+  impact:           undefined, // node 48:6957 → impact.jpg
+  hmw:              undefined, // node 47:6888 → hmw.jpg
+};
+
+// ── MAIN PAGE ────────────────────────────────────────────────────
+export default function MagicPinCaseStudy() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div
+      className="min-h-screen overflow-x-hidden"
+      style={{ fontFamily: 'Inter, sans-serif', backgroundColor: 'var(--portfolio-bg)', color: 'var(--portfolio-fg)' }}
+    >
+      {/* ── Nav ── */}
+      <motion.nav
+        className="fixed top-0 left-0 right-0 z-50"
+        style={{
+          background: 'var(--portfolio-nav-bg)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          borderBottom: '1px solid var(--portfolio-border)',
+        }}
+        initial={{ y: -80 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: [0.215, 0.61, 0.355, 1] }}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex justify-between items-center">
+          <button
+            onClick={() => navigate('/')}
+            className="text-sm font-bold tracking-wide hover:opacity-75 transition-opacity flex items-center gap-2"
+          >
+            <span>←</span> UA
+          </button>
+          <span className="text-xs tracking-widest opacity-65">CASE STUDY</span>
+        </div>
+      </motion.nav>
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+
+        {/* ── HERO ── */}
+        <section className="pt-36 md:pt-44 pb-16 md:pb-24">
+          <FadeUp>
+            <div className="flex flex-wrap gap-6 mb-10 text-xs tracking-widest opacity-65">
+              <span>JAN 2022 — PRESENT</span>
+              <span>·</span>
+              <span>ANDROID & iOS</span>
+              <span>·</span>
+              <span>SENIOR PRODUCT DESIGNER</span>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.1}>
+            <h1 className="text-5xl md:text-8xl lg:text-[9rem] font-black leading-none tracking-tighter mb-8">
+              MAGICPIN<br />APP REVAMP
+            </h1>
+          </FadeUp>
+
+          <FadeUp delay={0.2}>
+            <p className="text-lg md:text-2xl max-w-3xl leading-relaxed opacity-75">
+              The largest UX overhaul in magicPin's history — redesigning the full ordering, discovery,
+              and savings experience for millions of Indian users across a hyperlocal marketplace.
+            </p>
+          </FadeUp>
+        </section>
+
+        {/* ── HERO IMAGE — Final designs: 4-phone mockup ── */}
+        <FadeUp>
+          <CaseImage
+            src={IMG.heroFinalDesigns}
+            alt="magicPin App Revamp — Final Designs"
+            label="FINAL DESIGNS — 4 phone mockups (export from Figma node 82:2537)"
+            aspect="16/7"
+            className="mb-6"
+            contain
+          />
+        </FadeUp>
+
+        <Divider />
+
+        {/* ── IMPACT METRICS ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">IMPACT</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
+              NUMBERS THAT<br />MOVED THE NEEDLE
+            </h2>
+          </FadeUp>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+            <StatCard number="+32%" label="Increase in average order value (AOV)" delay={0} />
+            <StatCard number="+80%" label="Increase in category selection on app launch" delay={0.05} />
+            <StatCard number="+65%" label="Conversion on personalised sections & widgets" delay={0.1} />
+            <StatCard number="+50%" label="Increase in user onboarding" delay={0.15} />
+            <StatCard number="+30%" label="Increase in daily active users (DAU)" delay={0.2} />
+            <StatCard number="+12%" label="Increase in retention rate" delay={0.25} />
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+            <StatCard number="+50%" label="SMS permission rate" delay={0.3} />
+            <StatCard number="+32%" label="magicPay conversions" delay={0.35} />
+            <StatCard number="+25%" label="Voucher redemptions" delay={0.4} />
+          </div>
+
+          <div className="mt-10">
+            <ImpactMetricsDisplay delay={0.45} />
+          </div>
+
+          {/* Impact breakdown visualization */}
+          <FadeUp delay={0.5} className="mt-10">
+            <CaseImage
+              src={IMG.impact}
+              alt="Impact metrics breakdown with phone mockups per phase"
+              label="INSERT: Phased metrics visualization showing impact at each phase (Phase 1 → Phase 2 → Phase 3) with phone mockups, metric changes, and user feedback highlights"
+              aspect="16/9"
+            />
+          </FadeUp>
+        </section>
+
+        <Divider />
+
+        {/* ── CONTEXT ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">CONTEXT</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
+              WHAT IS<br />MAGICPIN?
+            </h2>
+          </FadeUp>
+          <div className="grid md:grid-cols-2 gap-12">
+            <FadeUp delay={0.1}>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75">
+                magicPin is a customer-centric hyperlocal marketplace, linking retailers to customers
+                in a way that revolutionises commerce and helps consumers save. By connecting
+                retailers big and small with customers, magicPin creates value for all in the hyperlocal
+                retail ecosystem.
+              </p>
+            </FadeUp>
+            <FadeUp delay={0.2}>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75">
+                This revamp is one of the largest projects at magicPin since 2020. I led the design
+                as Senior Product Designer, collaborating with multiple product designers and product
+                managers throughout the project spanning from Jan 2022 to present.
+              </p>
+            </FadeUp>
+          </div>
+        </section>
+
+        <Divider />
+
+        {/* ── PROBLEM ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">THE PROBLEM</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
+              SINCE 2015, THE APP<br />EXPERIENCE HADN'T CHANGED.
+            </h2>
+            <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
+              Four core problems were holding back growth and user experience.
+            </p>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+            <ProblemCard
+              number="01"
+              title="No Relevancy"
+              sample="The app showed non-veg items as cross-sell even to users who had only ever ordered veg — every session felt impersonal."
+              impact="Irrelevant content directly reduced conversion. Users left faster, spent less."
+              imageUrl={IMG.problem1}
+              delay={0}
+            />
+            <ProblemCard
+              number="02"
+              title="No Defined Journey"
+              sample="Multiple CTAs existed for a single action — users could trigger an Earn transaction in too many ways."
+              impact="Without a clear journey, users got lost and the app missed chances to build habitual behaviour."
+              imageUrl={IMG.problem2}
+              delay={0.05}
+            />
+            <ProblemCard
+              number="03"
+              title="Weak Brand Perception"
+              sample="App messaging gave users the impression of low quality. Voucher codes like 'ZXCVBNMASDF' — no brand voice, no emotional connect."
+              impact="A product without strong branding is just another app. Trust and desirability suffered."
+              imageUrl={IMG.problem3}
+              delay={0.1}
+            />
+            <ProblemCard
+              number="04"
+              title="Inconsistent Experience"
+              sample="Design components looked different across pages. When one broke, it caused misbehaviour across the entire app."
+              impact="Without a mature design system, the team was always building on shaky foundations."
+              imageUrl={IMG.problem4}
+              delay={0.15}
+            />
+          </div>
+
+          {/* HMW */}
+          <FadeUp delay={0.2} className="mt-12">
+            <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
+              <div className="text-xs tracking-widest opacity-65 mb-4">HOW MIGHT WE</div>
+              <p className="text-2xl md:text-4xl font-bold leading-tight opacity-90">
+                "How can we improve our app experience to help customers save more in their
+                day-to-day expenses?"
+              </p>
+            </div>
+          </FadeUp>
+        </section>
+
+        <Divider />
+
+        {/* ── GOALS ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">GOALS</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
+              WHAT SUCCESS<br />LOOKED LIKE
+            </h2>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              {
+                title: 'Increase Retention',
+                body: 'Optimise new user onboarding and make the journey smooth enough to drive repeat transactions — measured on D3 and D7 retention.',
+              },
+              {
+                title: 'Increase Relevant Content',
+                body: 'Work with analytics and engineering to build a recommendation engine based on past purchase behaviour, activities, and interests.',
+              },
+              {
+                title: 'Consistent Consumer Experience',
+                body: 'Build a proper design system to reduce technical debt and deliver a consistent experience across every touchpoint.',
+              },
+              {
+                title: 'Strengthen Value Proposition',
+                body: 'Go beyond just savings. Build a habit-forming shopping experience while strengthening product discovery on the app.',
+              },
+              {
+                title: 'Operational Efficiency',
+                body: 'Build scalable design components that work across all flows, enabling faster design and development at scale.',
+              },
+            ].map((goal, i) => (
+              <FadeUp key={goal.title} delay={i * 0.05}>
+                <div className="border-t border-black/15 pt-6 pb-2">
+                  <h3 className="text-lg md:text-xl font-bold mb-2 tracking-tight">{goal.title}</h3>
+                  <p className="opacity-75 leading-relaxed text-sm md:text-base">{goal.body}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </section>
+
+        <Divider />
+
+        {/* ── USERS ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">RESEARCH</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
+              WHO WE<br />DESIGNED FOR
+            </h2>
+            <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
+              Before starting, we collected existing behaviour and purchase data and ran a series of customer interviews.
+              We defined 3 user archetypes mapped to their jobs-to-be-done.
+            </p>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-3 gap-0 md:gap-8">
+            <ArchetypeCard
+              name="The Daily Diner"
+              description="An early adopter seeking convenience. A power magicPay user who values instant cash savings when going out."
+              todo="During my visit to restaurants and cafes with my friends, I want to pay through my mobile while I save extra on every deal."
+              delay={0}
+            />
+            <ArchetypeCard
+              name="The Picky Saver"
+              description="A habitual magicPin voucher user who spends more time looking for a deal than doing the actual shopping."
+              todo="When she wants to go shopping, she would spend more time browsing offers than time spent purchasing the product."
+              delay={0.1}
+            />
+            <ArchetypeCard
+              name="The Experimental Foodie"
+              description="More spontaneous and open to trying new places and foods. Discovery is the whole point."
+              todo="When she doesn't know what to eat, she likes to browse and explore new restaurants and dishes to experience with friends."
+              delay={0.2}
+            />
+          </div>
+        </section>
+
+        <Divider />
+
+        {/* ── PROCESS ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">PROCESS</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
+              HOW WE<br />GOT THERE
+            </h2>
+          </FadeUp>
+
+          <div className="space-y-0">
+            {[
+              {
+                step: '01',
+                title: 'Design Sprints',
+                body: 'We ran design sprints to facilitate collaboration across all departments — product designers, PMs, creatives, and tech. The purpose was to align everyone on the same goal: to improve customer experience by solving user problems as quickly and effectively as possible.',
+              },
+              {
+                step: '02',
+                title: 'User Flows',
+                body: 'We mapped user journeys on the app with the core idea of making it easier for users to convert, transact, and engage. Each flow was documented with expected changes listed against each screen.',
+              },
+              {
+                step: '03',
+                title: 'Sketching & Ideation',
+                body: 'Sketched out multiple user flows to visualise ideas quickly. The main focus was generating as many ideas as possible and filtering afterwards. Early sketches covered the category page, product page, merchant page, and more.',
+              },
+              {
+                step: '04',
+                title: 'Early Designs & Iteration',
+                body: 'Many rounds of mid-fidelity and high-fidelity design. Reasons for iteration included business perspective changes, roadmap shifts, new product introductions, and the impact of the pandemic. The Shop Page, Deals Tab, Collection, and Merchant Page all went through extensive iteration.',
+              },
+              {
+                step: '05',
+                title: 'Usability Testing',
+                body: 'We validated designs with real users — all conducted in-house and sometimes over video calls. We tested with 10+ users at a time in a controlled environment, iterating based on findings before moving to final designs.',
+              },
+              {
+                step: '06',
+                title: 'Phased Releases',
+                body: 'As one of the largest projects at magicPin, we released the new designs in phases. This let both designers and developers manage expected and unexpected issues as we shipped new products — reducing risk at each release.',
+              },
+            ].map((item, i) => (
+              <FadeUp key={item.step} delay={i * 0.05}>
+                <div className="border-t border-black/15 py-8 grid md:grid-cols-[120px_1fr] gap-4 md:gap-12">
+                  <div className="text-xs tracking-widest opacity-60 pt-1">{item.step}</div>
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight">{item.title}</h3>
+                    <p className="opacity-75 leading-relaxed text-sm md:text-base">{item.body}</p>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+
+          {/* Design Process Visualization */}
+          <FadeUp delay={0.35} className="mt-12">
+            <div className="border border-black/15 p-8 md:p-12">
+              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Design Methodology Overview</h3>
+              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
+              <CaseImage
+                src={undefined}
+                alt="Design methodology"
+                label="INSERT: Visual flowchart showing Design Sprint → User Flows → Sketching → Early Design → Iteration → Usability Testing → Phased Release with key outputs and feedback loops"
+                aspect="16/9"
+              />
+            </div>
+          </FadeUp>
+        </section>
+
+        <Divider />
+
+        {/* ── DESIGN SYSTEM ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">DESIGN SYSTEM</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
+              INTRODUCING<br />MAGICDS
+            </h2>
+          </FadeUp>
+          <div className="grid md:grid-cols-2 gap-12 items-start mb-12">
+            <FadeUp delay={0.1}>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75 mb-6">
+                magicDS (magic Design System) is a scalable design system that saves time and reduces
+                technical debt over time. It solves the problem of inconsistent components and user experience
+                across the entire app.
+              </p>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75">
+                magicDS consists of <strong className="text-[var(--portfolio-fg)] opacity-100">150+ components</strong> with
+                properly defined typography styles, icons, and colours. Everything in the app is made up of
+                these modular components — giving a consistent UI across all screens. The system continues
+                to mature and evolve as the product grows.
+              </p>
+            </FadeUp>
+            <FadeUp delay={0.2}>
+              <div className="grid grid-cols-3 gap-4">
+                {['150+\nComponents', 'Defined\nTypography', 'Consistent\nColours', 'Scalable\nIcons', 'Modular\nSystem', 'Reduced\nTech Debt'].map((item) => (
+                  <div key={item} className="border border-black/15 p-4 text-center">
+                    <p className="text-xs opacity-75 whitespace-pre-line leading-relaxed">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </FadeUp>
+          </div>
+
+          {/* Design System Components Showcase */}
+          <FadeUp delay={0.3}>
+            <div className="border border-black/15 p-8 md:p-12">
+              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">magicDS Component Library</h3>
+              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
+              <CaseImage
+                src={undefined}
+                alt="magicDS component library"
+                label="INSERT: Component library showcase showing typography scale, color palette, buttons (states), input fields, cards, modals, and icon set organized by category"
+                aspect="16/9"
+              />
+            </div>
+          </FadeUp>
+        </section>
+
+        <Divider />
+
+        {/* ── KEY DESIGN DECISIONS ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">FINAL DESIGNS</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
+              KEY DESIGN<br />DECISIONS
+            </h2>
+          </FadeUp>
+
+          {/* Final designs showcase */}
+          <FadeUp delay={0.05} className="mb-12">
+            <CaseImage
+              src={IMG.heroFinalDesigns}
+              alt="magicPin final designs — Shop, Magic9, Deals, Merchant pages"
+              label="FINAL DESIGNS — Personalized Shop Page · Magic9 · Offers Tab · Merchant Page (export from Figma node 82:2537)"
+              aspect="16/7"
+              contain
+            />
+          </FadeUp>
+
+          {/* Key Design Screens - Individual showcases */}
+          <FadeUp delay={0.1} className="mb-12">
+            <div className="border border-black/15 p-8 md:p-12">
+              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Core Screen Redesigns</h3>
+              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDERS</p>
+              <CaseImage
+                src={undefined}
+                alt="Core screen designs"
+                label="INSERT: 4 core screens (Shop Page, Deals Tab, Merchant Page, Transaction History) shown in before/after with annotations explaining key changes and improvements"
+                aspect="16/9"
+              />
+            </div>
+          </FadeUp>
+
+          <div className="space-y-6">
+            {[
+              {
+                title: 'Personalised Shop Page',
+                body: 'The shop page was redesigned to be personalised for each user — content, recommendations, and layout adapt to individual behaviour and purchase history. Multiple design directions were explored; the final version balanced personalisation with scalability.',
+              },
+              {
+                title: 'Optimised Offers Tab',
+                body: 'The old "Redeem" tab was replaced with the "Offers" tab — enabling users to discover new merchant collections, products, and events. Instead of asking users which category they want to explore, we ask what they want to do. Personalised offers are surfaced automatically.',
+              },
+              {
+                title: 'Scalable Collection Pages',
+                body: 'Collection pages show recommended offers, deals, or merchants. Designed to be scalable enough for the operations team to create customised collection pages based on user data — reducing manual labour and making it easier for users to browse related content.',
+              },
+              {
+                title: 'Unified Merchant Page',
+                body: 'With multiple transaction types per merchant (vouchers, product ordering), a single scalable merchant page was designed to handle both. One page for all offers, deals, and product catalogue — reducing confusion and increasing conversion.',
+              },
+              {
+                title: 'Delightful Microcopy & Illustrations',
+                body: 'Simple, conversational copy and 3D illustrations were introduced throughout — especially in empty states, error screens, and loading moments. These are often overlooked, but they form stronger connections with users and reinforce brand personality.',
+              },
+              {
+                title: 'Transaction History & Bookmarks',
+                body: 'Users can now see monthly and lifetime savings in one place, track any transaction, and claim rewards. Bookmarks allow saving favourite items, brands, or events — all in one organised place.',
+              },
+            ].map((item, i) => (
+              <FadeUp key={item.title} delay={i * 0.04}>
+                <div className="border-t border-black/15 py-8 grid md:grid-cols-[1fr_2fr] gap-4 md:gap-12">
+                  <h3 className="text-lg md:text-xl font-bold tracking-tight">{item.title}</h3>
+                  <p className="opacity-75 leading-relaxed text-sm md:text-base">{item.body}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </section>
+
+        <Divider />
+
+        {/* ── LEARNINGS ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">LEARNINGS</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
+              WHAT WE<br />LEARNED
+            </h2>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+            <LearningCard
+              title="Adapt to Changing Behaviour"
+              body="Stay grounded and focused on the goal, but account for changes in product that match the evolving behaviour of customers. Rigidity kills good products."
+              delay={0}
+            />
+            <LearningCard
+              title="Products Don't Exist in a Vacuum"
+              body="A major UX revamp affected internal processes — search tagging, operations tooling, and more. Without collaborating with those teams and evolving their tools too, the revamp would have been beautiful but broken."
+              delay={0.05}
+            />
+            <LearningCard
+              title="Take It in Phases"
+              body="Break complicated designs into small, manageable tasks. This makes it easier for both designers and developers to handle expected and unexpected issues — and ship with confidence."
+              delay={0.1}
+            />
+          </div>
+        </section>
+
+        <Divider />
+
+        {/* ── FOOTER / NEXT ── */}
+        <section className="pb-24 md:pb-32">
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-8">WHAT'S NEXT</div>
+            <div className="grid md:grid-cols-3 gap-4 text-sm opacity-75 mb-16">
+              <div className="border-t border-black/15 pt-4">Bug fixes — post-launch, issues are inevitable at this scale.</div>
+              <div className="border-t border-black/15 pt-4">Post-launch optimisation using actionable data insights to continue designing better experiences.</div>
+              <div className="border-t border-black/15 pt-4">Continue following the roadmap and sticking to brand guidelines as the design system matures.</div>
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.1}>
+            <div className="border border-black/15 p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/[0.02]">
+              <div>
+                <p className="text-xs tracking-widest opacity-65 mb-2">UP NEXT</p>
+                <p className="text-2xl md:text-3xl font-bold tracking-tight opacity-85">More case studies coming soon</p>
+              </div>
+              <button
+                onClick={() => navigate('/')}
+                className="border border-black/30 px-8 py-4 text-sm tracking-widest hover:bg-[#111110] hover:text-[#F7F4F0] transition-all duration-300 whitespace-nowrap"
+              >
+                ← BACK TO HOME
+              </button>
+            </div>
+          </FadeUp>
+        </section>
+
+      </div>
+    </div>
+  );
+}

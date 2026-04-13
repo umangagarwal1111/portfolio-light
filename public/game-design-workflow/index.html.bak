@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Design Workflow</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background: #17171A;
+      color: #F0EDE8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      line-height: 1.6;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      font-size: 1.1em;
+      opacity: 0.8;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    .info {
+      background: rgba(240, 237, 232, 0.05);
+      border: 1px solid rgba(240, 237, 232, 0.1);
+      padding: 40px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .info h2 {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    .info p {
+      opacity: 0.75;
+      margin-bottom: 10px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: 1px solid #F0EDE8;
+      background: transparent;
+      color: #F0EDE8;
+      cursor: pointer;
+      font-size: 0.9em;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background: #F0EDE8;
+      color: #17171A;
+    }
+
+    .secondary {
+      border-color: rgba(240, 237, 232, 0.5);
+      color: rgba(240, 237, 232, 0.7);
+    }
+
+    .secondary:hover {
+      border-color: #F0EDE8;
+      color: #F0EDE8;
+      background: transparent;
+    }
+
+    .files-list {
+      background: rgba(240, 237, 232, 0.03);
+      border: 1px solid rgba(240, 237, 232, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: left;
+      margin-bottom: 30px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .files-list h3 {
+      margin-bottom: 15px;
+      opacity: 0.8;
+      font-size: 0.9em;
+    }
+
+    .file-item {
+      padding: 8px 0;
+      opacity: 0.7;
+      font-size: 0.85em;
+      font-family: 'Courier New', monospace;
+      border-bottom: 1px solid rgba(240, 237, 232, 0.05);
+    }
+
+    .file-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Game Design Workflow</h1>
+    <p class="subtitle">Interactive design and development workflow for rapid game creation</p>
+
+    <div class="info">
+      <h2>About This Workflow</h2>
+      <p>This is a comprehensive game design workflow built with React, Tailwind CSS, and Vite.</p>
+      <p>It includes interactive design tools, real-time collaboration features, and workflow optimization.</p>
+    </div>
+
+    <div class="files-list">
+      <h3>Project Structure</h3>
+      <div class="file-item">📁 src/ - Source code (React components, styles)</div>
+      <div class="file-item">📁 public/ - Static assets</div>
+      <div class="file-item">📄 vite.config.ts - Vite configuration</div>
+      <div class="file-item">📄 package.json - Dependencies and scripts</div>
+      <div class="file-item">📄 tailwind.config.js - Tailwind styling setup</div>
+      <div class="file-item">📄 README.md - Documentation</div>
+    </div>
+
+    <div class="button-group">
+      <button onclick="openInNewTab()">View Full Project</button>
+      <button class="secondary" onclick="downloadFiles()">Download Workflow</button>
+    </div>
+  </div>
+
+  <script>
+    function openInNewTab() {
+      // Create a simple redirect or show message
+      alert('To run this workflow:\n\n1. Download the project\n2. Run: npm install\n3. Run: npm run dev\n\nThe workflow folder is available in your portfolio project.');
+    }
+
+    function downloadFiles() {
+      alert('The Game Design Workflow files are located in:\n\n/public/game-design-workflow/\n\nYou can copy them to your local machine to develop and build.');
+    }
+  </script>
+</body>
+</html>

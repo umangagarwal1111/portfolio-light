@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Design Workflow</title>
+
+  <!-- Workflow stylesheet first -->
+  <script type="module" crossorigin src="./assets/index-Bj6UZpYt.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BTOsxdC-.css">
+
+  <!-- Portfolio theme overrides AFTER workflow styles -->
+  <style>
+    /* Portfolio theme variables */
+    :root {
+      --portfolio-bg: #F7F4F0;
+      --portfolio-fg: #111110;
+      --portfolio-border: rgba(0, 0, 0, 0.10);
+      --portfolio-border-strong: rgba(0, 0, 0, 0.20);
+    }
+
+    /* Dark mode */
+    .dark {
+      --portfolio-bg: #17171A;
+      --portfolio-fg: #F0EDE8;
+      --portfolio-border: rgba(240, 237, 232, 0.10);
+      --portfolio-border-strong: rgba(240, 237, 232, 0.20);
+    }
+
+    /* Force background on all containers */
+    html, body, #root {
+      background-color: var(--portfolio-bg) !important;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Override ALL white/light backgrounds */
+    html, body, #root, main, div {
+      background-color: var(--portfolio-bg) !important;
+    }
+
+    /* Smooth theme transition */
+    html, body, #root, main, div, section, article {
+      transition: background-color 250ms ease !important;
+    }
+
+    /* Reduce border thickness and improve contrast */
+    border, [style*="border:"], [style*="border-width"], [class*="border"] {
+      border-width: 0.5px !important;
+      border-color: var(--portfolio-border-strong) !important;
+    }
+
+    /* Improve text contrast */
+    body, div, span, p, h1, h2, h3, h4, h5, h6, label {
+      color: var(--portfolio-fg) !important;
+    }
+
+    /* Ensure secondary text is readable */
+    [style*="opacity"], [class*="muted"], [class*="secondary"], [class*="gray"] {
+      color: var(--portfolio-fg) !important;
+      opacity: 0.8 !important;
+    }
+
+    /* Keep workflow titles and subtitle visible */
+    h1, h2, h3 {
+      color: var(--portfolio-fg) !important;
+    }
+
+    /* Style scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--portfolio-bg) !important;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--portfolio-border-strong) !important;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--portfolio-fg) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script>
+    // Sync theme with parent portfolio immediately
+    function syncTheme() {
+      try {
+        const parentHasDark = window.parent.document.documentElement.classList.contains('dark');
+        if (parentHasDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {
+        // Fallback to system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+        }
+      }
+    }
+
+    // Sync immediately on load
+    syncTheme();
+
+    // Sync after a small delay to ensure DOM is ready
+    setTimeout(syncTheme, 100);
+
+    // Watch for parent theme changes
+    try {
+      const observer = new MutationObserver(syncTheme);
+      observer.observe(window.parent.document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+    } catch (e) {
+      // CORS - just use initial sync
+    }
+
+    // Listen to system theme changes
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
+    }
+  </script>
+</body>
+</html>
