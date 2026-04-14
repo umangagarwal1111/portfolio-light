@@ -36,8 +36,6 @@ module.exports = async function handler(req, res) {
 
   const notifyEmail = process.env.NOTIFY_EMAIL || 'me@umangagarwal.in';
 
-  console.error('Hello This is done');
-
   const result = await sendEmail({
     to: notifyEmail,
     subject: `Access Request — ${caseStudy || 'Portfolio'} · ${email}`,
