@@ -717,8 +717,11 @@ function PasswordDialog({
                   <motion.div key="sent" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }} className="text-center py-4">
                     <div className="text-4xl mb-4">✓</div>
                     <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Request Sent</h2>
-                    <p className="text-sm mb-6" style={{ color: 'var(--portfolio-muted)' }}>
+                    <p className="text-sm mb-3" style={{ color: 'var(--portfolio-muted)' }}>
                       I'll review your request and send the password to <strong style={{ color: 'var(--portfolio-fg)' }}>{reqEmail}</strong> if approved.
+                    </p>
+                    <p className="text-xs mb-6 px-3 py-2 rounded" style={{ color: 'var(--portfolio-muted)', border: '1px solid var(--portfolio-border)' }}>
+                      A confirmation has been sent to your inbox. The password email may land in your <strong style={{ color: 'var(--portfolio-fg)' }}>spam or promotions folder</strong> — please check there too.
                     </p>
                     <button
                       onClick={onClose}

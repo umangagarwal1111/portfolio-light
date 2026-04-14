@@ -40,6 +40,7 @@ module.exports = async function handler(req, res) {
     to: email,
     subject: 'Access Granted — Umang Agarwal Portfolio',
     html: passwordTemplate({ email, caseStudy, password, siteUrl }),
+    replyTo: process.env.NOTIFY_EMAIL || 'me@umangagarwal.in',
   });
 
   if (!result.success) {
