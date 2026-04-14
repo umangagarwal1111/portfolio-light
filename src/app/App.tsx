@@ -106,6 +106,44 @@ const RECOMMENDATIONS = [
   },
 ];
 
+// ─── TESTIMONIALS AUTO-SCROLL CAROUSEL ─────────────────────────
+function TestimonialsCarousel() {
+  const doubled = [...RECOMMENDATIONS, ...RECOMMENDATIONS];
+  return (
+    <div className="overflow-hidden -mx-6 md:-mx-12">
+      <div
+        className="flex gap-5 md:gap-8"
+        style={{ animation: 'marquee-scroll 45s linear infinite', width: 'max-content' }}
+        onMouseEnter={e => ((e.currentTarget as HTMLDivElement).style.animationPlayState = 'paused')}
+        onMouseLeave={e => ((e.currentTarget as HTMLDivElement).style.animationPlayState = 'running')}
+        onTouchStart={e => ((e.currentTarget as HTMLDivElement).style.animationPlayState = 'paused')}
+        onTouchEnd={e => ((e.currentTarget as HTMLDivElement).style.animationPlayState = 'running')}
+      >
+        {doubled.map((rec, i) => (
+          <div
+            key={i}
+            className="flex-shrink-0 w-[80vw] md:w-[480px] flex flex-col gap-4 md:gap-6 p-5 md:p-10 rounded-lg"
+            style={{ borderColor: 'var(--portfolio-border)', borderWidth: '1px' }}
+          >
+            <span className="text-5xl md:text-8xl font-black leading-none opacity-10 select-none">
+              &#34;
+            </span>
+            <p className="text-sm md:text-lg leading-relaxed opacity-80 italic flex-1">
+              {rec.quote}
+            </p>
+            <div className="pt-3 md:pt-4" style={{ borderTop: '1px solid var(--portfolio-border)' }}>
+              <p className="font-bold tracking-tight text-sm md:text-base">{rec.name}</p>
+              <p className="text-xs md:text-sm opacity-40 tracking-wide mt-1">
+                {rec.title} · {rec.company}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── IMPACT HERO PREVIEW (shown on hover for first project) ──────
 function ImpactHeroPreview() {
   return (
@@ -1415,40 +1453,7 @@ export default function App() {
             />
             <LineReveal className="mb-12" />
 
-            <div className="overflow-x-auto scrollbar-hide -mx-6 px-6">
-              <motion.div
-                className="flex gap-6 w-max"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                {RECOMMENDATIONS.map((rec, i) => (
-                  <motion.div
-                    key={i}
-                    className="flex-shrink-0 w-96 flex flex-col gap-6 p-6 rounded-lg"
-                    style={{ borderColor: 'var(--portfolio-border)', borderWidth: '1px' }}
-                    initial={{ opacity: 0, x: 40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.6 }}
-                  >
-                    <span className="text-5xl font-black leading-none opacity-10 select-none">
-                      "
-                    </span>
-                    <p className="text-base leading-relaxed opacity-80 italic flex-1">
-                      {rec.quote}
-                    </p>
-                    <div className="pt-4" style={{ borderTop: '1px solid var(--portfolio-border)' }}>
-                      <p className="font-bold tracking-tight">{rec.name}</p>
-                      <p className="text-sm opacity-40 tracking-wide mt-1">
-                        {rec.title} · {rec.company}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
+            <TestimonialsCarousel />
           </div>
         </ElasticSection>
       ) : (
@@ -1466,45 +1471,7 @@ export default function App() {
             </ParallaxText>
             <LineReveal className="mb-16 md:mb-24" />
 
-            <div className="overflow-x-auto scrollbar-hide -mx-12 px-12">
-              <motion.div
-                className="flex gap-8 w-max"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                {RECOMMENDATIONS.map((rec, i) => (
-                  <motion.div
-                    key={i}
-                    className="flex-shrink-0 w-[520px] flex flex-col gap-6 p-12 rounded-lg transition-colors duration-300"
-                    style={{ borderColor: 'var(--portfolio-border)', borderWidth: '1px' }}
-                    onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--portfolio-border-strong)'}
-                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--portfolio-border)'}
-                    initial={{ opacity: 0, x: 60 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.12, duration: 0.6, ease: [0.215, 0.61, 0.355, 1] }}
-                  >
-                    <span className="text-8xl font-black leading-none opacity-10 select-none -mb-4">
-                      "
-                    </span>
-                    <p className="text-lg leading-relaxed opacity-80 italic flex-1">
-                      {rec.quote}
-                    </p>
-                    <div className="pt-4" style={{ borderTop: '1px solid var(--portfolio-border)' }}>
-                      <p className="font-bold tracking-tight">{rec.name}</p>
-                      <p className="text-sm opacity-40 tracking-wide mt-1">
-                        {rec.title} · {rec.company}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-            <p className="text-xs opacity-30 mt-8 text-center">
-              Scroll to see more testimonials →
-            </p>
+            <TestimonialsCarousel />
           </div>
         </AnimatedSection>
       )}
