@@ -52,6 +52,14 @@
   to   { transform: translateX(-50%); }
 }
 
+/* ── Prevent mid-word line breaks on headings ────────────────── */
+/* Ensures words always wrap as whole units, never split across    */
+/* lines (e.g. "WORK" never splits to "W" + "ORK" on mobile).    */
+h1, h2, h3, h4, h5, h6 {
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
 /* ── Smooth theme transition ──────────────────────────────────── */
 /* Crossfade background and text when toggling dark/light mode.   */
 /* Only colour/fill — NOT layout or transform — so no jank.       */
