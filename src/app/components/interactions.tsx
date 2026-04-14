@@ -66,7 +66,7 @@ export function SplitTextReveal({
               lineCharOffset += segment.length;
 
               return (
-                <span key={wordIndex} className={wordClass}>
+                <span key={wordIndex} className={`inline-block whitespace-nowrap ${wordClass}`}>
                   {segment.split('').map((char, ci) => {
                     const globalIndex = lineBaseIndex + segmentStart + ci;
                     return (
