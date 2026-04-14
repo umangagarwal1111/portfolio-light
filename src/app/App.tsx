@@ -530,15 +530,52 @@ function PasswordDialog({
   input: string;
   onInputChange: (val: string) => void;
 }) {
+  // 'password' | 'request' | 'sent' | 'error'
+  const [view, setView] = useState<'password' | 'request' | 'sent' | 'reqerror'>('password');
+  const [reqEmail, setReqEmail] = useState('');
+  const [reqEmailError, setReqEmailError] = useState('');
+  const [reqLoading, setReqLoading] = useState(false);
+
   useEffect(() => {
     if (isOpen) {
       onInputChange('');
+      setView('password');
+      setReqEmail('');
+      setReqEmailError('');
     }
   }, [isOpen, onInputChange]);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') onSubmit();
     if (e.key === 'Escape') onClose();
+  };
+
+  const handleRequestAccess = async () => {
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!reqEmail || !emailRe.test(reqEmail)) {
+      setReqEmailError('Please enter a valid email address.');
+      return;
+    }
+    setReqEmailError('');
+    setReqLoading(true);
+    try {
+      const res = await fetch('/api/request-access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: reqEmail, caseStudy: projectTitle }),
+      });
+      if (res.ok) {
+        setView('sent');
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setReqEmailError(data.error || 'Something went wrong. Please try again.');
+        setView('reqerror');
+      }
+    } catch {
+      setView('reqerror');
+    } finally {
+      setReqLoading(false);
+    }
   };
 
   return (
@@ -565,74 +602,146 @@ function PasswordDialog({
                 backgroundColor: 'var(--portfolio-bg)',
                 borderColor: 'var(--portfolio-border)',
                 borderWidth: '1px',
-                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1)',
               }}
             >
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Access Required</h2>
-              <p className="text-sm mb-6" style={{ color: 'var(--portfolio-muted)' }}>
-                This project is password protected. Enter the password to view.
-              </p>
+              <AnimatePresence mode="wait" initial={false}>
 
-              <div className="space-y-4">
-                <div>
-                  <label className="text-xs tracking-widest mb-2 block" style={{ color: 'var(--portfolio-muted)' }}>
-                    PASSWORD
-                  </label>
-                  <input
-                    type="password"
-                    value={input}
-                    onChange={(e) => onInputChange(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    placeholder="Enter password"
-                    style={{
-                      backgroundColor: 'var(--portfolio-bg)',
-                      borderColor: error ? '#ef5350' : 'var(--portfolio-border)',
-                      borderWidth: '1px',
-                      color: 'var(--portfolio-fg)',
-                    }}
-                    className={`w-full rounded px-4 py-3 placeholder:opacity-50 focus:outline-none transition-colors`}
-                    autoFocus
-                  />
-                  {error && (
-                    <p className="text-red-400 text-xs mt-2">Incorrect password. Try again.</p>
-                  )}
-                </div>
+                {/* ── Password view ── */}
+                {view === 'password' && (
+                  <motion.div key="password" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Access Required</h2>
+                    <p className="text-sm mb-6" style={{ color: 'var(--portfolio-muted)' }}>
+                      This project is password protected. Enter the password to view.
+                    </p>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-xs tracking-widest mb-2 block" style={{ color: 'var(--portfolio-muted)' }}>PASSWORD</label>
+                        <input
+                          type="password"
+                          value={input}
+                          onChange={(e) => onInputChange(e.target.value)}
+                          onKeyDown={handleKeyPress}
+                          placeholder="Enter password"
+                          style={{
+                            backgroundColor: 'var(--portfolio-bg)',
+                            borderColor: error ? '#ef5350' : 'var(--portfolio-border)',
+                            borderWidth: '1px',
+                            color: 'var(--portfolio-fg)',
+                          }}
+                          className="w-full rounded px-4 py-3 placeholder:opacity-50 focus:outline-none transition-colors"
+                          autoFocus
+                        />
+                        {error && <p className="text-red-400 text-xs mt-2">Incorrect password. Try again.</p>}
+                      </div>
 
-                <div className="flex gap-3 pt-2">
-                  <button
-                    onClick={onClose}
-                    className="flex-1 px-4 py-3 rounded text-sm font-medium transition-colors"
-                    style={{
-                      backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                      borderColor: 'var(--portfolio-border)',
-                      borderWidth: '1px',
-                      color: 'var(--portfolio-fg)',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
-                      e.currentTarget.style.borderColor = 'var(--portfolio-border-strong)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
-                      e.currentTarget.style.borderColor = 'var(--portfolio-border)';
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={onSubmit}
-                    className="flex-1 px-4 py-3 rounded text-sm font-bold transition-colors"
-                    style={{
-                      backgroundColor: 'var(--portfolio-fg)',
-                      color: 'var(--portfolio-bg)',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-                  >
-                    Unlock
-                  </button>
-                </div>
-              </div>
+                      <div className="flex gap-3 pt-2">
+                        <button
+                          onClick={onClose}
+                          className="flex-1 px-4 py-3 rounded text-sm font-medium transition-colors"
+                          style={{ backgroundColor: 'rgba(0,0,0,0.05)', borderColor: 'var(--portfolio-border)', borderWidth: '1px', color: 'var(--portfolio-fg)' }}
+                        >Cancel</button>
+                        <button
+                          onClick={onSubmit}
+                          className="flex-1 px-4 py-3 rounded text-sm font-bold"
+                          style={{ backgroundColor: 'var(--portfolio-fg)', color: 'var(--portfolio-bg)' }}
+                        >Unlock</button>
+                      </div>
+
+                      {/* Request access CTA */}
+                      <div className="pt-2 text-center" style={{ borderTop: '1px solid var(--portfolio-border)', marginTop: '8px', paddingTop: '16px' }}>
+                        <p className="text-xs mb-2" style={{ color: 'var(--portfolio-muted)' }}>Don't have the password?</p>
+                        <button
+                          onClick={() => setView('request')}
+                          className="text-xs font-semibold tracking-wide underline underline-offset-2 transition-opacity hover:opacity-70"
+                          style={{ color: 'var(--portfolio-fg)' }}
+                        >
+                          Request Access →
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* ── Request access form ── */}
+                {view === 'request' && (
+                  <motion.div key="request" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <button onClick={() => setView('password')} className="text-xs opacity-50 hover:opacity-80 mb-5 flex items-center gap-1" style={{ color: 'var(--portfolio-fg)' }}>
+                      ← Back
+                    </button>
+                    <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Request Access</h2>
+                    <p className="text-sm mb-6" style={{ color: 'var(--portfolio-muted)' }}>
+                      Enter your email and I'll review your request and share the password if approved.
+                    </p>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-xs tracking-widest mb-2 block" style={{ color: 'var(--portfolio-muted)' }}>YOUR EMAIL</label>
+                        <input
+                          type="email"
+                          value={reqEmail}
+                          onChange={(e) => { setReqEmail(e.target.value); setReqEmailError(''); }}
+                          onKeyDown={(e) => { if (e.key === 'Enter') handleRequestAccess(); if (e.key === 'Escape') onClose(); }}
+                          placeholder="you@company.com"
+                          style={{
+                            backgroundColor: 'var(--portfolio-bg)',
+                            borderColor: reqEmailError ? '#ef5350' : 'var(--portfolio-border)',
+                            borderWidth: '1px',
+                            color: 'var(--portfolio-fg)',
+                          }}
+                          className="w-full rounded px-4 py-3 placeholder:opacity-50 focus:outline-none transition-colors"
+                          autoFocus
+                        />
+                        {reqEmailError && <p className="text-red-400 text-xs mt-2">{reqEmailError}</p>}
+                      </div>
+                      <div className="flex gap-3 pt-2">
+                        <button
+                          onClick={onClose}
+                          className="flex-1 px-4 py-3 rounded text-sm font-medium"
+                          style={{ backgroundColor: 'rgba(0,0,0,0.05)', borderColor: 'var(--portfolio-border)', borderWidth: '1px', color: 'var(--portfolio-fg)' }}
+                        >Cancel</button>
+                        <button
+                          onClick={handleRequestAccess}
+                          disabled={reqLoading}
+                          className="flex-1 px-4 py-3 rounded text-sm font-bold transition-opacity disabled:opacity-60"
+                          style={{ backgroundColor: 'var(--portfolio-fg)', color: 'var(--portfolio-bg)' }}
+                        >
+                          {reqLoading ? 'Sending…' : 'Submit Request'}
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* ── Sent confirmation ── */}
+                {view === 'sent' && (
+                  <motion.div key="sent" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }} className="text-center py-4">
+                    <div className="text-4xl mb-4">✓</div>
+                    <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Request Sent</h2>
+                    <p className="text-sm mb-6" style={{ color: 'var(--portfolio-muted)' }}>
+                      I'll review your request and send the password to <strong style={{ color: 'var(--portfolio-fg)' }}>{reqEmail}</strong> if approved.
+                    </p>
+                    <button
+                      onClick={onClose}
+                      className="px-6 py-3 rounded text-sm font-bold"
+                      style={{ backgroundColor: 'var(--portfolio-fg)', color: 'var(--portfolio-bg)' }}
+                    >Done</button>
+                  </motion.div>
+                )}
+
+                {/* ── Error state ── */}
+                {view === 'reqerror' && (
+                  <motion.div key="reqerror" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.15 }} className="text-center py-4">
+                    <div className="text-4xl mb-4">✕</div>
+                    <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Something went wrong</h2>
+                    <p className="text-sm mb-6" style={{ color: 'var(--portfolio-muted)' }}>{reqEmailError || 'Please try again or email me directly at me@umangagarwal.in'}</p>
+                    <div className="flex gap-3 justify-center">
+                      <button onClick={() => setView('request')} className="px-5 py-2.5 rounded text-sm font-medium" style={{ borderColor: 'var(--portfolio-border)', borderWidth: '1px', color: 'var(--portfolio-fg)' }}>Try Again</button>
+                      <button onClick={onClose} className="px-5 py-2.5 rounded text-sm font-bold" style={{ backgroundColor: 'var(--portfolio-fg)', color: 'var(--portfolio-bg)' }}>Close</button>
+                    </div>
+                  </motion.div>
+                )}
+
+              </AnimatePresence>
             </div>
           </motion.div>
         </>
