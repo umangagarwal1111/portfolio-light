@@ -800,7 +800,7 @@ export default function AIGameDesignCaseStudy() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         {/* ── HERO ── */}
-        <section className="pt-36 md:pt-44 pb-16 md:pb-24">
+        <section className="pt-20 md:pt-44 pb-16 md:pb-24">
           <FadeUp>
             <div className="flex flex-wrap gap-6 mb-10 text-xs tracking-widest opacity-65">
               <span>2026</span>
