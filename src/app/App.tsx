@@ -590,14 +590,14 @@ function PasswordDialog({
             onClick={onClose}
           />
           <motion.div
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md z-50"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4 sm:px-0 z-50"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           >
             <div
-              className="rounded-lg p-8 backdrop-blur-xl"
+              className="rounded-lg p-5 sm:p-8 backdrop-blur-xl"
               style={{
                 backgroundColor: 'var(--portfolio-bg)',
                 borderColor: 'var(--portfolio-border)',
@@ -610,7 +610,7 @@ function PasswordDialog({
                 {/* ── Password view ── */}
                 {view === 'password' && (
                   <motion.div key="password" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Access Required</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Access Required</h2>
                     <p className="text-sm mb-6" style={{ color: 'var(--portfolio-muted)' }}>
                       This project is password protected. Enter the password to view.
                     </p>
@@ -669,7 +669,7 @@ function PasswordDialog({
                     <button onClick={() => setView('password')} className="text-xs opacity-50 hover:opacity-80 mb-5 flex items-center gap-1" style={{ color: 'var(--portfolio-fg)' }}>
                       ← Back
                     </button>
-                    <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Request Access</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold mb-2" style={{ color: 'var(--portfolio-fg)' }}>Request Access</h2>
                     <p className="text-sm mb-6" style={{ color: 'var(--portfolio-muted)' }}>
                       Enter your email and I'll review your request and share the password if approved.
                     </p>
