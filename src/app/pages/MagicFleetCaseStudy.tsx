@@ -129,8 +129,8 @@ function StatCard({
   delay?: number;
 }) {
   return (
-    <FadeUp delay={delay}>
-      <div className="border border-black/15 p-6 md:p-8 hover:border-black/30 transition-colors duration-500">
+    <FadeUp delay={delay} className="h-full">
+      <div className="h-full border border-black/15 p-6 md:p-8 hover:border-black/30 transition-colors duration-500">
         <div className="text-4xl md:text-6xl font-black tracking-tighter mb-2 text-[var(--portfolio-fg)]">
           {number}
         </div>
