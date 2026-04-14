@@ -36,6 +36,8 @@ module.exports = async function handler(req, res) {
 
   const notifyEmail = process.env.NOTIFY_EMAIL || 'me@umangagarwal.in';
 
+  console.error('Hello This is done');
+
   const result = await sendEmail({
     to: notifyEmail,
     subject: `Access Request — ${caseStudy || 'Portfolio'} · ${email}`,
@@ -49,7 +51,6 @@ module.exports = async function handler(req, res) {
   }
 
   // Send confirmation to visitor (best-effort — don't fail the request if this bounces)
-  const siteUrl = process.env.SITE_URL || 'https://umangagarwal.in';
   await sendEmail({
     to: email,
     subject: 'Request Received — Umang Agarwal Portfolio',
