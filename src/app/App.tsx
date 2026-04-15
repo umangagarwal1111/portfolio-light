@@ -846,7 +846,7 @@ export default function App() {
       description:
         'Led the largest UX overhaul in magicPin history — redesigning the full ordering and discovery experience for millions of Indian users. Delivered +32% AOV, +65% conversion on personalised sections, and a design system of 150+ components.',
       imageUrl:
-        'https://figma-alpha-api.s3.us-west-2.amazonaws.com/images/6ff125a5-edd3-496f-89d4-062e47fb9897',
+        '/magicpin-revamp-preview.jpg',
       slug: '/work/magicpin',
       password: 'OPENWORK11',
     },
