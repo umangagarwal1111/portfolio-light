@@ -189,6 +189,170 @@ function LearningCard({
   );
 }
 
+// ── Inline Visualizations ────────────────────────────────────────
+
+function VizPhasedMetrics() {
+  const phases = [
+    {
+      label: 'Phase 1', subtitle: 'Foundation', period: 'Q1 2023',
+      metrics: ['+12% AOV', '+20% Onboarding', '+8% Retention'],
+      barPct: 35, color: 'var(--portfolio-fg)',
+    },
+    {
+      label: 'Phase 2', subtitle: 'Personalization', period: 'Q2–Q3 2023',
+      metrics: ['+22% AOV', '+50% DAU', '+45% Category selection'],
+      barPct: 65, color: '#f59e0b',
+    },
+    {
+      label: 'Phase 3', subtitle: 'Discovery', period: 'Q4 2023–Q1 2024',
+      metrics: ['+32% AOV', '+65% Conversion', '+30% DAU'],
+      barPct: 100, color: '#22c55e',
+    },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-6">PHASED IMPACT — AOV GROWTH ACROSS ROLLOUT</div>
+      <div className="grid grid-cols-3 gap-4">
+        {phases.map((p) => (
+          <div key={p.label} className="border rounded p-4" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+            <div className="text-[8px] tracking-widest opacity-50 mb-1">{p.period}</div>
+            <div className="text-[10px] font-black opacity-80">{p.label}</div>
+            <div className="text-[9px] opacity-60 mb-3">{p.subtitle}</div>
+            <div className="h-1.5 rounded-sm overflow-hidden mb-3" style={{ background: 'var(--portfolio-border-strong)' }}>
+              <div className="h-full rounded-sm" style={{ width: `${p.barPct}%`, background: p.color, opacity: p.color.includes('var') ? 0.5 : 1 }} />
+            </div>
+            <div className="space-y-1">
+              {p.metrics.map((m) => (
+                <div key={m} className="text-[8px] opacity-70 flex items-center gap-1">
+                  <span style={{ color: '#22c55e' }}>+</span>{m.replace('+', '')}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 text-[9px] opacity-40 text-center">Each phase built on the previous · Metrics compounded over 4 quarters</div>
+    </div>
+  );
+}
+
+function VizDesignProcess() {
+  const steps = [
+    { label: 'Design Sprint', duration: '2 weeks', output: 'Problem definition + HMW' },
+    { label: 'User Flows', duration: '1 week', output: 'End-to-end user journeys' },
+    { label: 'Sketching', duration: '1 week', output: 'Low-fi concepts × 20+' },
+    { label: 'Early Design', duration: '2 weeks', output: 'Mid-fi wireframes' },
+    { label: 'Iteration', duration: 'Ongoing', output: '3 rounds of feedback' },
+    { label: 'Usability Testing', duration: '1 week', output: '12 user sessions' },
+    { label: 'Phased Release', duration: '4 quarters', output: 'Staged rollout' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-5">DESIGN METHODOLOGY — END-TO-END PROCESS</div>
+      <div className="flex flex-col gap-2">
+        {steps.map((s, i) => (
+          <div key={s.label} className="flex items-start gap-3">
+            <div className="flex flex-col items-center shrink-0">
+              <div className="w-5 h-5 rounded-full border flex items-center justify-center text-[7px] font-bold shrink-0" style={{ borderColor: i === steps.length - 1 ? '#22c55e' : 'var(--portfolio-border-strong)', color: i === steps.length - 1 ? '#22c55e' : undefined }}>
+                {i + 1}
+              </div>
+              {i < steps.length - 1 && <div className="w-px flex-1 min-h-3" style={{ background: 'var(--portfolio-border)' }} />}
+            </div>
+            <div className="flex-1 pb-1">
+              <div className="flex items-baseline gap-2">
+                <span className="text-[10px] font-bold opacity-80">{s.label}</span>
+                <span className="text-[8px] opacity-40">{s.duration}</span>
+              </div>
+              <div className="text-[8px] opacity-50 mt-0.5">{s.output}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function VizComponentLibrary() {
+  const typeScale = ['H1 / 48px Bold', 'H2 / 36px Bold', 'Body / 16px Regular', 'Caption / 12px Regular'];
+  const colors = [
+    { name: 'Primary', hex: '#FF5733' },
+    { name: 'Secondary', hex: '#FF8C42' },
+    { name: 'Neutral', hex: '#6B7280' },
+    { name: 'Success', hex: '#22c55e' },
+  ];
+  const states = ['Default', 'Hover', 'Active', 'Disabled'];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-5">magicDS — COMPONENT LIBRARY OVERVIEW · 150+ COMPONENTS</div>
+      <div className="grid grid-cols-3 gap-6">
+        <div>
+          <div className="text-[9px] tracking-widest opacity-50 mb-3">TYPE SCALE</div>
+          <div className="space-y-2">
+            {typeScale.map((t, i) => (
+              <div key={t} className="flex items-center gap-2">
+                <div className="shrink-0" style={{ fontSize: `${14 - i * 2}px`, fontWeight: i < 2 ? 700 : 400, opacity: 0.8 }}>{t.split(' / ')[0]}</div>
+                <div className="text-[7px] opacity-40">{t.split(' / ')[1]}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="text-[9px] tracking-widest opacity-50 mb-3">COLOR PALETTE</div>
+          <div className="space-y-2">
+            {colors.map((c) => (
+              <div key={c.name} className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-sm shrink-0" style={{ background: c.hex }} />
+                <div className="text-[9px] opacity-70">{c.name}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="text-[9px] tracking-widest opacity-50 mb-3">BUTTON STATES</div>
+          <div className="space-y-1.5">
+            {states.map((s, i) => (
+              <div key={s} className="border rounded px-2 py-1 text-center text-[8px]" style={{ borderColor: 'var(--portfolio-border-strong)', opacity: i === 3 ? 0.3 : 1, background: i === 2 ? 'var(--portfolio-border-strong)' : undefined }}>
+                {s}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VizBeforeAfterScreens() {
+  const screens = [
+    { name: 'Shop Page', before: 'Generic feed, no personalization', after: 'Personalized sections, +32% AOV' },
+    { name: 'Deals Tab', before: 'Flat list, hard to scan', after: 'Categorized + proximity sort, +65% CVR' },
+    { name: 'Merchant Page', before: 'Dense info, low trust signals', after: 'Structured hierarchy, +25% voucher use' },
+    { name: 'Transaction History', before: 'Table view, no context', after: 'Timeline view with savings highlights' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-4">CORE SCREEN REDESIGNS — BEFORE vs. AFTER</div>
+      <div className="grid grid-cols-2 gap-3">
+        {screens.map((s) => (
+          <div key={s.name} className="border rounded p-3" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+            <div className="text-[9px] font-bold mb-2 opacity-80">{s.name}</div>
+            <div className="flex gap-2">
+              <div className="flex-1 p-2 rounded-sm" style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)' }}>
+                <div className="text-[7px] tracking-widest mb-1" style={{ color: '#ef4444', opacity: 0.7 }}>BEFORE</div>
+                <div className="text-[8px] opacity-60 leading-tight">{s.before}</div>
+              </div>
+              <div className="flex-1 p-2 rounded-sm" style={{ background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.2)' }}>
+                <div className="text-[7px] tracking-widest mb-1" style={{ color: '#22c55e', opacity: 0.8 }}>AFTER</div>
+                <div className="text-[8px] opacity-70 leading-tight">{s.after}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ── Image placeholder (swap src="" with actual path when ready) ──
 function CaseImage({
   src,
@@ -377,12 +541,9 @@ export default function MagicPinCaseStudy() {
 
           {/* Impact breakdown visualization */}
           <FadeUp delay={0.5} className="mt-10">
-            <CaseImage
-              src={IMG.impact}
-              alt="Impact metrics breakdown with phone mockups per phase"
-              label="INSERT: Phased metrics visualization showing impact at each phase (Phase 1 → Phase 2 → Phase 3) with phone mockups, metric changes, and user feedback highlights"
-              aspect="16/9"
-            />
+            <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <VizPhasedMetrics />
+            </div>
           </FadeUp>
         </section>
 
@@ -617,13 +778,9 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.35} className="mt-12">
             <div className="border border-black/15 p-8 md:p-12">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Design Methodology Overview</h3>
-              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
-              <CaseImage
-                src={undefined}
-                alt="Design methodology"
-                label="INSERT: Visual flowchart showing Design Sprint → User Flows → Sketching → Early Design → Iteration → Usability Testing → Phased Release with key outputs and feedback loops"
-                aspect="16/9"
-              />
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizDesignProcess />
+              </div>
             </div>
           </FadeUp>
         </section>
@@ -667,13 +824,9 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.3}>
             <div className="border border-black/15 p-8 md:p-12">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">magicDS Component Library</h3>
-              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
-              <CaseImage
-                src={undefined}
-                alt="magicDS component library"
-                label="INSERT: Component library showcase showing typography scale, color palette, buttons (states), input fields, cards, modals, and icon set organized by category"
-                aspect="16/9"
-              />
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizComponentLibrary />
+              </div>
             </div>
           </FadeUp>
         </section>
@@ -704,13 +857,9 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.1} className="mb-12">
             <div className="border border-black/15 p-8 md:p-12">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Core Screen Redesigns</h3>
-              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDERS</p>
-              <CaseImage
-                src={undefined}
-                alt="Core screen designs"
-                label="INSERT: 4 core screens (Shop Page, Deals Tab, Merchant Page, Transaction History) shown in before/after with annotations explaining key changes and improvements"
-                aspect="16/9"
-              />
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizBeforeAfterScreens />
+              </div>
             </div>
           </FadeUp>
 

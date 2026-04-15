@@ -378,31 +378,359 @@ function StatCard({
   );
 }
 
+// ── Inline Visualizations ─────────────────────────────────────────
+
+function VizTimelinePressure() {
+  const games = [
+    'Predict & Win', 'Rizz Meter', 'Red Flag', 'Border Strike',
+    'Dhurandhargiri', 'Her Holi', 'BDSM Room', 'IPL Predict', 'Game 9', 'Game 10',
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-4 flex flex-col justify-between">
+      <div>
+        <div className="text-[10px] tracking-widest opacity-60 mb-3">OLD PROCESS — SEQUENTIAL TIMELINE</div>
+        <div className="space-y-1.5">
+          {games.map((game, i) => (
+            <div key={game} className="flex items-center gap-2">
+              <div className="text-[9px] opacity-50 w-20 truncate shrink-0">{game}</div>
+              <div className="flex gap-0.5 flex-1">
+                {Array.from({ length: 8 }).map((_, w) => (
+                  <div
+                    key={w}
+                    className="h-3 flex-1 rounded-[1px]"
+                    style={{
+                      background: w < (i < 4 ? 8 : i < 7 ? 6 : 5)
+                        ? 'var(--portfolio-fg)'
+                        : 'transparent',
+                      opacity: w < (i < 4 ? 8 : i < 7 ? 6 : 5) ? 0.15 + w * 0.05 : 0.08,
+                      border: '1px solid var(--portfolio-border)',
+                    }}
+                  />
+                ))}
+              </div>
+              <div className="text-[9px] opacity-40 w-10 text-right shrink-0">{i < 4 ? '8wk' : i < 7 ? '6wk' : '5wk'}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="border-t pt-3 mt-2" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+        <div className="flex justify-between items-center">
+          <div className="text-[10px] opacity-60">10 games × avg 7 weeks</div>
+          <div className="text-sm font-black" style={{ color: '#ef4444' }}>= 70 weeks needed</div>
+        </div>
+        <div className="text-[10px] opacity-50 mt-1">Year only has 52 weeks — impossible without AI</div>
+      </div>
+    </div>
+  );
+}
+
+function VizQualityDilemma() {
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-4 flex flex-col justify-center items-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-3 self-start">QUALITY VS SPEED — THE OLD TRADE-OFF</div>
+      <div className="relative w-full" style={{ aspectRatio: '16/9', maxHeight: '100%' }}>
+        {/* Axes */}
+        <div className="absolute inset-0 flex flex-col">
+          {/* Y label */}
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 text-[9px] opacity-50 -rotate-90 whitespace-nowrap origin-center" style={{ left: '4px' }}>QUALITY ↑</div>
+          {/* X label */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-[9px] opacity-50">SPEED →</div>
+          {/* Grid lines */}
+          <div className="absolute inset-4 grid grid-cols-2 grid-rows-2 gap-0">
+            {/* Top-left: Too slow */}
+            <div className="border-r border-b flex items-center justify-center text-[10px] opacity-40" style={{ borderColor: 'var(--portfolio-border)' }}>Too Slow</div>
+            {/* Top-right: Sweet spot */}
+            <div className="border-b flex items-center justify-center text-[10px] font-bold relative" style={{ borderColor: 'var(--portfolio-border)', background: 'rgba(34,197,94,0.08)' }}>
+              <span style={{ color: '#22c55e' }}>Sweet Spot ✓</span>
+              {/* Dot */}
+              <div className="absolute w-3 h-3 rounded-full border-2 flex items-center justify-center" style={{ borderColor: '#22c55e', background: 'rgba(34,197,94,0.2)', bottom: '30%', right: '30%' }}>
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: '#22c55e' }} />
+              </div>
+              <div className="absolute text-[8px] font-normal" style={{ color: '#22c55e', bottom: '22%', right: '8%' }}>AI Workflow</div>
+            </div>
+            {/* Bottom-left: Neither */}
+            <div className="border-r flex items-center justify-center text-[10px] opacity-40" style={{ borderColor: 'var(--portfolio-border)' }}>Neither</div>
+            {/* Bottom-right: Low quality */}
+            <div className="flex items-center justify-center text-[10px] opacity-40">Low Quality</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VizJourneyTimeline() {
+  const phases = [
+    { label: 'Experimentation', week: 'Wk 1–2', metric: 'Tested 5+ AI tools', color: 'opacity-40' },
+    { label: 'Strategic Pivot', week: 'Wk 3–4', metric: 'Chose Figma Make + Codex', color: 'opacity-50' },
+    { label: 'Workflow Redesign', week: 'Wk 5–6', metric: 'Built new pipeline', color: 'opacity-60' },
+    { label: 'Early Wins', week: 'Wk 7–8', metric: '3-4 day cycles proven', color: 'opacity-75' },
+    { label: 'Scaling', week: 'Wk 9–10', metric: '10 games, 2 designers', color: 'opacity-100' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-6">TRANSFORMATION JOURNEY — 10 WEEKS</div>
+      <div className="flex items-start gap-0 flex-1">
+        {phases.map((p, i) => (
+          <div key={p.label} className="flex-1 relative flex flex-col items-center">
+            {/* Connector line */}
+            {i < phases.length - 1 && (
+              <div className="absolute top-3 left-1/2 w-full h-[1px]" style={{ background: 'var(--portfolio-border-strong)' }} />
+            )}
+            {/* Node */}
+            <div className="w-6 h-6 rounded-full border-2 z-10 flex items-center justify-center shrink-0" style={{ borderColor: i === phases.length - 1 ? '#22c55e' : 'var(--portfolio-border-strong)', background: 'var(--portfolio-bg)' }}>
+              <div className="w-2 h-2 rounded-full" style={{ background: i === phases.length - 1 ? '#22c55e' : 'var(--portfolio-fg)', opacity: 0.4 + i * 0.15 }} />
+            </div>
+            {/* Labels */}
+            <div className="mt-3 text-center px-1">
+              <div className={`text-[9px] font-bold mb-1 ${p.color}`}>{p.label}</div>
+              <div className="text-[8px] opacity-40 mb-1">{p.week}</div>
+              <div className="text-[8px] opacity-55 leading-tight">{p.metric}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 text-center text-[10px] opacity-50">80% reduction in cycle time</div>
+    </div>
+  );
+}
+
+function VizAIWorkflow() {
+  const steps = [
+    { label: 'Brief', time: '1 hr', icon: '📋' },
+    { label: 'Figma Make', time: '4 hrs', icon: '🎨' },
+    { label: 'Codex Dev', time: '8 hrs', icon: '💻' },
+    { label: 'QA', time: '2 hrs', icon: '✅' },
+    { label: 'Ship', time: '1 hr', icon: '🚀' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-6">AI-FIRST WORKFLOW — TOTAL: ~16 HRS (~2 DAYS)</div>
+      <div className="flex items-center gap-1 flex-1">
+        {steps.map((s, i) => (
+          <div key={s.label} className="flex items-center gap-1 flex-1">
+            <div className="flex-1 border p-3 flex flex-col items-center gap-1 text-center" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="text-base">{s.icon}</div>
+              <div className="text-[10px] font-bold opacity-85">{s.label}</div>
+              <div className="text-[9px] opacity-50">{s.time}</div>
+            </div>
+            {i < steps.length - 1 && (
+              <div className="text-xs opacity-40 shrink-0">→</div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 flex justify-between text-[9px] opacity-50">
+        <span>Old workflow: 8–10 weeks</span>
+        <span style={{ color: '#22c55e' }}>New: 16 hrs total ↓ 95%</span>
+      </div>
+    </div>
+  );
+}
+
+function VizFiveStageProcess() {
+  const stages = [
+    { n: '01', label: 'Figma Make\nIntegration', output: 'AI-generated assets & components in minutes' },
+    { n: '02', label: 'Parallel Design\n& Dev', output: 'Codex scaffolds from Figma — no handoff delay' },
+    { n: '03', label: 'Rapid\nPrototyping', output: 'Interactive prototype in 2–3 days' },
+    { n: '04', label: 'AI-Assisted\nQA', output: 'Automated tests + real-time analytics' },
+    { n: '05', label: 'Continuous\nIteration', output: 'Feedback loop closes in hours, not weeks' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-5 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-5">5-STAGE AI-FIRST PROCESS</div>
+      <div className="flex flex-col gap-2 flex-1 justify-center">
+        {stages.map((s, i) => (
+          <div key={s.n} className="flex items-stretch gap-3">
+            <div className="text-[9px] opacity-40 w-5 pt-1 shrink-0">{s.n}</div>
+            <div className="w-[1px] shrink-0 self-stretch" style={{ background: i === 4 ? '#22c55e' : 'var(--portfolio-border)', opacity: 0.5 }} />
+            <div className="flex-1 flex items-start gap-3">
+              <div className="text-[10px] font-bold opacity-80 w-24 shrink-0 whitespace-pre-line leading-tight">{s.label}</div>
+              <div className="text-[9px] opacity-55 leading-tight pt-0.5">{s.output}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 border-t pt-3 flex justify-between text-[9px] opacity-50" style={{ borderColor: 'var(--portfolio-border)' }}>
+        <span>Total cycle time</span>
+        <span style={{ color: '#22c55e' }}>3–4 days end-to-end</span>
+      </div>
+    </div>
+  );
+}
+
+function VizResourceConstraints() {
+  const tasks = [
+    { label: 'Game Design', pct: 95, over: true },
+    { label: 'Asset Creation', pct: 88, over: true },
+    { label: 'Dev Handoff', pct: 100, over: true },
+    { label: 'QA & Testing', pct: 75, over: false },
+    { label: 'Analytics Review', pct: 60, over: false },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-5 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-4">TEAM CAPACITY — 2 DESIGNERS</div>
+      <div className="space-y-2.5">
+        {tasks.map((t) => (
+          <div key={t.label} className="flex items-center gap-3">
+            <div className="text-[9px] opacity-50 w-24 shrink-0">{t.label}</div>
+            <div className="flex-1 h-2.5 rounded-sm overflow-hidden" style={{ background: 'var(--portfolio-border-strong)' }}>
+              <div className="h-full rounded-sm" style={{ width: `${t.pct}%`, background: t.over ? '#ef4444' : '#22c55e' }} />
+            </div>
+            <div className="text-[9px] w-8 text-right shrink-0 font-bold" style={{ color: t.over ? '#ef4444' : '#22c55e' }}>
+              {t.over ? 'OVER' : `${t.pct}%`}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 pt-3 border-t text-[9px] opacity-50 flex justify-between" style={{ borderColor: 'var(--portfolio-border)' }}>
+        <span>0%</span><span style={{ color: '#ef4444', fontWeight: 700 }}>3 of 5 tasks over capacity</span><span>100%+</span>
+      </div>
+    </div>
+  );
+}
+
+function VizCoreProblem() {
+  const steps = [
+    { label: 'Design', time: '2 wks' },
+    { label: 'Review', time: '3 days' },
+    { label: 'Handoff', time: '1 wk' },
+    { label: 'Dev', time: '3 wks' },
+    { label: 'QA', time: '1 wk' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-5 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-1">OLD WORKFLOW — SEQUENTIAL HANDOFFS</div>
+      <div className="text-[9px] opacity-40 mb-5">Every step waited for the previous one to finish</div>
+      <div className="flex items-center gap-1.5 flex-wrap justify-center">
+        {steps.map((s, i) => (
+          <div key={s.label} className="flex items-center gap-1.5">
+            <div className="border rounded px-3 py-2 text-center" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="text-[10px] font-bold opacity-80">{s.label}</div>
+              <div className="text-[9px] mt-0.5 font-bold" style={{ color: '#ef4444' }}>{s.time}</div>
+            </div>
+            {i < steps.length - 1 && <div className="text-[10px] opacity-30">→</div>}
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 p-2 rounded text-center" style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}>
+        <div className="text-[10px] font-bold" style={{ color: '#ef4444' }}>Total: ~8 weeks · Every change restarts the entire cycle</div>
+      </div>
+    </div>
+  );
+}
+
+function VizTeamEfficiency() {
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-5 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-5">OUTPUT COMPARISON — BEFORE vs. AFTER AI</div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="border rounded p-4" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+          <div className="text-[9px] tracking-widest opacity-50 mb-3">BEFORE (2023)</div>
+          <div className="text-3xl font-black opacity-70">1–2</div>
+          <div className="text-[9px] opacity-50 mt-0.5">games / month</div>
+          <div className="mt-3 space-y-1">
+            <div className="text-[9px] opacity-50">4 designers + 4 devs</div>
+            <div className="text-[9px] opacity-50">8 weeks per game</div>
+          </div>
+        </div>
+        <div className="border rounded p-4" style={{ borderColor: '#22c55e', background: 'rgba(34,197,94,0.04)' }}>
+          <div className="text-[9px] tracking-widest mb-3" style={{ color: '#22c55e', opacity: 0.8 }}>AFTER AI (2026)</div>
+          <div className="text-3xl font-black" style={{ color: '#22c55e' }}>10+</div>
+          <div className="text-[9px] opacity-50 mt-0.5">games / month</div>
+          <div className="mt-3 space-y-1">
+            <div className="text-[9px] opacity-50">2 designers only</div>
+            <div className="text-[9px] opacity-50">3–4 days per game</div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-4 text-center text-[9px] opacity-60 font-bold">
+        <span style={{ color: '#22c55e' }}>5x output · 75% smaller team · 95% faster</span>
+      </div>
+    </div>
+  );
+}
+
+function VizQualityConsistency() {
+  const games = ['Predict', 'Rizz', 'Red/Green', 'Border', 'Dhura', 'Her Holi', 'BDSM', 'IPL', 'Dharmik', 'Metro'];
+  const scores = [72, 83, 79, 80, 86, 76, 88, 74, 89, 95];
+  const max = 100;
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-5 flex flex-col">
+      <div className="text-[10px] tracking-widest opacity-60 mb-1">QUALITY SCORE — ALL 10 GAMES</div>
+      <div className="text-[9px] opacity-40 mb-3">Faster cycles improved quality, not reduced it</div>
+      <div className="flex items-end gap-1.5 flex-1">
+        {games.map((g, i) => (
+          <div key={g} className="flex-1 flex flex-col items-center gap-1">
+            <div className="text-[7px] font-bold" style={{ color: scores[i] >= 88 ? '#22c55e' : 'var(--portfolio-fg)', opacity: 0.7 }}>{scores[i]}</div>
+            <div className="w-full rounded-t-sm" style={{ height: `${(scores[i] / max) * 70}px`, background: scores[i] >= 88 ? '#22c55e' : 'var(--portfolio-border-strong)' }} />
+            <div className="text-[7px] opacity-40 text-center" style={{ fontSize: '7px' }}>{g}</div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 text-[9px] opacity-40 text-center">Avg quality: 82/100 · Top performers: BDSM 88, Dharmik 89, Metro 95</div>
+    </div>
+  );
+}
+
+function VizFailedExperiments() {
+  const tools = [
+    { name: 'Stitch', outcome: 'Abandoned', reason: 'Output too generic for game UI', color: '#ef4444' },
+    { name: 'Lovable', outcome: 'Abandoned', reason: 'No mobile-first support', color: '#ef4444' },
+    { name: 'Cursor', outcome: 'Partial', reason: 'Useful for boilerplate only', color: '#f59e0b' },
+    { name: 'Figma Make', outcome: '✓ Adopted', reason: 'Best design-to-code fit for games', color: '#22c55e' },
+    { name: 'Codex', outcome: '✓ Adopted', reason: 'Excellent game logic generation', color: '#22c55e' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-5 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-4">TOOL EVALUATION — WHAT WE TRIED BEFORE FINDING THE ANSWER</div>
+      <div className="space-y-2">
+        {tools.map((t) => (
+          <div key={t.name} className="flex items-center gap-3 pb-2 border-b" style={{ borderColor: 'var(--portfolio-border)' }}>
+            <div className="text-[10px] font-bold w-20 shrink-0 opacity-80">{t.name}</div>
+            <div className="text-[9px] font-bold shrink-0 w-16" style={{ color: t.color }}>{t.outcome}</div>
+            <div className="text-[9px] opacity-50">{t.reason}</div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 text-[9px] opacity-40">3 months of experiments → 1 winning formula: Figma Make + Codex in parallel</div>
+    </div>
+  );
+}
+
 // ── Challenge card ───────────────────────────────────────────────
 function ChallengeCard({
   number,
   title,
   description,
   imageUrl,
+  visualization,
   delay = 0,
 }: {
   number: string;
   title: string;
   description: string;
   imageUrl?: string;
+  visualization?: React.ReactNode;
   delay?: number;
 }) {
   return (
     <FadeUp delay={delay}>
       <div className="border border-[color:var(--portfolio-border-strong)] hover:border-[color:var(--portfolio-border-strong)] transition-colors duration-500 overflow-hidden">
-        <CaseImage
-          src={imageUrl}
-          alt={`${title}`}
-          label={`INSERT: ${title.toUpperCase()} SCREENSHOT`}
-          aspect="16/9"
-          className="border-b border-[color:var(--portfolio-border-strong)]"
-          contain
-        />
+        {visualization ? (
+          <div className="border-b border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden flex items-center justify-center">
+            {visualization}
+          </div>
+        ) : (
+          <CaseImage
+            src={imageUrl}
+            alt={`${title}`}
+            label={`INSERT: ${title.toUpperCase()} SCREENSHOT`}
+            aspect="16/9"
+            className="border-b border-[color:var(--portfolio-border-strong)]"
+            contain
+          />
+        )}
         <div className="p-6 md:p-8">
           <div className="text-xs tracking-widest opacity-60 mb-4">{number}</div>
           <h3 className="text-xl md:text-2xl font-bold mb-4 tracking-tight">{title}</h3>
@@ -419,25 +747,33 @@ function FeatureCard({
   title,
   description,
   imageUrl,
+  visualization,
   delay = 0,
 }: {
   number: string;
   title: string;
   description: string;
   imageUrl?: string;
+  visualization?: React.ReactNode;
   delay?: number;
 }) {
   return (
     <FadeUp delay={delay}>
       <div className="border border-[color:var(--portfolio-border-strong)] hover:border-[color:var(--portfolio-border-strong)] transition-colors duration-500 overflow-hidden">
-        <CaseImage
-          src={imageUrl}
-          alt={`${title}`}
-          label={`INSERT: ${title.toUpperCase()}`}
-          aspect="16/9"
-          className="border-b border-[color:var(--portfolio-border-strong)]"
-          contain
-        />
+        {visualization ? (
+          <div className="border-b border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden flex items-center justify-center">
+            {visualization}
+          </div>
+        ) : (
+          <CaseImage
+            src={imageUrl}
+            alt={`${title}`}
+            label={`INSERT: ${title.toUpperCase()}`}
+            aspect="16/9"
+            className="border-b border-[color:var(--portfolio-border-strong)]"
+            contain
+          />
+        )}
         <div className="p-6 md:p-8">
           <div className="text-xs tracking-widest opacity-60 mb-4">{number}</div>
           <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight">{title}</h3>
@@ -897,28 +1233,28 @@ export default function AIGameDesignCaseStudy() {
               number="01"
               title="Timeline Pressure"
               description="Traditional development cycles ranged from 1-2 months per game, yet user engagement metrics showed that fresh, high-quality games were critical to business performance. Management demanded more games, faster."
-              imageUrl={IMG.timeline}
+              visualization={<VizTimelinePressure />}
               delay={0}
             />
             <ChallengeCard
               number="02"
               title="Quality Compromise"
               description="When the team pushed to deliver faster, quality suffered. Designs became less polished, interactions less intuitive, and user engagement plateaued. We were cutting corners just to meet timelines."
-              imageUrl={IMG.beforeAfter}
+              visualization={<VizQualityDilemma />}
               delay={0.05}
             />
             <ChallengeCard
               number="03"
               title="Resource Constraints"
               description="A small design and engineering team was burning out trying to handle all the workload. Hiring alone wouldn't solve the problem—we needed a fundamentally different approach."
-              imageUrl={IMG.workflow}
+              visualization={<VizResourceConstraints />}
               delay={0.1}
             />
             <ChallengeCard
               number="04"
               title="The Core Problem"
               description="Manual design iteration and handoffs between design and development were the bottlenecks. Every change required redesign, developer re-implementation, and testing. Speed and quality were locked in opposition."
-              imageUrl={IMG.figmaScreen}
+              visualization={<VizCoreProblem />}
               delay={0.15}
             />
           </div>
@@ -994,13 +1330,9 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp delay={0.35} className="mt-12">
             <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Transformation Timeline with Milestones</h3>
-              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
-              <CaseImage
-                src={undefined}
-                alt="Transformation journey timeline"
-                label="INSERT: Timeline showing before/after with key milestones (Experimentation → Strategic Pivot → Workflow Redesign → Early Wins → Scaling) with key metrics at each stage"
-                aspect="16/9"
-              />
+              <div className="border border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden">
+                <VizJourneyTimeline />
+              </div>
             </div>
           </FadeUp>
         </section>
@@ -1038,25 +1370,18 @@ export default function AIGameDesignCaseStudy() {
           </FadeUp>
 
           <FadeUp delay={0.1} className="mb-12">
-            <CaseImage
-              src={IMG.workflow}
-              alt="AI Workflow Diagram"
-              label="INSERT: AI workflow diagram showing Figma Make → Codex integration with parallel design/dev streams, automated QA, and analytics feedback loop"
-              aspect="16/9"
-            />
+            <div className="border border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden">
+              <VizAIWorkflow />
+            </div>
           </FadeUp>
 
           {/* Workflow Process Visualization */}
           <FadeUp delay={0.15} className="mb-12">
             <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Complete Workflow Process</h3>
-              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
-              <CaseImage
-                src={undefined}
-                alt="Complete workflow process"
-                label="INSERT: Visual workflow showing 5 stages (Figma Make Integration → Parallel Design & Dev → Rapid Prototyping → AI-Assisted QA → Continuous Iteration) with timelines and key outputs"
-                aspect="16/9"
-              />
+              <div className="border border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden">
+                <VizFiveStageProcess />
+              </div>
             </div>
           </FadeUp>
 
@@ -1114,7 +1439,7 @@ export default function AIGameDesignCaseStudy() {
               number="01"
               title="Speed: 2 Months → 3-4 Days"
               description="The most dramatic change. What took 60+ days in the old workflow now takes 3-4 days. This 95% time reduction came without sacrificing quality—in fact, quality improved."
-              imageUrl={IMG.timeline}
+              visualization={<VizAIWorkflow />}
               delay={0}
             />
 
@@ -1122,7 +1447,7 @@ export default function AIGameDesignCaseStudy() {
               number="02"
               title="Engagement: 10x Increase"
               description="More games + higher quality = massively higher engagement. User metrics show 10x increase in overall engagement compared to the pre-AI period. Games now launch, iterate, and improve at the speed of user feedback."
-              imageUrl={IMG.engagement}
+              visualization={<VizJourneyTimeline />}
               delay={0.05}
             />
 
@@ -1130,7 +1455,7 @@ export default function AIGameDesignCaseStudy() {
               number="03"
               title="Team Efficiency: 2 Designers, Full Studio"
               description="A lean team of two designers now manages game production for the entire studio. The AI tools handle the repetitive, time-consuming work. Designers focus on strategy, innovation, and user experience."
-              imageUrl={IMG.gameExamples}
+              visualization={<VizTeamEfficiency />}
               delay={0.1}
             />
 
@@ -1138,7 +1463,7 @@ export default function AIGameDesignCaseStudy() {
               number="04"
               title="Quality Consistency"
               description="Counter-intuitively, faster development led to better quality. AI tools eliminated bottlenecks and enabled more iteration cycles. Every game is more polished than before."
-              imageUrl={IMG.figmaScreen}
+              visualization={<VizQualityConsistency />}
               delay={0.15}
             />
 
@@ -1146,7 +1471,7 @@ export default function AIGameDesignCaseStudy() {
               number="05"
               title="Failed Experiments → Learning"
               description="Not every game succeeded. A couple underperformed. But because the cycle is so fast, we iterate quickly, learn what works, and move on. Failure is now a feature of continuous improvement, not a setback."
-              imageUrl={IMG.codexIntegration}
+              visualization={<VizFailedExperiments />}
               delay={0.2}
             />
           </div>

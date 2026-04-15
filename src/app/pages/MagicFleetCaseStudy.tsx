@@ -276,6 +276,172 @@ function FeatureCard({
   );
 }
 
+// ── Inline Visualizations ────────────────────────────────────────
+
+function VizFleetImpactMetrics() {
+  const metrics = [
+    { label: 'On-time Delivery', before: 68, after: 83, unit: '%', delta: '+22%', good: true },
+    { label: 'Cost per Delivery', before: 100, after: 82, unit: 'index', delta: '-18%', good: true },
+    { label: 'Rider Satisfaction', before: 54, after: 71, unit: '%', delta: '+31%', good: true },
+    { label: 'Incident Response', before: 48, after: 43, unit: 'min avg', delta: '-10%', good: true },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-5">OPERATIONAL IMPACT — BEFORE vs. AFTER</div>
+      <div className="space-y-4">
+        {metrics.map((m) => (
+          <div key={m.label}>
+            <div className="flex justify-between items-center mb-1.5">
+              <span className="text-[10px] opacity-70">{m.label}</span>
+              <span className="text-[10px] font-bold" style={{ color: '#22c55e' }}>{m.delta}</span>
+            </div>
+            <div className="flex gap-1.5 items-center">
+              <div className="flex-1 h-2 rounded-sm overflow-hidden" style={{ background: 'var(--portfolio-border-strong)' }}>
+                <div className="h-full rounded-sm" style={{ width: `${m.before}%`, background: 'var(--portfolio-fg)', opacity: 0.25 }} />
+              </div>
+              <div className="text-[8px] opacity-40 w-8 text-right">{m.before}</div>
+              <div className="text-[8px] opacity-30">→</div>
+              <div className="flex-1 h-2 rounded-sm overflow-hidden" style={{ background: 'var(--portfolio-border-strong)' }}>
+                <div className="h-full rounded-sm bg-green-500" style={{ width: `${m.after}%` }} />
+              </div>
+              <div className="text-[8px] font-bold w-8" style={{ color: '#22c55e' }}>{m.after}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 pt-3 border-t text-[9px] opacity-40" style={{ borderColor: 'var(--portfolio-border)' }}>
+        Grey = Before · Green = After · Measured 6 months post-launch
+      </div>
+    </div>
+  );
+}
+
+function VizInfoHierarchy() {
+  const tiers = [
+    { label: 'CRITICAL', items: 'Active orders · Live GPS · Alerts', width: '40%', color: '#ef4444' },
+    { label: 'IMPORTANT', items: 'Earnings · Schedule · Zone heatmap', width: '65%', color: '#f59e0b' },
+    { label: 'CONTEXTUAL', items: 'Order history · Stats · Support · Settings', width: '100%', color: 'var(--portfolio-border-strong)' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center items-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-6">INFORMATION HIERARCHY MODEL</div>
+      <div className="w-full max-w-md flex flex-col items-center gap-2">
+        {tiers.map((t) => (
+          <div key={t.label} className="flex flex-col items-center gap-1" style={{ width: t.width }}>
+            <div className="w-full rounded-sm py-3 px-4 text-center" style={{ background: t.color, opacity: t.color.includes('var') ? 1 : undefined }}>
+              <div className="text-[9px] font-black tracking-widest" style={{ color: t.color === 'var(--portfolio-border-strong)' ? 'var(--portfolio-fg)' : '#fff', opacity: t.color.includes('var') ? 0.7 : 1 }}>{t.label}</div>
+            </div>
+            <div className="text-[8px] opacity-50 text-center">{t.items}</div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 text-[9px] opacity-40 text-center">Priority determines screen real estate · Critical = always visible, no scroll</div>
+    </div>
+  );
+}
+
+function VizDataFlow() {
+  const nodes = [
+    { label: 'Riders', sub: '100k+ delivery partners', icon: '📱' },
+    { label: 'Central Hub', sub: 'Sync queue + offline cache', icon: '🖥️' },
+    { label: 'Manager Dashboard', sub: 'Real-time operations view', icon: '📊' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-6">DATA FLOW ARCHITECTURE</div>
+      <div className="flex items-center justify-center gap-3">
+        {nodes.map((n, i) => (
+          <div key={n.label} className="flex items-center gap-3">
+            <div className="border rounded p-4 text-center flex-shrink-0" style={{ borderColor: 'var(--portfolio-border-strong)', minWidth: '110px' }}>
+              <div className="text-xl mb-1">{n.icon}</div>
+              <div className="text-[10px] font-bold opacity-80">{n.label}</div>
+              <div className="text-[8px] opacity-50 mt-0.5 leading-tight">{n.sub}</div>
+            </div>
+            {i < nodes.length - 1 && (
+              <div className="flex flex-col items-center gap-1">
+                <div className="text-[8px] opacity-40">GPS + Status</div>
+                <div className="text-sm opacity-50">⟶</div>
+                <div className="text-[8px] opacity-40">Processed metrics</div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 text-[9px] opacity-40 text-center">Async sync every 30s · Offline-first · Conflict resolution on reconnect</div>
+    </div>
+  );
+}
+
+function VizUserGroups() {
+  const groups = [
+    {
+      role: 'Fleet Manager', icon: '👔',
+      screens: ['Live dispatch map', 'Shift scheduling', 'Performance analytics', 'Alert dashboard'],
+    },
+    {
+      role: 'Dispatcher', icon: '🎯',
+      screens: ['Order assignment', 'Rider availability', 'Zone coverage view', 'SLA tracker'],
+    },
+    {
+      role: 'Rider', icon: '🛵',
+      screens: ['Active order view', 'Earnings & ledger', 'Surge zone map', 'Profile & support'],
+    },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-5">PLATFORM ECOSYSTEM — 3 USER GROUPS</div>
+      <div className="grid grid-cols-3 gap-4">
+        {groups.map((g) => (
+          <div key={g.role} className="border rounded p-4" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+            <div className="text-xl mb-2">{g.icon}</div>
+            <div className="text-[10px] font-bold mb-3 opacity-80">{g.role}</div>
+            <div className="space-y-1">
+              {g.screens.map((s) => (
+                <div key={s} className="text-[8px] opacity-55 flex items-start gap-1">
+                  <span className="opacity-40 shrink-0">·</span>{s}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function VizPaymentSystem() {
+  const components = [
+    { label: 'Base Pay', pct: 55, amount: '₹180', color: 'var(--portfolio-fg)' },
+    { label: 'Surge Bonus', pct: 20, amount: '₹66', color: '#f59e0b' },
+    { label: 'Incentives', pct: 15, amount: '₹49', color: '#22c55e' },
+    { label: 'Tips', pct: 10, amount: '₹33', color: '#3b82f6' },
+  ];
+  return (
+    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
+      <div className="text-[10px] tracking-widest opacity-60 mb-5">EARNINGS BREAKDOWN — SAMPLE DAILY EARNINGS ₹328</div>
+      <div className="flex h-8 rounded-sm overflow-hidden mb-4 gap-0.5">
+        {components.map((c) => (
+          <div key={c.label} className="h-full flex items-center justify-center" style={{ width: `${c.pct}%`, background: c.color, opacity: c.color.includes('var') ? 0.3 : 0.8 }}>
+            <span className="text-[8px] font-bold" style={{ color: 'var(--portfolio-fg)' }}>{c.pct}%</span>
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-4 gap-2">
+        {components.map((c) => (
+          <div key={c.label} className="text-center">
+            <div className="w-3 h-3 rounded-sm mx-auto mb-1" style={{ background: c.color, opacity: c.color.includes('var') ? 0.4 : 0.8 }} />
+            <div className="text-[8px] opacity-60">{c.label}</div>
+            <div className="text-[9px] font-bold opacity-80">{c.amount}</div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 pt-3 border-t text-[9px] opacity-40 text-center" style={{ borderColor: 'var(--portfolio-border)' }}>
+        Real-time earnings visibility reduced payment disputes by 40%
+      </div>
+    </div>
+  );
+}
+
 // ── Image placeholder (swap src="" with actual path when ready) ──
 function CaseImage({
   src,
@@ -584,12 +750,9 @@ export default function MagicFleetCaseStudy() {
           </div>
 
           <FadeUp delay={0.5} className="mt-10">
-            <CaseImage
-              src={IMG.impactMetrics}
-              alt="Impact metrics breakdown"
-              label="INSERT: Detailed impact metrics dashboard with time-series charts showing before/after operational performance"
-              aspect="16/9"
-            />
+            <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <VizFleetImpactMetrics />
+            </div>
           </FadeUp>
         </section>
 
@@ -832,13 +995,9 @@ export default function MagicFleetCaseStudy() {
           <FadeUp delay={0.2} className="mt-12">
             <div className="border border-black/15 p-8 md:p-12 bg-black/[0.02]">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Information Hierarchy Model</h3>
-              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
-              <CaseImage
-                src={undefined}
-                alt="Information hierarchy diagram"
-                label="INSERT: Visual diagram showing information hierarchy (Critical → Important → Contextual) with dashboard mockup examples"
-                aspect="16/9"
-              />
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizInfoHierarchy />
+              </div>
             </div>
           </FadeUp>
         </section>
@@ -936,12 +1095,9 @@ export default function MagicFleetCaseStudy() {
               </p>
             </FadeUp>
             <FadeUp delay={0.2}>
-              <CaseImage
-                src={IMG.systemArchitecture}
-                alt="magicFleet System Architecture"
-                label="INSERT: Data flow diagram showing Riders → Central Hub → Manager Dashboard with sync queues and offline storage"
-                aspect="1/1"
-              />
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizDataFlow />
+              </div>
             </FadeUp>
           </div>
 
@@ -949,13 +1105,9 @@ export default function MagicFleetCaseStudy() {
           <FadeUp delay={0.3} className="mt-12">
             <div className="border border-black/15 p-8 md:p-12">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Platform Ecosystem Overview</h3>
-              <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
-              <CaseImage
-                src={undefined}
-                alt="Platform ecosystem diagram"
-                label="INSERT: Diagram showing 3 user groups (Manager/Dispatcher/Rider) with their core screens and data flows between them"
-                aspect="16/9"
-              />
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizUserGroups />
+              </div>
             </div>
           </FadeUp>
         </section>
@@ -972,12 +1124,9 @@ export default function MagicFleetCaseStudy() {
           </FadeUp>
 
           <FadeUp delay={0.1} className="mb-12">
-            <CaseImage
-              src={IMG.paymentSystem}
-              alt="Payment and Incentives Dashboard"
-              label="INSERT: Payment system and incentive dashboard"
-              aspect="16/9"
-            />
+            <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <VizPaymentSystem />
+            </div>
           </FadeUp>
 
           <div className="space-y-6">
