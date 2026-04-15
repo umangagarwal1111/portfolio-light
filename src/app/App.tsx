@@ -520,30 +520,11 @@ function DesktopProjectItem({
         {String(index + 1).padStart(2, '0')}
       </motion.span>
 
-      {isFirstProject && isHovered ? (
-        <motion.div
-          ref={containerRef}
-          className="fixed pointer-events-none z-40 rounded-lg"
-          style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
-            backdropFilter: 'blur(8px)',
-            width: '420px',
-            aspectRatio: '1',
-          }}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.3 }}
-        >
-          <ImpactHeroPreview />
-        </motion.div>
-      ) : (
-        <CursorImage
+      <CursorImage
           imageUrl={imageUrl}
           isVisible={isHovered}
           containerRef={containerRef}
         />
-      )}
     </motion.div>
   );
 }
@@ -843,7 +824,7 @@ export default function App() {
       description:
         'Reduced game development time by 80% while increasing user engagement 10x by integrating AI tools into our design and development workflow.',
       imageUrl:
-        'https://lh3.googleusercontent.com/lz88GzC-3mssVkuK9o9Y-oBYRVUwoFJTkz0UvW2CGxCqyto31Y37l_H3JaD1FAX90HevR8KFNxJeBqhCiDg59SMW89nimbURPT40uesp',
+        '/game-campaign-preview.jpg',
       slug: '/work/ai-game-design',
       password: 'OPENWORK11',
     },
