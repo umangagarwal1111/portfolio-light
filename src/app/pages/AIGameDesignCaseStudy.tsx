@@ -602,7 +602,7 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
         <div className="grid md:grid-cols-[260px_1fr]" style={{ borderBottom: '1px solid var(--portfolio-border)' }}>
           {/* Screenshot slot */}
           <div className="p-6 flex flex-col items-center justify-center gap-4 bg-black/[0.02]" style={{ borderRight: '1px solid var(--portfolio-border)' }}>
-            <div className="relative w-40 h-[300px] rounded-[2rem] border-2 border-black/20 overflow-hidden flex items-center justify-center bg-black/5">
+            <div className="relative w-[135px] h-[300px] rounded-[2rem] border-2 border-black/20 overflow-hidden flex items-center justify-center bg-black/5">
               <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1.5 rounded-full bg-black/15" />
               <AnimatePresence mode="wait">
                 <motion.div
