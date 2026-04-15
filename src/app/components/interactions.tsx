@@ -241,7 +241,10 @@ export function CursorImage({
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="w-80 h-60 overflow-hidden">
+          <div
+            className="w-80 h-60 overflow-hidden"
+            style={{ maskImage: 'radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%)' }}
+          >
             <img
               src={imageUrl}
               alt=""
