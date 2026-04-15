@@ -207,10 +207,12 @@ export function CursorImage({
   imageUrl,
   isVisible,
   containerRef,
+  noEdgeFade,
 }: {
   imageUrl: string;
   isVisible: boolean;
   containerRef: React.RefObject<HTMLDivElement | null>;
+  noEdgeFade?: boolean;
 }) {
   const mouseX = useMotionValue(-9999);
   const mouseY = useMotionValue(-9999);
@@ -243,7 +245,7 @@ export function CursorImage({
         >
           <div
             className="w-[416px] h-[312px] overflow-hidden"
-            style={{ maskImage: 'radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%)' }}
+            style={noEdgeFade ? {} : { maskImage: 'radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 85% 80% at 50% 50%, black 40%, transparent 100%)' }}
           >
             <img
               src={imageUrl}

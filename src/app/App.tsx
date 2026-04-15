@@ -436,6 +436,7 @@ function DesktopProjectItem({
   isUnlocked,
   onPasswordRequired,
   isFirstProject,
+  noEdgeFade,
 }: {
   title: string;
   yearDisplay: string;
@@ -446,6 +447,7 @@ function DesktopProjectItem({
   isUnlocked?: boolean;
   onPasswordRequired?: () => void;
   isFirstProject?: boolean;
+  noEdgeFade?: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -524,6 +526,7 @@ function DesktopProjectItem({
           imageUrl={imageUrl}
           isVisible={isHovered}
           containerRef={containerRef}
+          noEdgeFade={noEdgeFade}
         />
     </motion.div>
   );
@@ -836,6 +839,7 @@ export default function App() {
         'Led the design of a fleet management platform orchestrating 100k+ delivery riders. Built real-time visibility, intelligent shift scheduling, and rider engagement systems. +22% on-time delivery, -18% cost per delivery.',
       imageUrl:
         '/magicfleet-preview.png',
+      noEdgeFade: true,
       slug: '/work/magicfleet',
       password: 'OPENWORK11',
     },
