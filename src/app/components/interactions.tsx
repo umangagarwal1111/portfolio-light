@@ -212,17 +212,15 @@ export function CursorImage({
   isVisible: boolean;
   containerRef: React.RefObject<HTMLDivElement | null>;
 }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(-9999);
+  const mouseY = useMotionValue(-9999);
   const springX = useSpring(mouseX, { stiffness: 200, damping: 25 });
   const springY = useSpring(mouseY, { stiffness: 200, damping: 25 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      mouseX.set(e.clientX - rect.left + 16);
-      mouseY.set(e.clientY - rect.top + 16);
+      mouseX.set(e.clientX + 24);
+      mouseY.set(e.clientY + 24);
     };
 
     const el = containerRef.current;
@@ -236,7 +234,7 @@ export function CursorImage({
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="absolute top-0 left-0 pointer-events-none z-20 hidden md:block"
+          className="fixed top-0 left-0 pointer-events-none z-50 hidden md:block"
           style={{ x: springX, y: springY }}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -247,7 +245,7 @@ export function CursorImage({
             <img
               src={imageUrl}
               alt=""
-              className="w-full h-full object-cover grayscale contrast-125"
+              className="w-full h-full object-cover"
             />
           </div>
         </motion.div>
