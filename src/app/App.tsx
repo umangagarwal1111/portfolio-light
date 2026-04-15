@@ -835,7 +835,7 @@ export default function App() {
       description:
         'Led the design of a fleet management platform orchestrating 100k+ delivery riders. Built real-time visibility, intelligent shift scheduling, and rider engagement systems. +22% on-time delivery, -18% cost per delivery.',
       imageUrl:
-        'https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+        '/magicfleet-preview.png',
       slug: '/work/magicfleet',
       password: 'OPENWORK11',
     },
