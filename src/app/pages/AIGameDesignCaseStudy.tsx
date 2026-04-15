@@ -526,7 +526,7 @@ const GAMES_DATA = [
   { id: 3, name: 'Border Strike',      short: 'Border',    date: 'Feb 24', emoji: '🎯', engagement: 76, dau: '4K',  dauPct: 14,  retention: 44, devDays: 4, quality: 80, image: '/games/border-strike.png' },
   { id: 4, name: 'Dhurandhargiri',     short: 'Dhura',     date: 'Mar 3',  emoji: '🕵️', engagement: 88, dau: '8K',  dauPct: 29,  retention: 58, devDays: 4, quality: 86, image: '/games/dhurandhargiri.png' },
   { id: 5, name: 'Her Holi Game',      short: 'Her Holi',  date: 'Mar 10', emoji: '🎨', engagement: 91, dau: '3K',  dauPct: 11,  retention: 48, devDays: 3, quality: 76, image: '/games/her-holi.png' },
-  { id: 6, name: 'Seek & Find',        short: 'Seek',      date: 'Mar 17', emoji: '🔍', engagement: 92, dau: '6K',  dauPct: 21,  retention: 61, devDays: 3, quality: 88 },
+  { id: 6, name: 'The BDSM Room',       short: 'BDSM',      date: 'Mar 17', emoji: '🎭', engagement: 92, dau: '6K',  dauPct: 21,  retention: 61, devDays: 3, quality: 88, image: '/games/bdsm-game.png' },
   { id: 7, name: 'IPL Prediction',     short: 'IPL',       date: 'Mar 24', emoji: '🏆', engagement: 71, dau: '2K',  dauPct: 7,   retention: 45, devDays: 3, quality: 74, image: '/games/ipl-prediction.png' },
   { id: 8, name: 'Dharmik Score',      short: 'Dharmik',   date: 'Mar 31', emoji: '🪔', engagement: 86, dau: '2K',  dauPct: 7,   retention: 55, devDays: 3, quality: 89, image: '/games/navratri.png' },
   { id: 9, name: 'Metro Dash',         short: 'Metro',     date: 'Apr 7',  emoji: '🚇', engagement: 93, dau: '22K', dauPct: 79,  retention: 68, devDays: 3, quality: 95, image: '/games/metro-dash.png' },
@@ -602,8 +602,8 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
         <div className="grid md:grid-cols-[260px_1fr]" style={{ borderBottom: '1px solid var(--portfolio-border)' }}>
           {/* Screenshot slot */}
           <div className="p-6 flex flex-col items-center justify-center gap-4 bg-black/[0.02]" style={{ borderRight: '1px solid var(--portfolio-border)' }}>
-            <div className="relative w-28 h-52 rounded-[1.6rem] border-2 border-black/20 overflow-hidden flex items-center justify-center bg-black/5">
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1.5 rounded-full bg-black/15" />
+            <div className="relative w-40 h-[300px] rounded-[2rem] border-2 border-black/20 overflow-hidden flex items-center justify-center bg-black/5">
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1.5 rounded-full bg-black/15" />
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeGame}
@@ -617,7 +617,7 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
                     <img
                       src={(game as typeof game & { image?: string }).image}
                       alt={game.name}
-                      className="w-full h-full object-cover object-top"
+                      className="w-full h-full object-contain"
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full">
