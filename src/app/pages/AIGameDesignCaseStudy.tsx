@@ -523,16 +523,16 @@ const GAMES_DATA = [
   { id: 0, name: 'Flappy Game',        short: 'Flappy',    date: 'Feb 3',  emoji: '🐦', engagement: 68, dau: '28K', dauPct: 100, retention: 38, devDays: 8, quality: 72 },
   { id: 1, name: 'Rizz Meter',         short: 'Rizz',      date: 'Feb 10', emoji: '💘', engagement: 82, dau: '10K', dauPct: 36,  retention: 52, devDays: 6, quality: 83 },
   { id: 2, name: 'Pre-Valentine Game', short: 'Pre-Val',   date: 'Feb 17', emoji: '💌', engagement: 85, dau: '3K',  dauPct: 11,  retention: 41, devDays: 5, quality: 79 },
-  { id: 3, name: 'Border Strike',      short: 'Border',    date: 'Feb 24', emoji: '🎯', engagement: 76, dau: '4K',  dauPct: 14,  retention: 44, devDays: 4, quality: 80 },
-  { id: 4, name: 'Dhurandhargiri',     short: 'Dhura',     date: 'Mar 3',  emoji: '🕵️', engagement: 88, dau: '8K',  dauPct: 29,  retention: 58, devDays: 4, quality: 86 },
+  { id: 3, name: 'Border Strike',      short: 'Border',    date: 'Feb 24', emoji: '🎯', engagement: 76, dau: '4K',  dauPct: 14,  retention: 44, devDays: 4, quality: 80, image: '/games/border-strike.png' },
+  { id: 4, name: 'Dhurandhargiri',     short: 'Dhura',     date: 'Mar 3',  emoji: '🕵️', engagement: 88, dau: '8K',  dauPct: 29,  retention: 58, devDays: 4, quality: 86, image: '/games/dhurandhargiri.png' },
   { id: 5, name: 'Holi Run',           short: 'Holi Run',  date: 'Mar 10', emoji: '🎨', engagement: 91, dau: '3K',  dauPct: 11,  retention: 48, devDays: 3, quality: 76 },
   { id: 6, name: 'Seek & Find',        short: 'Seek',      date: 'Mar 17', emoji: '🔍', engagement: 92, dau: '6K',  dauPct: 21,  retention: 61, devDays: 3, quality: 88 },
   { id: 7, name: 'Cricket Quiz',       short: 'Cricket',   date: 'Mar 24', emoji: '🏏', engagement: 71, dau: '2K',  dauPct: 7,   retention: 45, devDays: 3, quality: 74 },
-  { id: 8, name: 'Navratri Game',      short: 'Navratri',  date: 'Mar 31', emoji: '🪔', engagement: 86, dau: '2K',  dauPct: 7,   retention: 55, devDays: 3, quality: 89 },
+  { id: 8, name: 'Dharmik Score',      short: 'Dharmik',   date: 'Mar 31', emoji: '🪔', engagement: 86, dau: '2K',  dauPct: 7,   retention: 55, devDays: 3, quality: 89, image: '/games/navratri.png' },
   { id: 9, name: 'Metro Dash',         short: 'Metro',     date: 'Apr 7',  emoji: '🚇', engagement: 93, dau: '22K', dauPct: 79,  retention: 68, devDays: 3, quality: 95 },
 ];
 
-/// Quality ranking: low → high  (Flappy < Cricket < Holi < Pre-Val < Border < Rizz < Dhura < Seek < Navratri < Metro)
+/// Quality ranking: low → high  (Flappy < Cricket < Holi < Pre-Val < Border < Rizz < Dhura < Seek < Dharmik < Metro)
 const QUALITY_ORDER = [0, 7, 5, 2, 3, 1, 4, 6, 8, 9];
 
 // Weekly avg engagement score across all active games — Valentine's dip in W4 Feb, festival recovery in Mar
@@ -611,10 +611,20 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.18 }}
-                  className="text-center"
+                  className="w-full h-full"
                 >
-                  <div className="text-4xl mb-2">{game.emoji}</div>
-                  <div className="text-[9px] tracking-wider opacity-30 uppercase">Screenshot</div>
+                  {(game as typeof game & { image?: string }).image ? (
+                    <img
+                      src={(game as typeof game & { image?: string }).image}
+                      alt={game.name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-full">
+                      <div className="text-4xl mb-2">{game.emoji}</div>
+                      <div className="text-[9px] tracking-wider opacity-30 uppercase">Screenshot</div>
+                    </div>
+                  )}
                 </motion.div>
               </AnimatePresence>
             </div>
