@@ -680,7 +680,7 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
               {WEEKLY_TREND.map((w, i) => (
                 <div key={w.week} className="flex-1 flex flex-col items-center gap-1.5">
                   {/* track */}
-                  <div className="w-full rounded-sm flex flex-col justify-end" style={{ height: '80px', background: 'rgba(255,255,255,0.07)' }}>
+                  <div className="w-full rounded-sm flex flex-col justify-end" style={{ height: '80px', background: 'var(--portfolio-border-strong)' }}>
                     <motion.div
                       className="w-full rounded-sm bg-green-500"
                       initial={{ height: 0 }}
@@ -693,7 +693,7 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
                 </div>
               ))}
             </div>
-            <div className="mt-5 flex gap-6 border-t border-black/10 pt-4">
+            <div className="mt-5 flex gap-6 border-t border-[color:var(--portfolio-border-strong)] pt-4">
               <div>
                 <div className="text-xl font-black text-green-500">+62%</div>
                 <div className="text-[11px] opacity-60 mt-0.5">Engagement growth</div>
