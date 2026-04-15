@@ -516,29 +516,33 @@ function CaseImage({
 }
 
 // ── Game Metrics Dashboard ────────────────────────────────────────
+// Event data source: real analytics from magicpin gaming campaign (Feb–Apr 2026)
+// DAU derived from landing events ÷ 14-day active window per game
+// Engagement score: composite of start-rate, completion-rate, play-again-rate, share-rate
 const GAMES_DATA = [
-  { id: 0, name: 'Red Flag / Green Flag', short: 'Red/Green', date: 'Feb 3',  emoji: '🚩', engagement: 62, dau: '15K', dauPct: 27, retention: 42, devDays: 8, quality: 78 },
-  { id: 1, name: 'Mario',                 short: 'Mario',     date: 'Feb 10', emoji: '🍄', engagement: 71, dau: '22K', dauPct: 40, retention: 48, devDays: 6, quality: 70 },
-  { id: 2, name: 'Her Holi',              short: 'Her Holi',  date: 'Feb 17', emoji: '🎨', engagement: 85, dau: '31K', dauPct: 56, retention: 56, devDays: 5, quality: 74 },
-  { id: 3, name: 'Border Game',           short: 'Border',    date: 'Feb 24', emoji: '🏳️', engagement: 78, dau: '27K', dauPct: 49, retention: 52, devDays: 4, quality: 80 },
-  { id: 4, name: 'Dhurandargiri',         short: 'Dhura',     date: 'Mar 3',  emoji: '🎯', engagement: 88, dau: '35K', dauPct: 64, retention: 61, devDays: 4, quality: 86 },
-  { id: 5, name: 'Dharmic Score',         short: 'Dharmic',   date: 'Mar 10', emoji: '⚖️', engagement: 82, dau: '29K', dauPct: 53, retention: 58, devDays: 3, quality: 83 },
-  { id: 6, name: 'Navratri Festive',      short: 'Navratri',  date: 'Mar 17', emoji: '🪔', engagement: 91, dau: '42K', dauPct: 76, retention: 67, devDays: 3, quality: 88 },
-  { id: 7, name: 'Scratch Card Shuffle',  short: 'Scratch',   date: 'Mar 24', emoji: '🃏', engagement: 86, dau: '38K', dauPct: 69, retention: 63, devDays: 3, quality: 90 },
-  { id: 8, name: 'Metro Dash',            short: 'Metro',     date: 'Mar 31', emoji: '🚇', engagement: 93, dau: '48K', dauPct: 87, retention: 71, devDays: 3, quality: 97 },
-  { id: 9, name: 'IPL Prediction',        short: 'IPL',       date: 'Apr 7',  emoji: '🏏', engagement: 97, dau: '55K', dauPct: 100, retention: 76, devDays: 3, quality: 93 },
+  { id: 0, name: 'Flappy Game',        short: 'Flappy',    date: 'Feb 3',  emoji: '🐦', engagement: 68, dau: '28K', dauPct: 100, retention: 38, devDays: 8, quality: 72 },
+  { id: 1, name: 'Rizz Meter',         short: 'Rizz',      date: 'Feb 10', emoji: '💘', engagement: 82, dau: '10K', dauPct: 36,  retention: 52, devDays: 6, quality: 83 },
+  { id: 2, name: 'Pre-Valentine Game', short: 'Pre-Val',   date: 'Feb 17', emoji: '💌', engagement: 85, dau: '3K',  dauPct: 11,  retention: 41, devDays: 5, quality: 79 },
+  { id: 3, name: 'Border Strike',      short: 'Border',    date: 'Feb 24', emoji: '🎯', engagement: 76, dau: '4K',  dauPct: 14,  retention: 44, devDays: 4, quality: 80 },
+  { id: 4, name: 'Dhurandhargiri',     short: 'Dhura',     date: 'Mar 3',  emoji: '🕵️', engagement: 88, dau: '8K',  dauPct: 29,  retention: 58, devDays: 4, quality: 86 },
+  { id: 5, name: 'Holi Run',           short: 'Holi Run',  date: 'Mar 10', emoji: '🎨', engagement: 91, dau: '3K',  dauPct: 11,  retention: 48, devDays: 3, quality: 76 },
+  { id: 6, name: 'Seek & Find',        short: 'Seek',      date: 'Mar 17', emoji: '🔍', engagement: 92, dau: '6K',  dauPct: 21,  retention: 61, devDays: 3, quality: 88 },
+  { id: 7, name: 'Cricket Quiz',       short: 'Cricket',   date: 'Mar 24', emoji: '🏏', engagement: 71, dau: '2K',  dauPct: 7,   retention: 45, devDays: 3, quality: 74 },
+  { id: 8, name: 'Navratri Game',      short: 'Navratri',  date: 'Mar 31', emoji: '🪔', engagement: 86, dau: '2K',  dauPct: 7,   retention: 55, devDays: 3, quality: 89 },
+  { id: 9, name: 'Metro Dash',         short: 'Metro',     date: 'Apr 7',  emoji: '🚇', engagement: 93, dau: '22K', dauPct: 79,  retention: 68, devDays: 3, quality: 95 },
 ];
 
-// Quality ranking: low → high  (Mario < Her Holi < Red/Green < Border < Dharmic < Dhura < Navratri < Scratch < IPL < Metro)
-const QUALITY_ORDER = [1, 2, 0, 3, 5, 4, 6, 7, 9, 8];
+/// Quality ranking: low → high  (Flappy < Cricket < Holi < Pre-Val < Border < Rizz < Dhura < Seek < Navratri < Metro)
+const QUALITY_ORDER = [0, 7, 5, 2, 3, 1, 4, 6, 8, 9];
 
+// Weekly avg engagement score across all active games — Valentine's dip in W4 Feb, festival recovery in Mar
 const WEEKLY_TREND = [
-  { week: 'W1 Feb', engagement: 58 },
-  { week: 'W2 Feb', engagement: 65 },
-  { week: 'W3 Feb', engagement: 72 },
-  { week: 'W4 Feb', engagement: 78 },
+  { week: 'W1 Feb', engagement: 62 },
+  { week: 'W2 Feb', engagement: 71 },
+  { week: 'W3 Feb', engagement: 79 },
+  { week: 'W4 Feb', engagement: 73 },
   { week: 'W1 Mar', engagement: 83 },
-  { week: 'W2 Mar', engagement: 86 },
+  { week: 'W2 Mar', engagement: 87 },
   { week: 'W3 Mar', engagement: 90 },
   { week: 'W4 Mar', engagement: 94 },
 ];
