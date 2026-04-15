@@ -34,7 +34,7 @@ function TimelineComparison({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 p-6 md:p-8">
+      <div className="border border-[color:var(--portfolio-border-strong)] p-6 md:p-8">
         <h3 className="text-lg md:text-xl font-bold mb-8 tracking-tight">Development Cycle Compression</h3>
         <div className="space-y-8">
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
@@ -71,7 +71,7 @@ function TimelineComparison({
             <p className="text-xs opacity-60 ml-[calc(120px)]">Parallel Figma + Codex workflow</p>
           </motion.div>
 
-          <div className="border-t border-black/15 pt-4 text-center">
+          <div className="border-t border-[color:var(--portfolio-border-strong)] pt-4 text-center">
             <div className="text-3xl font-black text-green-500">80% Reduction</div>
             <p className="text-xs opacity-60 mt-2">From 60 days to 3-4 days per game</p>
           </div>
@@ -89,7 +89,7 @@ function EngagementMetrics({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 p-6 md:p-8">
+      <div className="border border-[color:var(--portfolio-border-strong)] p-6 md:p-8">
         <h3 className="text-lg md:text-xl font-bold mb-8 tracking-tight">Engagement Impact Across Cohorts</h3>
         <div className="space-y-4">
           {[
@@ -107,7 +107,7 @@ function EngagementMetrics({
                 </div>
               </div>
               <motion.div
-                className="h-2 rounded-full bg-black/10"
+                className="h-2 rounded-full bg-[var(--portfolio-border-strong)]"
                 initial={{ width: 0 }}
                 whileInView={{ width: `${(item.after / 100) * 100}%` }}
                 viewport={{ once: true }}
@@ -131,7 +131,7 @@ function ImpactTransformationHero({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 overflow-hidden">
+      <div className="border border-[color:var(--portfolio-border-strong)] overflow-hidden">
         {/* Main comparison grid */}
         <div className="grid md:grid-cols-2 divide-x divide-black/15">
           {/* BEFORE */}
@@ -307,7 +307,7 @@ function ImpactTransformationHero({
         </div>
 
         {/* Impact summary footer */}
-        <div className="border-t border-black/15 p-8 md:p-12 bg-gradient-to-r from-green-500/5 via-transparent to-transparent">
+        <div className="border-t border-[color:var(--portfolio-border-strong)] p-8 md:p-12 bg-gradient-to-r from-green-500/5 via-transparent to-transparent">
           <div className="grid md:grid-cols-3 gap-8">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -353,7 +353,7 @@ function ImpactTransformationHero({
 
 // ── Section divider ───────────────────────────────────────────────
 function Divider() {
-  return <div className="w-full h-[1px] bg-black/10 my-16 md:my-24" />;
+  return <div className="w-full h-[1px] bg-[var(--portfolio-border-strong)] my-16 md:my-24" />;
 }
 
 // ── Stat card ────────────────────────────────────────────────────
@@ -368,7 +368,7 @@ function StatCard({
 }) {
   return (
     <FadeUp delay={delay} className="h-full">
-      <div className="h-full border border-black/15 p-6 md:p-8 hover:border-black/30 transition-colors duration-500">
+      <div className="h-full border border-[color:var(--portfolio-border-strong)] p-6 md:p-8 hover:border-[color:var(--portfolio-fg)] transition-colors duration-500">
         <div className="text-4xl md:text-6xl font-black tracking-tighter mb-2 text-[var(--portfolio-fg)]">
           {number}
         </div>
@@ -394,13 +394,13 @@ function ChallengeCard({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 hover:border-black/20 transition-colors duration-500 overflow-hidden">
+      <div className="border border-[color:var(--portfolio-border-strong)] hover:border-[color:var(--portfolio-border-strong)] transition-colors duration-500 overflow-hidden">
         <CaseImage
           src={imageUrl}
           alt={`${title}`}
           label={`INSERT: ${title.toUpperCase()} SCREENSHOT`}
           aspect="16/9"
-          className="border-b border-black/15"
+          className="border-b border-[color:var(--portfolio-border-strong)]"
           contain
         />
         <div className="p-6 md:p-8">
@@ -429,13 +429,13 @@ function FeatureCard({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 hover:border-black/20 transition-colors duration-500 overflow-hidden">
+      <div className="border border-[color:var(--portfolio-border-strong)] hover:border-[color:var(--portfolio-border-strong)] transition-colors duration-500 overflow-hidden">
         <CaseImage
           src={imageUrl}
           alt={`${title}`}
           label={`INSERT: ${title.toUpperCase()}`}
           aspect="16/9"
-          className="border-b border-black/15"
+          className="border-b border-[color:var(--portfolio-border-strong)]"
           contain
         />
         <div className="p-6 md:p-8">
@@ -460,7 +460,7 @@ function LearningCard({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 p-6 md:p-8">
+      <div className="border border-[color:var(--portfolio-border-strong)] p-6 md:p-8">
         <h3 className="text-lg md:text-xl font-bold mb-3 tracking-tight">{title}</h3>
         <p className="opacity-75 leading-relaxed text-sm md:text-base">{body}</p>
       </div>
@@ -487,7 +487,7 @@ function CaseImage({
   if (src) {
     return (
       <div
-        className={`w-full overflow-hidden bg-black/[0.03] ${className}`}
+        className={`w-full overflow-hidden bg-[var(--portfolio-fg)]/[0.03] ${className}`}
         style={{ aspectRatio: aspect }}
       >
         <img
@@ -500,10 +500,10 @@ function CaseImage({
   }
   return (
     <div
-      className={`w-full border border-dashed border-black/20 bg-black/[0.02] flex flex-col items-center justify-center gap-2 ${className}`}
+      className={`w-full border border-dashed border-[color:var(--portfolio-border-strong)] bg-[var(--portfolio-fg)]/[0.02] flex flex-col items-center justify-center gap-2 ${className}`}
       style={{ aspectRatio: aspect }}
     >
-      <div className="w-8 h-8 border border-black/20 flex items-center justify-center">
+      <div className="w-8 h-8 border border-[color:var(--portfolio-border-strong)] flex items-center justify-center">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <rect x="1" y="1" width="14" height="14" stroke="var(--portfolio-fg)" strokeOpacity="0.3" strokeWidth="1" />
           <line x1="1" y1="1" x2="15" y2="15" stroke="var(--portfolio-fg)" strokeOpacity="0.2" strokeWidth="1" />
@@ -573,7 +573,7 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
               <span className="w-2 h-2 rounded-full bg-green-500 inline-block" />High Performing
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-black/25 inline-block" />Baseline
+              <span className="w-2 h-2 rounded-full inline-block" style={{ background: 'var(--portfolio-fg)', opacity: 0.35 }} />Baseline
             </span>
           </div>
         </div>
@@ -588,7 +588,7 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
                 className={`px-3 py-1.5 rounded-full text-[11px] font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
                   activeGame === g.id
                     ? 'bg-green-500 text-black'
-                    : 'border border-black/15 opacity-50 hover:opacity-80 hover:border-black/30'
+                    : 'border border-[color:var(--portfolio-border-strong)] opacity-50 hover:opacity-80 hover:border-[color:var(--portfolio-fg)]'
                 }`}
               >
                 <span>{g.emoji}</span>
@@ -601,9 +601,9 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
         {/* Selected Game Detail */}
         <div className="grid md:grid-cols-[260px_1fr]" style={{ borderBottom: '1px solid var(--portfolio-border)' }}>
           {/* Screenshot slot */}
-          <div className="p-6 flex flex-col items-center justify-center gap-4 bg-black/[0.02]" style={{ borderRight: '1px solid var(--portfolio-border)' }}>
-            <div className="relative w-[135px] h-[300px] rounded-[1rem] border-2 border-black/20 overflow-hidden flex items-center justify-center bg-black/5">
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1.5 rounded-full bg-black/15" />
+          <div className="p-6 flex flex-col items-center justify-center gap-4 bg-[var(--portfolio-fg)]/[0.02]" style={{ borderRight: '1px solid var(--portfolio-border)' }}>
+            <div className="relative w-[135px] h-[300px] rounded-[1rem] border-2 border-[color:var(--portfolio-border-strong)] overflow-hidden flex items-center justify-center bg-[var(--portfolio-fg)]/[0.03]">
+              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1.5 rounded-full" style={{ background: 'var(--portfolio-border-strong)' }} />
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeGame}
@@ -653,7 +653,7 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
                     <span className="text-xs opacity-70">{m.label}</span>
                     <span className="text-xs font-bold">{m.value}</span>
                   </div>
-                  <div className="h-1.5 bg-black/10 rounded-full overflow-hidden">
+                  <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)' }}>
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={`${activeGame}-${m.label}`}
@@ -719,9 +719,10 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
                 return (
                   <div key={g.id} className="flex items-center gap-2">
                     <span className="text-[10px] opacity-50 w-16 shrink-0 truncate">{g.short}</span>
-                    <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.10)' }}>
+                    <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)' }}>
                       <motion.div
-                        className={`h-full rounded-full transition-colors duration-300 ${g.id === activeGame ? 'bg-green-500' : 'bg-white/40'}`}
+                        className={`h-full rounded-full transition-colors duration-300 ${g.id === activeGame ? 'bg-green-500' : ''}`}
+                        style={g.id !== activeGame ? { background: 'var(--portfolio-fg)', opacity: 0.35 } : {}}
                         initial={{ width: 0 }}
                         whileInView={{ width: `${g.quality}%` }}
                         viewport={{ once: true }}
@@ -924,7 +925,7 @@ export default function AIGameDesignCaseStudy() {
 
           {/* GOAL */}
           <FadeUp delay={0.2} className="mt-12">
-            <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
+            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12 bg-[var(--portfolio-fg)]/[0.02]">
               <div className="text-xs tracking-widest opacity-65 mb-4">THE GOAL</div>
               <p className="text-2xl md:text-4xl font-bold leading-tight opacity-90">
                 Deliver high-quality, engaging games faster—without cutting corners, without burning out the team, and without sacrificing the user experience that drives business value.
@@ -978,7 +979,7 @@ export default function AIGameDesignCaseStudy() {
               },
             ].map((item, i) => (
               <FadeUp key={item.step} delay={i * 0.05}>
-                <div className="border-t border-black/15 py-8 grid md:grid-cols-[120px_1fr] gap-4 md:gap-12">
+                <div className="border-t border-[color:var(--portfolio-border-strong)] py-8 grid md:grid-cols-[120px_1fr] gap-4 md:gap-12">
                   <div className="text-xs tracking-widest opacity-60 pt-1">{item.step}</div>
                   <div>
                     <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight">{item.title}</h3>
@@ -991,7 +992,7 @@ export default function AIGameDesignCaseStudy() {
 
           {/* Transformation Journey Visualization */}
           <FadeUp delay={0.35} className="mt-12">
-            <div className="border border-black/15 p-8 md:p-12">
+            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Transformation Timeline with Milestones</h3>
               <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
               <CaseImage
@@ -1009,7 +1010,7 @@ export default function AIGameDesignCaseStudy() {
         {/* ── INTERACTIVE WORKFLOW ── */}
         <section className="pb-24">
           <FadeUp>
-            <div className="border border-black/15 p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/[0.02]">
+            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-[var(--portfolio-fg)]/[0.02]">
               <div>
                 <p className="text-xs tracking-widest opacity-65 mb-2">INTERACTIVE</p>
                 <p className="text-2xl md:text-3xl font-bold tracking-tight opacity-85">Explore the Game Design Workflow</p>
@@ -1047,7 +1048,7 @@ export default function AIGameDesignCaseStudy() {
 
           {/* Workflow Process Visualization */}
           <FadeUp delay={0.15} className="mb-12">
-            <div className="border border-black/15 p-8 md:p-12">
+            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Complete Workflow Process</h3>
               <p className="text-sm opacity-75 mb-4">DESIGN SCREEN PLACEHOLDER</p>
               <CaseImage
@@ -1083,7 +1084,7 @@ export default function AIGameDesignCaseStudy() {
               },
             ].map((item, i) => (
               <FadeUp key={item.title} delay={i * 0.04}>
-                <div className="border-t border-black/15 py-8 grid md:grid-cols-[1fr_2fr] gap-4 md:gap-12">
+                <div className="border-t border-[color:var(--portfolio-border-strong)] py-8 grid md:grid-cols-[1fr_2fr] gap-4 md:gap-12">
                   <h3 className="text-lg md:text-xl font-bold tracking-tight">{item.title}</h3>
                   <p className="opacity-75 leading-relaxed text-sm md:text-base">{item.body}</p>
                 </div>
@@ -1201,7 +1202,7 @@ export default function AIGameDesignCaseStudy() {
         {/* ── CONCLUSION ── */}
         <section className="pb-24 md:pb-32">
           <FadeUp>
-            <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
+            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12 bg-[var(--portfolio-fg)]/[0.02]">
               <div className="text-xs tracking-widest opacity-65 mb-4">REFLECTION</div>
               <p className="text-2xl md:text-3xl font-bold leading-tight opacity-85 mb-6">
                 This journey proved that AI isn't about replacing human creativity—it's about amplifying it.
@@ -1216,7 +1217,7 @@ export default function AIGameDesignCaseStudy() {
         {/* ── NEXT SECTION ── */}
         <section className="pb-24 md:pb-32">
           <FadeUp delay={0.1}>
-            <div className="border border-black/15 p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/[0.02]">
+            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-[var(--portfolio-fg)]/[0.02]">
               <div>
                 <p className="text-xs tracking-widest opacity-65 mb-2">WHAT'S NEXT</p>
                 <p className="text-2xl md:text-3xl font-bold tracking-tight opacity-85">More games. More insights. More scale.</p>
