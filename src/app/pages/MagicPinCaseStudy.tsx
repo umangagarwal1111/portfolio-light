@@ -403,7 +403,7 @@ function CaseImage({
 // Image sources — drop exported files into public/case-studies/magicpin/
 // and uncomment each line. Export nodes from Figma file eOlrNDmrH4DhyApKv9f3mD
 const IMG: Record<string, string | undefined> = {
-  heroFinalDesigns: undefined, // node 82:2537 → final-designs.jpg
+  heroFinalDesigns: '/magicpin-revamp-hero.png',
   problem1:         undefined, // node 47:1263 → problem1.jpg
   problem2:         undefined, // node 47:4485 → problem2.jpg
   problem3:         undefined, // node 47:5287 → problem3.jpg
