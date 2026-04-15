@@ -529,8 +529,6 @@ function DesktopProjectItem({
             backdropFilter: 'blur(8px)',
             width: '420px',
             aspectRatio: '1',
-            borderColor: 'var(--portfolio-border)',
-            borderWidth: '1px',
           }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -845,7 +843,7 @@ export default function App() {
       description:
         'Reduced game development time by 80% while increasing user engagement 10x by integrating AI tools into our design and development workflow.',
       imageUrl:
-        'https://images.unsplash.com/photo-1538481143235-a9d28b46f77f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+        'https://lh3.googleusercontent.com/lz88GzC-3mssVkuK9o9Y-oBYRVUwoFJTkz0UvW2CGxCqyto31Y37l_H3JaD1FAX90HevR8KFNxJeBqhCiDg59SMW89nimbURPT40uesp',
       slug: '/work/ai-game-design',
       password: 'OPENWORK11',
     },

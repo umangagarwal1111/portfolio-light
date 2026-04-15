@@ -243,7 +243,7 @@ export function CursorImage({
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="w-80 h-60 overflow-hidden border-2" style={{ borderColor: 'var(--portfolio-fg)' }}>
+          <div className="w-80 h-60 overflow-hidden">
             <img
               src={imageUrl}
               alt=""
