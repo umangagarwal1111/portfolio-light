@@ -940,7 +940,7 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp delay={0.35} className="mt-12">
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">What We Tried Before Finding the Answer</h3>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '280px' }}>
                 <VizFailedExperiments />
               </div>
             </div>
@@ -950,7 +950,7 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp delay={0.4} className="mt-6">
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">The 5-Stage AI-First Process</h3>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '280px' }}>
                 <VizFiveStageProcess />
               </div>
             </div>
