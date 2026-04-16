@@ -26,331 +26,6 @@ function FadeUp({
   );
 }
 
-// ── Timeline comparison chart ───────────────────────────────────
-function TimelineComparison({
-  delay = 0,
-}: {
-  delay?: number;
-}) {
-  return (
-    <FadeUp delay={delay}>
-      <div className="border border-[color:var(--portfolio-border-strong)] p-6 md:p-8">
-        <h3 className="text-lg md:text-xl font-bold mb-8 tracking-tight">Development Cycle Compression</h3>
-        <div className="space-y-8">
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-            <div className="flex items-center gap-4 mb-2">
-              <span className="text-sm font-medium whitespace-nowrap">Traditional</span>
-              <motion.div
-                className="h-3 rounded-full bg-red-500/30 flex-1"
-                initial={{ width: 0 }}
-                whileInView={{ width: '100%' }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 }}
-              >
-                <div className="h-full rounded-full bg-red-500" />
-              </motion.div>
-              <span className="text-sm font-bold whitespace-nowrap">2 months</span>
-            </div>
-            <p className="text-xs opacity-60 ml-[calc(120px)]">Design → Dev → Test → Launch</p>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
-            <div className="flex items-center gap-4 mb-2">
-              <span className="text-sm font-medium whitespace-nowrap">With AI</span>
-              <motion.div
-                className="h-3 rounded-full bg-green-500/30 flex-1"
-                initial={{ width: 0 }}
-                whileInView={{ width: '100%' }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.3 }}
-              >
-                <div className="h-full rounded-full bg-green-500" style={{ width: '15%' }} />
-              </motion.div>
-              <span className="text-sm font-bold whitespace-nowrap">3-4 days</span>
-            </div>
-            <p className="text-xs opacity-60 ml-[calc(120px)]">Parallel Figma + Codex workflow</p>
-          </motion.div>
-
-          <div className="border-t border-[color:var(--portfolio-border-strong)] pt-4 text-center">
-            <div className="text-3xl font-black text-green-500">80% Reduction</div>
-            <p className="text-xs opacity-60 mt-2">From 60 days to 3-4 days per game</p>
-          </div>
-        </div>
-      </div>
-    </FadeUp>
-  );
-}
-
-// ── Engagement metrics visualization ────────────────────────────
-function EngagementMetrics({
-  delay = 0,
-}: {
-  delay?: number;
-}) {
-  return (
-    <FadeUp delay={delay}>
-      <div className="border border-[color:var(--portfolio-border-strong)] p-6 md:p-8">
-        <h3 className="text-lg md:text-xl font-bold mb-8 tracking-tight">Engagement Impact Across Cohorts</h3>
-        <div className="space-y-4">
-          {[
-            { cohort: 'New Users', before: 2.1, after: 21, icon: '👤' },
-            { cohort: 'Active Players', before: 4.5, after: 45, icon: '🎮' },
-            { cohort: 'Long-term Retention', before: 8.2, after: 82, icon: '📈' },
-          ].map((item, i) => (
-            <motion.div key={item.cohort} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-lg">{item.icon}</span>
-                <span className="text-sm font-bold flex-1">{item.cohort}</span>
-                <div className="flex gap-4">
-                  <span className="text-xs opacity-60">Before: {item.before}%</span>
-                  <span className="text-xs font-bold text-green-500">After: {item.after}%</span>
-                </div>
-              </div>
-              <motion.div
-                className="h-2 rounded-full bg-[var(--portfolio-border-strong)]"
-                initial={{ width: 0 }}
-                whileInView={{ width: `${(item.after / 100) * 100}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: (i + 1) * 0.1 }}
-              >
-                <div className="h-full rounded-full bg-green-500" />
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </FadeUp>
-  );
-}
-
-// ── Impact transformation hero (before/after visual) ────────────────
-function ImpactTransformationHero({
-  delay = 0,
-}: {
-  delay?: number;
-}) {
-  return (
-    <FadeUp delay={delay}>
-      <div className="border border-[color:var(--portfolio-border-strong)] overflow-hidden">
-        {/* Main comparison grid */}
-        <div className="grid md:grid-cols-2 divide-x divide-black/15">
-          {/* BEFORE */}
-          <div className="p-8 md:p-12 bg-gradient-to-br from-red-500/5 to-transparent">
-            <div className="text-xs tracking-widest opacity-60 mb-6 uppercase">Before AI Integration</div>
-
-            <div className="space-y-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">⏱️</div>
-                <div className="flex-1">
-                  <div className="text-4xl font-black text-red-500/60 mb-2">60</div>
-                  <p className="text-sm opacity-75">Days to launch one game</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: delay + 0.1 }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">🎮</div>
-                <div className="flex-1">
-                  <div className="text-lg font-black text-red-500/60 mb-2">~0.5 games/month</div>
-                  <p className="text-xs opacity-75">~1 every 2 months</p>
-                  <div className="flex gap-1 mt-2">
-                    {[1].map((i) => (
-                      <div key={i} className="w-6 h-6 bg-red-500/30 rounded" />
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: delay + 0.2 }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">🔗</div>
-                <div className="flex-1">
-                  <div className="text-4xl font-black text-red-500/60 mb-2">Sequential</div>
-                  <p className="text-sm opacity-75">Design → Dev → Test (bottlenecks)</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: delay + 0.3 }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">😫</div>
-                <div className="flex-1">
-                  <div className="text-4xl font-black text-red-500/60 mb-2">Burnout</div>
-                  <p className="text-sm opacity-75">Manual iteration, repetitive work</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: delay + 0.4 }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">⚠️</div>
-                <div className="flex-1">
-                  <div className="text-4xl font-black text-red-500/60 mb-2">Risk</div>
-                  <p className="text-sm opacity-75">Long feedback loops, high failure rate</p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* AFTER */}
-          <div className="p-8 md:p-12 bg-gradient-to-br from-green-500/5 to-transparent">
-            <div className="text-xs tracking-widest opacity-60 mb-6 uppercase">After AI Integration</div>
-
-            <div className="space-y-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: delay + 0.2 }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">⚡</div>
-                <div className="flex-1">
-                  <div className="text-4xl font-black text-green-500 mb-2">3-4</div>
-                  <p className="text-sm opacity-75">Days to launch one game</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: delay + 0.3 }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">🎯</div>
-                <div className="flex-1">
-                  <div className="text-lg font-black text-green-500 mb-2">5+ games/month</div>
-                  <p className="text-xs opacity-75">60+ per year from team</p>
-                  <div className="flex gap-1 mt-2 flex-wrap">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, scale: 0 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: delay + 0.3 + i * 0.08 }}
-                        className="w-6 h-6 bg-green-500/40 rounded"
-                      />
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: delay + 0.4 }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">🔀</div>
-                <div className="flex-1">
-                  <div className="text-4xl font-black text-green-500 mb-2">Parallel</div>
-                  <p className="text-sm opacity-75">Figma Make + Codex work simultaneously</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: delay + 0.5 }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">🔥</div>
-                <div className="flex-1">
-                  <div className="text-4xl font-black text-green-500 mb-2">Energized</div>
-                  <p className="text-sm opacity-75">AI handles grunt work, team focuses on creativity</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: delay + 0.6 }}
-                className="flex items-start gap-4"
-              >
-                <div className="text-3xl">📊</div>
-                <div className="flex-1">
-                  <div className="text-4xl font-black text-green-500 mb-2">Data-Driven</div>
-                  <p className="text-sm opacity-75">Fast iteration = rapid user feedback loops</p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-
-        {/* Impact summary footer */}
-        <div className="border-t border-[color:var(--portfolio-border-strong)] p-8 md:p-12 bg-gradient-to-r from-green-500/5 via-transparent to-transparent">
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: delay + 0.6 }}
-              className="text-center"
-            >
-              <div className="text-4xl mb-3">🚀</div>
-              <div className="text-5xl font-black text-green-500 mb-2">95%</div>
-              <p className="text-sm opacity-75">Faster time to market</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: delay + 0.7 }}
-              className="text-center"
-            >
-              <div className="text-4xl mb-3">📈</div>
-              <div className="text-5xl font-black text-green-500 mb-2">10x</div>
-              <p className="text-sm opacity-75">More output from same team</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: delay + 0.8 }}
-              className="text-center"
-            >
-              <div className="text-4xl mb-3">🌌</div>
-              <div className="text-5xl font-black text-green-500 mb-2">∞</div>
-              <p className="text-sm opacity-75">Scalability potential unlocked</p>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </FadeUp>
-  );
-}
-
 // ── Section divider ───────────────────────────────────────────────
 function Divider() {
   return <div className="w-full h-[1px] bg-[var(--portfolio-border-strong)] my-16 md:my-24" />;
@@ -429,28 +104,19 @@ function VizQualityDilemma() {
     <div className="w-full h-full bg-[var(--portfolio-bg)] p-4 flex flex-col justify-center items-center">
       <div className="text-[10px] tracking-widest opacity-60 mb-3 self-start">QUALITY VS SPEED — THE OLD TRADE-OFF</div>
       <div className="relative w-full" style={{ aspectRatio: '16/9', maxHeight: '100%' }}>
-        {/* Axes */}
         <div className="absolute inset-0 flex flex-col">
-          {/* Y label */}
           <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 text-[9px] opacity-50 -rotate-90 whitespace-nowrap origin-center" style={{ left: '4px' }}>QUALITY ↑</div>
-          {/* X label */}
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-[9px] opacity-50">SPEED →</div>
-          {/* Grid lines */}
           <div className="absolute inset-4 grid grid-cols-2 grid-rows-2 gap-0">
-            {/* Top-left: Too slow */}
             <div className="border-r border-b flex items-center justify-center text-[10px] opacity-40" style={{ borderColor: 'var(--portfolio-border)' }}>Too Slow</div>
-            {/* Top-right: Sweet spot */}
             <div className="border-b flex items-center justify-center text-[10px] font-bold relative" style={{ borderColor: 'var(--portfolio-border)', background: 'rgba(34,197,94,0.08)' }}>
               <span style={{ color: '#22c55e' }}>Sweet Spot ✓</span>
-              {/* Dot */}
               <div className="absolute w-3 h-3 rounded-full border-2 flex items-center justify-center" style={{ borderColor: '#22c55e', background: 'rgba(34,197,94,0.2)', bottom: '30%', right: '30%' }}>
                 <div className="w-1.5 h-1.5 rounded-full" style={{ background: '#22c55e' }} />
               </div>
               <div className="absolute text-[8px] font-normal" style={{ color: '#22c55e', bottom: '22%', right: '8%' }}>AI Workflow</div>
             </div>
-            {/* Bottom-left: Neither */}
             <div className="border-r flex items-center justify-center text-[10px] opacity-40" style={{ borderColor: 'var(--portfolio-border)' }}>Neither</div>
-            {/* Bottom-right: Low quality */}
             <div className="flex items-center justify-center text-[10px] opacity-40">Low Quality</div>
           </div>
         </div>
@@ -473,15 +139,12 @@ function VizJourneyTimeline() {
       <div className="flex items-start gap-0 flex-1">
         {phases.map((p, i) => (
           <div key={p.label} className="flex-1 relative flex flex-col items-center">
-            {/* Connector line */}
             {i < phases.length - 1 && (
               <div className="absolute top-3 left-1/2 w-full h-[1px]" style={{ background: 'var(--portfolio-border-strong)' }} />
             )}
-            {/* Node */}
             <div className="w-6 h-6 rounded-full border-2 z-10 flex items-center justify-center shrink-0" style={{ borderColor: i === phases.length - 1 ? '#22c55e' : 'var(--portfolio-border-strong)', background: 'var(--portfolio-bg)' }}>
               <div className="w-2 h-2 rounded-full" style={{ background: i === phases.length - 1 ? '#22c55e' : 'var(--portfolio-fg)', opacity: 0.4 + i * 0.15 }} />
             </div>
-            {/* Labels */}
             <div className="mt-3 text-center px-1">
               <div className={`text-[9px] font-bold mb-1 ${p.color}`}>{p.label}</div>
               <div className="text-[8px] opacity-40 mb-1">{p.week}</div>
@@ -490,7 +153,7 @@ function VizJourneyTimeline() {
           </div>
         ))}
       </div>
-      <div className="mt-4 text-center text-[10px] opacity-50">80% reduction in cycle time</div>
+      <div className="mt-4 text-center text-[10px] opacity-50">80% reduction in cycle time · Games 1–4 avg 6 days · Games 7–10 avg 3 days</div>
     </div>
   );
 }
@@ -522,7 +185,7 @@ function VizAIWorkflow() {
       </div>
       <div className="mt-4 flex justify-between text-[9px] opacity-50">
         <span>Old workflow: 8–10 weeks</span>
-        <span style={{ color: '#22c55e' }}>New: 16 hrs total ↓ 95%</span>
+        <span style={{ color: '#22c55e' }}>New: 16 hrs total — 95% faster</span>
       </div>
     </div>
   );
@@ -657,8 +320,8 @@ function VizQualityConsistency() {
   const max = 100;
   return (
     <div className="w-full h-full bg-[var(--portfolio-bg)] p-5 flex flex-col">
-      <div className="text-[10px] tracking-widest opacity-60 mb-1">QUALITY SCORE — ALL 10 GAMES</div>
-      <div className="text-[9px] opacity-40 mb-3">Faster cycles improved quality, not reduced it</div>
+      <div className="text-[10px] tracking-widest opacity-60 mb-1">QUALITY SCORE — ALL 10 GAMES (CHRONOLOGICAL)</div>
+      <div className="text-[9px] opacity-40 mb-3">Faster cycles improved quality, not reduced it — avg score rose from 72 → 95 over the campaign</div>
       <div className="flex items-end gap-1.5 flex-1">
         {games.map((g, i) => (
           <div key={g} className="flex-1 flex flex-col items-center gap-1">
@@ -668,7 +331,7 @@ function VizQualityConsistency() {
           </div>
         ))}
       </div>
-      <div className="mt-2 text-[9px] opacity-40 text-center">Avg quality: 82/100 · Top performers: BDSM 88, Dharmik 89, Metro 95</div>
+      <div className="mt-2 text-[9px] opacity-40 text-center">Avg quality: 82/100 · Peak: Metro Dash 95 · Trend: consistently improving</div>
     </div>
   );
 }
@@ -693,7 +356,7 @@ function VizFailedExperiments() {
           </div>
         ))}
       </div>
-      <div className="mt-3 text-[9px] opacity-40">3 months of experiments → 1 winning formula: Figma Make + Codex in parallel</div>
+      <div className="mt-3 text-[9px] opacity-40">3 weeks of experiments → 1 winning formula: Figma Make + Codex in parallel</div>
     </div>
   );
 }
@@ -734,49 +397,6 @@ function ChallengeCard({
         <div className="p-6 md:p-8">
           <div className="text-xs tracking-widest opacity-60 mb-4">{number}</div>
           <h3 className="text-xl md:text-2xl font-bold mb-4 tracking-tight">{title}</h3>
-          <p className="text-sm md:text-base opacity-75 leading-relaxed">{description}</p>
-        </div>
-      </div>
-    </FadeUp>
-  );
-}
-
-// ── Feature card ──────────────────────────────────────────────────
-function FeatureCard({
-  number,
-  title,
-  description,
-  imageUrl,
-  visualization,
-  delay = 0,
-}: {
-  number: string;
-  title: string;
-  description: string;
-  imageUrl?: string;
-  visualization?: React.ReactNode;
-  delay?: number;
-}) {
-  return (
-    <FadeUp delay={delay}>
-      <div className="border border-[color:var(--portfolio-border-strong)] hover:border-[color:var(--portfolio-border-strong)] transition-colors duration-500 overflow-hidden">
-        {visualization ? (
-          <div className="border-b border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden flex items-center justify-center">
-            {visualization}
-          </div>
-        ) : (
-          <CaseImage
-            src={imageUrl}
-            alt={`${title}`}
-            label={`INSERT: ${title.toUpperCase()}`}
-            aspect="16/9"
-            className="border-b border-[color:var(--portfolio-border-strong)]"
-            contain
-          />
-        )}
-        <div className="p-6 md:p-8">
-          <div className="text-xs tracking-widest opacity-60 mb-4">{number}</div>
-          <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight">{title}</h3>
           <p className="text-sm md:text-base opacity-75 leading-relaxed">{description}</p>
         </div>
       </div>
@@ -852,9 +472,6 @@ function CaseImage({
 }
 
 // ── Game Metrics Dashboard ────────────────────────────────────────
-// Event data source: real analytics from magicpin gaming campaign (Feb–Apr 2026)
-// DAU derived from landing events ÷ 14-day active window per game
-// Engagement score: composite of start-rate, completion-rate, play-again-rate, share-rate
 const GAMES_DATA = [
   { id: 0, name: 'Predict & Win',       short: 'Predict',   date: 'Feb 3',  emoji: '🏏', engagement: 68, dau: '28K', dauPct: 100, retention: 38, devDays: 8, quality: 72, image: '/games/predict-win.png' },
   { id: 1, name: 'Rizz Meter',         short: 'Rizz',      date: 'Feb 10', emoji: '💘', engagement: 82, dau: '10K', dauPct: 36,  retention: 52, devDays: 6, quality: 83, image: '/games/rizz-meter.png' },
@@ -868,10 +485,8 @@ const GAMES_DATA = [
   { id: 9, name: 'Metro Dash',         short: 'Metro',     date: 'Apr 7',  emoji: '🚇', engagement: 93, dau: '22K', dauPct: 79,  retention: 68, devDays: 3, quality: 95, image: '/games/metro-dash.png' },
 ];
 
-/// Quality ranking: low → high  (Flappy < Cricket < Holi < Pre-Val < Border < Rizz < Dhura < Seek < Dharmik < Metro)
 const QUALITY_ORDER = [0, 7, 5, 2, 3, 1, 4, 6, 8, 9];
 
-// Weekly avg engagement score across all active games — Valentine's dip in W4 Feb, festival recovery in Mar
 const WEEKLY_TREND = [
   { week: 'W1 Feb', engagement: 62 },
   { week: 'W2 Feb', engagement: 71 },
@@ -1015,7 +630,6 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
             <div className="flex items-end gap-1.5 h-20">
               {WEEKLY_TREND.map((w, i) => (
                 <div key={w.week} className="flex-1 flex flex-col items-center gap-1.5">
-                  {/* track */}
                   <div className="w-full rounded-sm flex flex-col justify-end" style={{ height: '80px', background: 'var(--portfolio-border-strong)' }}>
                     <motion.div
                       className="w-full rounded-sm bg-green-500"
@@ -1076,19 +690,6 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
     </FadeUp>
   );
 }
-
-// ── Image placeholders ─────────────────────────────────────────────
-const IMG: Record<string, string | undefined> = {
-  heroMockup: undefined, // INSERT: Hero mockup showing AI game design workflow
-  timeline: undefined, // INSERT: Timeline showing 2 months → 2 weeks → 3-4 days
-  beforeAfter: undefined, // INSERT: Before and after comparison of game design speed
-  engagement: undefined, // INSERT: Engagement metrics chart (10x increase)
-  workflow: undefined, // INSERT: AI workflow diagram (Figma Make + Codex integration)
-  gameExamples: undefined, // INSERT: Screenshots of games created with new workflow
-  metrics: undefined, // INSERT: Detailed metrics dashboard
-  figmaScreen: undefined, // INSERT: Figma design interface screenshot
-  codexIntegration: undefined, // INSERT: Codex integration example
-};
 
 // ── MAIN PAGE ────────────────────────────────────────────────────
 export default function AIGameDesignCaseStudy() {
@@ -1154,11 +755,11 @@ export default function AIGameDesignCaseStudy() {
         <section className="pt-20 md:pt-44 pb-16 md:pb-24">
           <FadeUp>
             <div className="flex flex-wrap gap-6 mb-10 text-xs tracking-widest opacity-65">
-              <span>2026</span>
+              <span>FEB–APR 2026</span>
               <span>·</span>
-              <span>GAME DESIGN & AI INTEGRATION</span>
+              <span>MAGICPIN</span>
               <span>·</span>
-              <span>PRODUCT INNOVATION</span>
+              <span>LEAD PRODUCT DESIGNER</span>
             </div>
           </FadeUp>
 
@@ -1170,47 +771,56 @@ export default function AIGameDesignCaseStudy() {
 
           <FadeUp delay={0.2}>
             <p className="text-lg md:text-2xl max-w-3xl leading-relaxed opacity-75">
-              How we reduced game development time by 80% while increasing user engagement 10x
-              by integrating AI tools into our design and development workflow.
+              10 original games shipped in 10 weeks. A team of 2 designers, a weekly release cadence,
+              and an AI workflow that changed how we think about creative velocity — and what quality actually requires.
             </p>
           </FadeUp>
         </section>
 
-        {/* ── HERO IMPACT TRANSFORMATION ── */}
-        <FadeUp>
-          <ImpactTransformationHero delay={0.3} />
-        </FadeUp>
-
         <Divider />
 
-        {/* ── IMPACT METRICS ── */}
+        {/* ── SITUATION ── */}
         <section>
           <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">IMPACT</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              THE NUMBERS THAT<br />CHANGED EVERYTHING
+            <div className="text-xs tracking-widest opacity-65 mb-4">THE SITUATION</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
+              ONE GAME.<br />EVERY WEEK.
             </h2>
           </FadeUp>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-            <StatCard number="80%" label="Reduction in development time (2 months → 3-4 days)" delay={0} />
-            <StatCard number="10x" label="Increase in user engagement metrics" delay={0.05} />
-            <StatCard number="4x" label="Faster iteration cycles with AI design tools" delay={0.1} />
-            <StatCard number="2" label="Designers now handling production for entire studio" delay={0.15} />
-            <StatCard number="95%" label="Maintained quality despite dramatic speed increase" delay={0.2} />
-            <StatCard number="∞" label="Scalability potential with AI-first workflow" delay={0.25} />
-          </div>
-
-          <FadeUp delay={0.3} className="mt-10">
-            <div className="p-4 md:p-6" style={{ border: '1px solid var(--portfolio-border)' }}>
-              <div className="grid md:grid-cols-2 gap-4">
-                <TimelineComparison />
-                <EngagementMetrics />
+          <div className="grid md:grid-cols-2 gap-12 mb-12">
+            <FadeUp delay={0.1}>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75 mb-6">
+                magicPin ran a gaming campaign from Feb to Apr 2026 — 10 original mobile games, one released
+                every week. Each game had to be culturally relevant to what was happening in India at that
+                exact moment: IPL season, Holi, trending memes, festivals.
+              </p>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75">
+                The relevance window for a culturally-tied game is roughly 5 days. Miss it and the game
+                ships into silence. The team was 2 designers. And the traditional dev cycle for a game was 8 weeks.
+              </p>
+            </FadeUp>
+            <FadeUp delay={0.2}>
+              <div className="space-y-3">
+                {[
+                  { label: '1 game / week', sub: 'Fixed release cadence — no slippage allowed' },
+                  { label: '~5 day relevance window', sub: 'Cultural moment expires fast — late = irrelevant' },
+                  { label: '2 designers, no dedicated dev', sub: 'Design, assets, coordination, QA — all on us' },
+                  { label: '10 distinct cultural moments', sub: 'Each game needed its own concept, mechanic, tone' },
+                ].map((c, i) => (
+                  <FadeUp key={c.label} delay={0.1 + i * 0.05}>
+                    <div className="flex gap-4 items-start p-4 border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                      <div className="text-xs font-black mt-0.5 shrink-0" style={{ color: '#ef4444' }}>↑</div>
+                      <div>
+                        <div className="text-sm font-semibold mb-0.5">{c.label}</div>
+                        <div className="text-xs opacity-55">{c.sub}</div>
+                      </div>
+                    </div>
+                  </FadeUp>
+                ))}
               </div>
-            </div>
-          </FadeUp>
-
-          <GameMetricsDashboard delay={0.5} />
+            </FadeUp>
+          </div>
         </section>
 
         <Divider />
@@ -1220,51 +830,51 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE CHALLENGE</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
-              SPEED VS. QUALITY:<br />THE IMPOSSIBLE TRADE-OFF
+              FOUR WALLS<br />CLOSING IN
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              Traditional game design forced an uncomfortable choice: deliver fast or deliver well.
-              We needed both.
+              The campaign brief was clear. The math was not. Traditional workflow made this impossible —
+              we needed to find a different way before the first game dropped.
             </p>
           </FadeUp>
 
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
             <ChallengeCard
               number="01"
-              title="Timeline Pressure"
-              description="Traditional development cycles ranged from 1-2 months per game, yet user engagement metrics showed that fresh, high-quality games were critical to business performance. Management demanded more games, faster."
+              title="The Timeline Was Impossible"
+              description="Traditional game dev averaged 8 weeks per game. 10 games at that rate would take 80 weeks — the year only has 52. Even at peak efficiency with the old workflow, this campaign was mathematically impossible without a fundamentally different approach."
               visualization={<VizTimelinePressure />}
               delay={0}
             />
             <ChallengeCard
               number="02"
-              title="Quality Compromise"
-              description="When the team pushed to deliver faster, quality suffered. Designs became less polished, interactions less intuitive, and user engagement plateaued. We were cutting corners just to meet timelines."
+              title="Speed Was Breaking Quality"
+              description="Early attempts to accelerate showed a consistent pattern: games shipped fast had high Day 1 numbers, but weak Day 3 retention. Speed was creating novelty, not habit. We were making disposable experiences — good for a spike, useless for a campaign."
               visualization={<VizQualityDilemma />}
               delay={0.05}
             />
             <ChallengeCard
               number="03"
-              title="Resource Constraints"
-              description="A small design and engineering team was burning out trying to handle all the workload. Hiring alone wouldn't solve the problem—we needed a fundamentally different approach."
+              title="The Team Was Already Over Capacity"
+              description="Two designers covering game design, asset creation, dev coordination, QA, and analytics review simultaneously. At traditional task allocation, 3 of 5 work areas ran above 100% capacity. Hiring wasn't the answer — headcount can't solve a process problem."
               visualization={<VizResourceConstraints />}
               delay={0.1}
             />
             <ChallengeCard
               number="04"
-              title="The Core Problem"
-              description="Manual design iteration and handoffs between design and development were the bottlenecks. Every change required redesign, developer re-implementation, and testing. Speed and quality were locked in opposition."
+              title="Handoffs Were the Hidden Cost"
+              description="Sequential design → review → handoff → dev → QA meant every single revision restarted the clock. With a 7-day window, one round of back-and-forth consumed 20% of the entire cycle — before a pixel of the actual game had changed."
               visualization={<VizCoreProblem />}
               delay={0.15}
             />
           </div>
 
-          {/* GOAL */}
           <FadeUp delay={0.2} className="mt-12">
-            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12 bg-[var(--portfolio-fg)]/[0.02]">
-              <div className="text-xs tracking-widest opacity-65 mb-4">THE GOAL</div>
+            <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
+              <div className="text-xs tracking-widest opacity-65 mb-4">HOW MIGHT WE</div>
               <p className="text-2xl md:text-4xl font-bold leading-tight opacity-90">
-                Deliver high-quality, engaging games faster—without cutting corners, without burning out the team, and without sacrificing the user experience that drives business value.
+                "How might we design and ship a culturally relevant game every week — without the quality
+                that drives Day 3 retention being the thing we trade away for speed?"
               </p>
             </div>
           </FadeUp>
@@ -1272,12 +882,12 @@ export default function AIGameDesignCaseStudy() {
 
         <Divider />
 
-        {/* ── THE TURNING POINT ── */}
+        {/* ── THE APPROACH ── */}
         <section>
           <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">TRANSFORMATION</div>
+            <div className="text-xs tracking-widest opacity-65 mb-4">THE APPROACH</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              WHEN AI BECAME<br />THE ANSWER
+              FINDING THE<br />WORKFLOW
             </h2>
           </FadeUp>
 
@@ -1285,37 +895,37 @@ export default function AIGameDesignCaseStudy() {
             {[
               {
                 step: '01',
-                title: 'Experimentation Phase',
-                body: 'We started experimenting with various AI tools—Stitch, Lovable, Codex. Some worked well, others didn\'t. But we learned that AI wasn\'t a magic bullet; it was a tool that required strategic integration into our workflow.',
+                title: 'Audit the Bottleneck First',
+                body: 'Before touching any tool, we mapped where time actually went. The answer wasn\'t design — it was the gaps between design and everything else. Handoff, review cycles, and context-switching between design and dev were consuming more hours than the creative work itself.',
               },
               {
                 step: '02',
-                title: 'Strategic Pivot',
-                body: 'The turning point came when we realized the real power wasn\'t in any single AI tool, but in combining them strategically. Figma Make for design acceleration + Codex for intelligent development could compress the entire cycle.',
+                title: 'Tool Experimentation — 3 Weeks, 5 Tools',
+                body: 'We ran structured experiments with every relevant AI tool: Stitch, Lovable, Cursor, Figma Make, Codex. Each got a real game brief and a 2-day trial. Most failed for specific reasons — wrong abstraction level, no mobile support, too opinionated about output format. We killed them fast.',
               },
               {
                 step: '03',
-                title: 'Workflow Redesign',
-                body: 'We fundamentally redesigned how the team worked. Instead of sequential design → development → testing, we created a parallel workflow where AI assisted at every stage simultaneously.',
+                title: 'The Breakthrough: Parallel, Not Sequential',
+                body: 'The winning insight wasn\'t any single tool — it was running Figma Make and Codex simultaneously rather than one feeding the other. Design and dev happening in parallel, both working from the same brief, meant the handoff moment nearly disappeared. Changes in Figma propagated to the build without a formal handoff cycle.',
               },
               {
                 step: '04',
-                title: 'Early Wins',
-                body: 'Our first few games using the new workflow showed immediate promise. Development time dropped to 2 weeks. Engagement metrics climbed. The team was energized, not exhausted.',
+                title: 'Codifying the Process',
+                body: 'Once the workflow was proven on Game 5 (Dhurandhargiri — 3.5 days, strong metrics), we documented it in detail. Brief format, Figma Make prompting conventions, Codex integration patterns, QA checklist. The goal: any team member should be able to pick it up without a handover conversation.',
               },
               {
                 step: '05',
-                title: 'Iteration & Refinement',
-                body: 'We continued optimizing the workflow. Some games didn\'t perform as expected, but we iterated quickly. Within months, we had reduced the cycle from 2 months to just 3-4 days.',
+                title: 'Mid-Campaign Brief Change',
+                body: 'After Game 3, data showed a clear problem: Day 1 engagement was strong, Day 3 retention was weak. We were optimising for the wrong metric. We changed the brief mid-campaign — every game from Game 4 onwards was designed for Day 3 return, not Day 1 spike. That meant progression mechanics, save states, and social sharing at achievement moments, not just at game-over.',
               },
               {
                 step: '06',
-                title: 'Scaling the Model',
-                body: 'The workflow became our standard. Just two designers now manage production for the entire studio. Quality remains high. Engagement keeps climbing. The model scales.',
+                title: 'Stable Cadence by Game 7',
+                body: 'By the BDSM Room (Game 7), the workflow was stable at 3 days per game — consistently. Quality was improving each iteration, not declining. The last 3 games averaged a quality score of 93/100 vs 77/100 for the first 3. Faster cycles and better quality at the same time.',
               },
             ].map((item, i) => (
               <FadeUp key={item.step} delay={i * 0.05}>
-                <div className="border-t border-[color:var(--portfolio-border-strong)] py-8 grid md:grid-cols-[120px_1fr] gap-4 md:gap-12">
+                <div className="border-t py-8 grid md:grid-cols-[120px_1fr] gap-4 md:gap-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
                   <div className="text-xs tracking-widest opacity-60 pt-1">{item.step}</div>
                   <div>
                     <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight">{item.title}</h3>
@@ -1326,12 +936,22 @@ export default function AIGameDesignCaseStudy() {
             ))}
           </div>
 
-          {/* Transformation Journey Visualization */}
+          {/* Tool evaluation */}
           <FadeUp delay={0.35} className="mt-12">
-            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12">
-              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Transformation Timeline with Milestones</h3>
-              <div className="border border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden">
-                <VizJourneyTimeline />
+            <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">What We Tried Before Finding the Answer</h3>
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizFailedExperiments />
+              </div>
+            </div>
+          </FadeUp>
+
+          {/* 5-stage process */}
+          <FadeUp delay={0.4} className="mt-6">
+            <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">The 5-Stage AI-First Process</h3>
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizFiveStageProcess />
               </div>
             </div>
           </FadeUp>
@@ -1339,13 +959,141 @@ export default function AIGameDesignCaseStudy() {
 
         <Divider />
 
-        {/* ── INTERACTIVE WORKFLOW ── */}
-        <section className="pb-24">
+        {/* ── THE GAMES ── */}
+        <section>
           <FadeUp>
-            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-[var(--portfolio-fg)]/[0.02]">
+            <div className="text-xs tracking-widest opacity-65 mb-4">THE CAMPAIGN</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
+              10 WEEKS,<br />10 GAMES
+            </h2>
+            <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
+              Real data from every game. Select any game to see engagement, DAU, retention, quality, and
+              dev efficiency. Watch the numbers improve as the workflow matured — faster cycles, better output.
+            </p>
+          </FadeUp>
+
+          <GameMetricsDashboard delay={0.1} />
+        </section>
+
+        <Divider />
+
+        {/* ── KEY DECISIONS ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">KEY DECISIONS</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
+              THREE BETS THAT<br />SHAPED THE CAMPAIGN
+            </h2>
+            <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
+              Not tool choices — design decisions. Each one had a real cost and a clear reason.
+            </p>
+          </FadeUp>
+
+          <div className="space-y-0 mb-12">
+            {[
+              {
+                number: '01',
+                title: 'Parallel Workflow Over Sequential',
+                decision: 'Run Figma Make and Codex simultaneously from the same brief, rather than design feeding dev in sequence. Both working in parallel, converging at QA.',
+                tradeoff: 'Required tighter brief discipline. If the brief was ambiguous, parallel work diverged expensively — you\'d get design and dev going in different directions. Brief quality became a forcing function.',
+                outcome: 'Cut cycle time from 8 weeks to 3–4 days. The handoff moment effectively disappeared. Engineering rework dropped to near zero on games 7–10.',
+              },
+              {
+                number: '02',
+                title: 'Changing the Metric Mid-Campaign',
+                decision: 'After Game 3 showed weak Day 3 retention despite strong Day 1 numbers, we changed the brief. Every game from Game 4 onwards was explicitly designed for D3 return — progression mechanics, save states, social triggers at achievement moments.',
+                tradeoff: 'Games got marginally more complex to brief and design. Some stakeholders pushed back on the metric shift — they were tracking Day 1 reach, not Day 3 retention. Had to make the case that novelty spikes don\'t compound but retention does.',
+                outcome: 'Metro Dash hit 68% D3 retention vs 38% on Game 1. Same DAU ceiling, completely different product behaviour. The campaign ended with a habit-forming game rather than a series of novelty experiences.',
+              },
+              {
+                number: '03',
+                title: 'Cultural Relevance as a Mechanic, Not a Skin',
+                decision: 'Stopped applying culture as a theme layered on top of a generic game structure. Started treating the cultural moment as a design constraint — the game mechanics themselves had to express the moment.',
+                tradeoff: 'Harder to concept and harder to brief engineers unfamiliar with the cultural context. Required more research upfront per game. Some briefs took longer to write than early games took to build.',
+                outcome: 'Highest engagement scores correlated directly with cultural accuracy. Her Holi Game (91%) and The BDSM Room (92%) — both built around culturally specific mechanics — outperformed games where culture was applied as a visual skin.',
+              },
+            ].map((item, i) => (
+              <FadeUp key={item.number} delay={i * 0.06}>
+                <div className="border-t py-10 grid md:grid-cols-[120px_1fr] gap-4 md:gap-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                  <div className="text-xs tracking-widest opacity-60 pt-1">{item.number}</div>
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-bold mb-6 tracking-tight">{item.title}</h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <div>
+                        <div className="text-xs tracking-widest opacity-65 mb-2">DECISION</div>
+                        <p className="text-sm opacity-75 leading-relaxed">{item.decision}</p>
+                      </div>
+                      <div>
+                        <div className="text-xs tracking-widest opacity-65 mb-2">TRADE-OFF</div>
+                        <p className="text-sm opacity-75 leading-relaxed">{item.tradeoff}</p>
+                      </div>
+                      <div>
+                        <div className="text-xs tracking-widest mb-2" style={{ color: '#22c55e' }}>OUTCOME</div>
+                        <p className="text-sm opacity-75 leading-relaxed">{item.outcome}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+
+          {/* Quality trend — shows the decisions compounding */}
+          <FadeUp delay={0.2}>
+            <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <h3 className="text-lg md:text-xl font-bold mb-2 tracking-tight">Quality Across the Campaign</h3>
+              <p className="text-sm opacity-60 mb-6">Faster cycles improved quality — not despite speed, because of it. More iterations means more learning.</p>
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizQualityConsistency />
+              </div>
+            </div>
+          </FadeUp>
+        </section>
+
+        <Divider />
+
+        {/* ── THE WORKFLOW ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">THE PROCESS</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
+              HOW WE<br />WORK NOW
+            </h2>
+            <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
+              The workflow that came out of this campaign is now documented and used to onboard new designers
+              and collaborators into the game design process. It covers the full cycle — from brief to ship —
+              with AI tool integration annotated at every step.
+            </p>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <FadeUp delay={0.1}>
+              <div className="border p-8" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <h3 className="text-base font-bold mb-4 tracking-tight">16-Hour Game Cycle</h3>
+                <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                  <VizAIWorkflow />
+                </div>
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.15}>
+              <div className="border p-8" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <h3 className="text-base font-bold mb-4 tracking-tight">Campaign Journey — 10 Weeks</h3>
+                <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                  <VizJourneyTimeline />
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+
+          <FadeUp delay={0.2}>
+            <div className="border p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6" style={{ borderColor: 'var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
               <div>
-                <p className="text-xs tracking-widest opacity-65 mb-2">INTERACTIVE</p>
-                <p className="text-2xl md:text-3xl font-bold tracking-tight opacity-85">Explore the Game Design Workflow</p>
+                <p className="text-xs tracking-widest opacity-65 mb-2">PROCESS DOCUMENT</p>
+                <p className="text-2xl md:text-3xl font-bold tracking-tight opacity-85">Full Game Design Workflow</p>
+                <p className="text-sm opacity-60 mt-2 max-w-md leading-relaxed">
+                  The living process document used for team onboarding and cross-functional briefing.
+                  Covers brief → Figma Make → parallel dev → QA → ship, with AI tool guidance at each step.
+                </p>
               </div>
               <button
                 onClick={() => setShowWorkflow(true)}
@@ -1360,121 +1108,36 @@ export default function AIGameDesignCaseStudy() {
 
         <Divider />
 
-        {/* ── THE AI-DRIVEN WORKFLOW ── */}
-        <section>
-          <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">METHODOLOGY</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
-              HOW THE<br />WORKFLOW WORKS
-            </h2>
-          </FadeUp>
-
-          <FadeUp delay={0.1} className="mb-12">
-            <div className="border border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden">
-              <VizAIWorkflow />
-            </div>
-          </FadeUp>
-
-          {/* Workflow Process Visualization */}
-          <FadeUp delay={0.15} className="mb-12">
-            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12">
-              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Complete Workflow Process</h3>
-              <div className="border border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden">
-                <VizFiveStageProcess />
-              </div>
-            </div>
-          </FadeUp>
-
-          <div className="space-y-6">
-            {[
-              {
-                title: 'Figma Make Integration',
-                body: 'Designers now use AI-powered Figma Make to generate game assets, UI components, and level layouts in real-time. What used to take hours of manual creation now happens in minutes. Predictive design suggestions accelerate iteration.',
-              },
-              {
-                title: 'Parallel Design & Development',
-                body: 'Instead of waiting for final designs, developers use Codex to generate functional code scaffolds directly from design files. Changes in Figma automatically propagate. The design-to-code handoff disappears.',
-              },
-              {
-                title: 'Rapid Prototyping',
-                body: 'Initial game prototypes can be created and tested in 2-3 days instead of weeks. High-fidelity mockups become interactive experiences almost immediately, allowing for faster user feedback and iteration.',
-              },
-              {
-                title: 'AI-Assisted QA',
-                body: 'Automated testing catches bugs faster. Engagement analytics feed back into the design loop in real-time, showing exactly what parts of each game drive user engagement.',
-              },
-              {
-                title: 'Continuous Iteration',
-                body: 'With such a short cycle, we can release, measure, iterate, and re-release in days instead of months. Continuous improvement becomes the default.',
-              },
-            ].map((item, i) => (
-              <FadeUp key={item.title} delay={i * 0.04}>
-                <div className="border-t border-[color:var(--portfolio-border-strong)] py-8 grid md:grid-cols-[1fr_2fr] gap-4 md:gap-12">
-                  <h3 className="text-lg md:text-xl font-bold tracking-tight">{item.title}</h3>
-                  <p className="opacity-75 leading-relaxed text-sm md:text-base">{item.body}</p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-        </section>
-
-        <Divider />
-
-        {/* ── RESULTS & IMPACT ── */}
+        {/* ── OUTCOMES ── */}
         <section>
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">OUTCOMES</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              WHAT CHANGED<br />IN PRACTICE
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
+              WHAT THE<br />NUMBERS SAY
             </h2>
+            <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
+              Metrics from the full 10-week campaign. Baseline from the previous game design cycle (2023)
+              before AI workflow was introduced.
+            </p>
           </FadeUp>
 
-          {/* Game Performance Dashboard */}
-          <div className="mb-12">
-            <GameMetricsDashboard delay={0.05} />
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-10">
+            <StatCard number="22K" label="Peak DAU — Metro Dash, Apr 2026" delay={0} />
+            <StatCard number="68%" label="D3 retention on Metro Dash vs 38% on Game 1" delay={0.05} />
+            <StatCard number="3 days" label="Stable dev cycle from Game 7 onwards" delay={0.1} />
+            <StatCard number="95/100" label="Quality score on Metro Dash — campaign peak" delay={0.15} />
+            <StatCard number="82 avg" label="Average quality score across all 10 games" delay={0.2} />
+            <StatCard number="+62%" label="Engagement growth across the 8-week campaign" delay={0.25} />
           </div>
 
-          <div className="grid gap-6">
-            <FeatureCard
-              number="01"
-              title="Speed: 2 Months → 3-4 Days"
-              description="The most dramatic change. What took 60+ days in the old workflow now takes 3-4 days. This 95% time reduction came without sacrificing quality—in fact, quality improved."
-              visualization={<VizAIWorkflow />}
-              delay={0}
-            />
-
-            <FeatureCard
-              number="02"
-              title="Engagement: 10x Increase"
-              description="More games + higher quality = massively higher engagement. User metrics show 10x increase in overall engagement compared to the pre-AI period. Games now launch, iterate, and improve at the speed of user feedback."
-              visualization={<VizJourneyTimeline />}
-              delay={0.05}
-            />
-
-            <FeatureCard
-              number="03"
-              title="Team Efficiency: 2 Designers, Full Studio"
-              description="A lean team of two designers now manages game production for the entire studio. The AI tools handle the repetitive, time-consuming work. Designers focus on strategy, innovation, and user experience."
-              visualization={<VizTeamEfficiency />}
-              delay={0.1}
-            />
-
-            <FeatureCard
-              number="04"
-              title="Quality Consistency"
-              description="Counter-intuitively, faster development led to better quality. AI tools eliminated bottlenecks and enabled more iteration cycles. Every game is more polished than before."
-              visualization={<VizQualityConsistency />}
-              delay={0.15}
-            />
-
-            <FeatureCard
-              number="05"
-              title="Failed Experiments → Learning"
-              description="Not every game succeeded. A couple underperformed. But because the cycle is so fast, we iterate quickly, learn what works, and move on. Failure is now a feature of continuous improvement, not a setback."
-              visualization={<VizFailedExperiments />}
-              delay={0.2}
-            />
-          </div>
+          <FadeUp delay={0.3}>
+            <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Before vs. After — Team Output</h3>
+              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <VizTeamEfficiency />
+              </div>
+            </div>
+          </FadeUp>
         </section>
 
         <Divider />
@@ -1482,7 +1145,7 @@ export default function AIGameDesignCaseStudy() {
         {/* ── LEARNINGS ── */}
         <section>
           <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">KEY INSIGHTS</div>
+            <div className="text-xs tracking-widest opacity-65 mb-4">LEARNINGS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
               WHAT WE<br />LEARNED
             </h2>
@@ -1490,66 +1153,71 @@ export default function AIGameDesignCaseStudy() {
 
           <div className="grid md:grid-cols-3 gap-4 md:gap-6">
             <LearningCard
-              title="AI is a Force Multiplier, Not a Replacement"
-              body="AI didn't replace designers or developers. It amplified their capabilities, removing drudgery and enabling higher-order creative thinking."
+              title="Design for Day 3, Not Day 1"
+              body="Day 1 numbers measure reach and novelty — they're easy to hit. Day 3 retention measures whether you made something worth returning to. Those require different design decisions: progression, save states, social triggers at achievement moments. We only got there by changing the metric we optimised for."
               delay={0}
             />
             <LearningCard
-              title="Integration Matters More Than Individual Tools"
-              body="No single AI tool was the game-changer. The magic came from strategic integration—Figma Make + Codex + analytics working in concert."
+              title="AI Gives You More Options, Not Better Judgment"
+              body="AI compressed the time between idea and prototype. It made the volume of options cheap. But which direction serves the user, which mechanic is actually fun, whether the cultural moment is being expressed or just referenced — none of that changed. Faster cycles made the judgment harder, not easier. You have to be more decisive when options are abundant."
               delay={0.05}
             />
             <LearningCard
-              title="Speed Enables Quality"
-              body="Counter-intuitive insight: faster cycles don't reduce quality. They improve it. More iterations = better outcomes. Longer cycles entrench bad decisions."
+              title="Cultural Relevance Is a Mechanic, Not a Skin"
+              body="Games that performed best treated the cultural moment as a design constraint, not a theme. The mechanic itself had to express the moment. When we applied culture as a visual layer on a generic game structure, engagement reflected it — and not positively. The insight applies beyond games: relevance has to be structural, not decorative."
               delay={0.1}
-            />
-            <LearningCard
-              title="Workflow Redesign > Tool Selection"
-              body="Adopting AI was less about picking the right tools and more about fundamentally rethinking how the team worked together."
-              delay={0.15}
-            />
-            <LearningCard
-              title="Data Drives Iteration"
-              body="With rapid release cycles, engagement data became our best designer. We now design based on user behavior, not assumptions."
-              delay={0.2}
-            />
-            <LearningCard
-              title="Team Morale Improves With Automation"
-              body="Removing repetitive work energized the team. Designers are excited again—they focus on strategy, not grunt work."
-              delay={0.25}
             />
           </div>
         </section>
 
         <Divider />
 
-        {/* ── CONCLUSION ── */}
+        {/* ── WHAT'S NEXT ── */}
         <section className="pb-24 md:pb-32">
           <FadeUp>
-            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12 bg-[var(--portfolio-fg)]/[0.02]">
-              <div className="text-xs tracking-widest opacity-65 mb-4">REFLECTION</div>
-              <p className="text-2xl md:text-3xl font-bold leading-tight opacity-85 mb-6">
-                This journey proved that AI isn't about replacing human creativity—it's about amplifying it.
-              </p>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75">
-                By thoughtfully integrating AI into our workflow, we didn't just make games faster. We made better games, with a happier team, serving more engaged users. The future of game design isn't "AI versus humans." It's humans empowered by AI, working at the speed of thought.
-              </p>
+            <div className="text-xs tracking-widest opacity-65 mb-8">WHAT'S NEXT</div>
+            <p className="text-lg opacity-75 max-w-2xl mb-8 leading-relaxed">
+              Three directions the campaign data is pointing to — each grounded in what we learned across 10 iterations.
+            </p>
+            <div className="grid md:grid-cols-3 gap-4 mb-16">
+              {[
+                {
+                  hypothesis: 'Longer-form games will outperform weekly drops for retention',
+                  rationale: 'Campaign data shows diminishing novelty returns after week 8. The next experiment is a 4-week evolving game arc — same product, new mechanics unlocking weekly — rather than fresh games every 7 days.',
+                  status: 'In planning',
+                },
+                {
+                  hypothesis: 'Cross-platform will 3x reach without new design work',
+                  rationale: 'Games are currently mobile-only. The Figma Make + Codex workflow produces web-compatible code. Distributing to web with the same codebase is in prototype — no additional design work required.',
+                  status: 'Prototype',
+                },
+                {
+                  hypothesis: 'This workflow generalises beyond games',
+                  rationale: 'The parallel Figma Make + Codex model was built for weekly game sprints but the constraint structure — tight brief, parallel execution, data-driven iteration — applies to any high-velocity design sprint. Testing on merchant landing page production next.',
+                  status: 'Exploratory',
+                },
+              ].map((item, i) => (
+                <FadeUp key={item.hypothesis} delay={i * 0.05}>
+                  <div className="border-t pt-6" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                    <div className="text-xs tracking-widest opacity-65 mb-3">{item.status.toUpperCase()}</div>
+                    <p className="text-sm font-semibold mb-3 leading-snug opacity-90">{item.hypothesis}</p>
+                    <p className="text-xs opacity-60 leading-relaxed">{item.rationale}</p>
+                  </div>
+                </FadeUp>
+              ))}
             </div>
           </FadeUp>
-        </section>
 
-        {/* ── NEXT SECTION ── */}
-        <section className="pb-24 md:pb-32">
           <FadeUp delay={0.1}>
-            <div className="border border-[color:var(--portfolio-border-strong)] p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-[var(--portfolio-fg)]/[0.02]">
+            <div className="border p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6" style={{ borderColor: 'var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
               <div>
-                <p className="text-xs tracking-widest opacity-65 mb-2">WHAT'S NEXT</p>
-                <p className="text-2xl md:text-3xl font-bold tracking-tight opacity-85">More games. More insights. More scale.</p>
+                <p className="text-xs tracking-widest opacity-65 mb-2">UP NEXT</p>
+                <p className="text-2xl md:text-3xl font-bold tracking-tight opacity-85">More case studies coming soon</p>
               </div>
               <button
                 onClick={() => navigate('/')}
-                className="border border-black/30 px-8 py-4 text-sm tracking-widest hover:bg-[#111110] hover:text-[#F7F4F0] transition-all duration-300 whitespace-nowrap"
+                className="border px-8 py-4 text-sm tracking-widest hover:bg-[#111110] hover:text-[#F7F4F0] transition-all duration-300 whitespace-nowrap"
+                style={{ borderColor: 'var(--portfolio-border-strong)' }}
               >
                 ← BACK TO HOME
               </button>
@@ -1578,12 +1246,10 @@ export default function AIGameDesignCaseStudy() {
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header with title */}
               <div className="p-6 border-b flex justify-between items-center" style={{ borderColor: 'var(--portfolio-border)' }}>
                 <h3 className="text-xl font-bold">Game Design Workflow</h3>
               </div>
 
-              {/* Floating close button outside */}
               <motion.button
                 onClick={() => setShowWorkflow(false)}
                 className="absolute -top-16 right-0 z-51 w-12 h-12 flex items-center justify-center text-4xl font-bold transition-all duration-300 rounded-full"
@@ -1597,7 +1263,6 @@ export default function AIGameDesignCaseStudy() {
                 ×
               </motion.button>
 
-              {/* Workflow content */}
               <iframe
                 src="/game-design-workflow/index.html"
                 className="w-full border-0"
