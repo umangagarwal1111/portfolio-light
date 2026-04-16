@@ -505,7 +505,7 @@ function GameMetricsDashboard({ delay = 0 }: { delay?: number }) {
   const metrics = [
     { label: 'Engagement Score', value: `${game.engagement}/100`, pct: game.engagement },
     { label: 'Daily Active Users', value: game.dau,              pct: game.dauPct },
-    { label: 'D7 Retention',       value: `${game.retention}%`,  pct: game.retention },
+    { label: 'D3 Retention',       value: `${game.retention}%`,  pct: game.retention },
     { label: 'Quality Score',      value: `${game.quality}/100`, pct: game.quality },
     { label: 'Dev Efficiency',     value: `${game.devDays}d`,    pct: Math.round(100 - ((game.devDays - 3) / 5) * 80) },
   ];
