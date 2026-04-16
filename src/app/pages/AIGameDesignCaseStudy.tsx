@@ -322,11 +322,11 @@ function VizQualityConsistency() {
     <div className="w-full h-full bg-[var(--portfolio-bg)] p-5 flex flex-col">
       <div className="text-[10px] tracking-widest opacity-60 mb-1">QUALITY SCORE — ALL 10 GAMES (CHRONOLOGICAL)</div>
       <div className="text-[9px] opacity-40 mb-3">Faster cycles improved quality, not reduced it — avg score rose from 72 → 95 over the campaign</div>
-      <div className="flex items-end gap-1.5 flex-1">
+      <div className="flex items-end gap-1.5" style={{ height: '80px' }}>
         {games.map((g, i) => (
           <div key={g} className="flex-1 flex flex-col items-center gap-1">
             <div className="text-[7px] font-bold" style={{ color: scores[i] >= 88 ? '#22c55e' : 'var(--portfolio-fg)', opacity: 0.7 }}>{scores[i]}</div>
-            <div className="w-full rounded-t-sm" style={{ height: `${(scores[i] / max) * 70}px`, background: scores[i] >= 88 ? '#22c55e' : 'var(--portfolio-border-strong)' }} />
+            <div className="w-full rounded-t-sm" style={{ height: `${(scores[i] / max) * 50}px`, background: scores[i] >= 88 ? '#22c55e' : 'var(--portfolio-border-strong)' }} />
             <div className="text-[7px] opacity-40 text-center" style={{ fontSize: '7px' }}>{g}</div>
           </div>
         ))}
@@ -1043,7 +1043,7 @@ export default function AIGameDesignCaseStudy() {
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-2 tracking-tight">Quality Across the Campaign</h3>
               <p className="text-sm opacity-60 mb-6">Faster cycles improved quality — not despite speed, because of it. More iterations means more learning.</p>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '220px' }}>
                 <VizQualityConsistency />
               </div>
             </div>
@@ -1133,7 +1133,7 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp delay={0.3}>
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Before vs. After — Team Output</h3>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '320px' }}>
                 <VizTeamEfficiency />
               </div>
             </div>
