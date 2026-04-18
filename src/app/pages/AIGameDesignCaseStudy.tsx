@@ -381,7 +381,7 @@ function ChallengeCard({
     <FadeUp delay={delay}>
       <div className="border border-[color:var(--portfolio-border-strong)] hover:border-[color:var(--portfolio-border-strong)] transition-colors duration-500 overflow-hidden">
         {visualization ? (
-          <div className="border-b border-[color:var(--portfolio-border-strong)] aspect-video overflow-hidden flex items-center justify-center">
+          <div className="border-b border-[color:var(--portfolio-border-strong)] overflow-hidden flex items-center justify-center" style={{ height: '320px' }}>
             {visualization}
           </div>
         ) : (
@@ -1070,7 +1070,7 @@ export default function AIGameDesignCaseStudy() {
             <FadeUp delay={0.1}>
               <div className="border p-8" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
                 <h3 className="text-base font-bold mb-4 tracking-tight">16-Hour Game Cycle</h3>
-                <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '220px' }}>
                   <VizAIWorkflow />
                 </div>
               </div>
@@ -1078,7 +1078,7 @@ export default function AIGameDesignCaseStudy() {
             <FadeUp delay={0.15}>
               <div className="border p-8" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
                 <h3 className="text-base font-bold mb-4 tracking-tight">Campaign Journey — 10 Weeks</h3>
-                <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '240px' }}>
                   <VizJourneyTimeline />
                 </div>
               </div>

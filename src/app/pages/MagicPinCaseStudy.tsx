@@ -575,7 +575,7 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.35}>
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-3 tracking-tight">Session Health Signals (Pre-Revamp)</h3>
-              <div className="aspect-video flex flex-col items-center justify-center gap-3 p-6" style={{ border: '1px dashed var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
+              <div className="flex flex-col items-center justify-center gap-3 p-6" style={{ height: '200px', border: '1px dashed var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
                 <div className="text-xs tracking-widest opacity-60">VIZ SLOT — SESSION HEALTH TREND CHART</div>
                 <p className="text-[11px] opacity-50 text-center max-w-md leading-relaxed">
                   Line chart showing 6 quarters of data: D3 retention rate declining, category selection rate at launch declining,
@@ -751,7 +751,7 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.1} className="mb-12">
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-3 tracking-tight">Where Users Were Dropping Off</h3>
-              <div className="aspect-video flex flex-col items-center justify-center gap-3 p-6" style={{ border: '1px dashed var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
+              <div className="flex flex-col items-center justify-center gap-3 p-6" style={{ height: '200px', border: '1px dashed var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
                 <div className="text-xs tracking-widest opacity-60">VIZ SLOT — USER FUNNEL: DISCOVERY TO TRANSACTION</div>
                 <p className="text-[11px] opacity-50 text-center max-w-md leading-relaxed">
                   Funnel chart: App Open → Category Selection → Item View → Cart/Intent → Transaction.
@@ -898,7 +898,7 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.35} className="mt-12">
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Design Methodology Overview</h3>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '360px' }}>
                 <VizDesignProcess />
               </div>
             </div>
@@ -960,7 +960,7 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.3}>
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">magicDS Component Library</h3>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '280px' }}>
                 <VizComponentLibrary />
               </div>
             </div>
@@ -1046,7 +1046,7 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.1}>
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Core Screen Redesigns</h3>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '280px' }}>
                 <VizBeforeAfterScreens />
               </div>
             </div>
@@ -1056,7 +1056,7 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.15} className="mt-6">
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-3 tracking-tight">Screen-by-Screen Design Walkthroughs</h3>
-              <div className="aspect-video flex flex-col items-center justify-center gap-3 p-6" style={{ border: '1px dashed var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
+              <div className="flex flex-col items-center justify-center gap-3 p-6" style={{ height: '200px', border: '1px dashed var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
                 <div className="text-xs tracking-widest opacity-60">VIZ SLOT — ANNOTATED SCREEN DESIGNS</div>
                 <p className="text-[11px] opacity-50 text-center max-w-lg leading-relaxed">
                   4-panel layout showing: (1) Shop Page final design with annotations on personalization zones,
@@ -1108,7 +1108,7 @@ export default function MagicPinCaseStudy() {
           <FadeUp delay={0.5} className="mt-10">
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Impact by Phase</h3>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '260px' }}>
                 <VizPhasedMetrics />
               </div>
             </div>

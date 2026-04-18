@@ -750,7 +750,7 @@ export default function MagicFleetCaseStudy() {
           </div>
 
           <FadeUp delay={0.5} className="mt-10">
-            <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+            <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '280px' }}>
               <VizFleetImpactMetrics />
             </div>
           </FadeUp>
@@ -995,7 +995,7 @@ export default function MagicFleetCaseStudy() {
           <FadeUp delay={0.2} className="mt-12">
             <div className="border border-black/15 p-8 md:p-12 bg-black/[0.02]">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Information Hierarchy Model</h3>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '240px' }}>
                 <VizInfoHierarchy />
               </div>
             </div>
@@ -1095,7 +1095,7 @@ export default function MagicFleetCaseStudy() {
               </p>
             </FadeUp>
             <FadeUp delay={0.2}>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '200px' }}>
                 <VizDataFlow />
               </div>
             </FadeUp>
@@ -1105,7 +1105,7 @@ export default function MagicFleetCaseStudy() {
           <FadeUp delay={0.3} className="mt-12">
             <div className="border border-black/15 p-8 md:p-12">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Platform Ecosystem Overview</h3>
-              <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '240px' }}>
                 <VizUserGroups />
               </div>
             </div>
@@ -1124,7 +1124,7 @@ export default function MagicFleetCaseStudy() {
           </FadeUp>
 
           <FadeUp delay={0.1} className="mb-12">
-            <div className="aspect-video border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+            <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '240px' }}>
               <VizPaymentSystem />
             </div>
           </FadeUp>
