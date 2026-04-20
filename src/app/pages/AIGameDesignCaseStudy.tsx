@@ -779,52 +779,6 @@ export default function AIGameDesignCaseStudy() {
 
         <Divider />
 
-        {/* ── SITUATION ── */}
-        <section>
-          <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">THE SITUATION</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
-              ONE GAME.<br />EVERY WEEK.
-            </h2>
-          </FadeUp>
-
-          <div className="grid md:grid-cols-2 gap-12 mb-12">
-            <FadeUp delay={0.1}>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75 mb-6">
-                magicPin ran a gaming campaign from Feb to Apr 2026 — 10 original mobile games, one released
-                every week. Each game had to be culturally relevant to what was happening in India at that
-                exact moment: IPL season, Holi, trending memes, festivals.
-              </p>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75">
-                The relevance window for a culturally-tied game is roughly 5 days. Miss it and the game
-                ships into silence. The team was 2 designers. And the traditional dev cycle for a game was 8 weeks.
-              </p>
-            </FadeUp>
-            <FadeUp delay={0.2}>
-              <div className="space-y-3">
-                {[
-                  { label: '1 game / week', sub: 'Fixed release cadence — no slippage allowed' },
-                  { label: '~5 day relevance window', sub: 'Cultural moment expires fast — late = irrelevant' },
-                  { label: '2 designers, no dedicated dev', sub: 'Design, assets, coordination, QA — all on us' },
-                  { label: '10 distinct cultural moments', sub: 'Each game needed its own concept, mechanic, tone' },
-                ].map((c, i) => (
-                  <FadeUp key={c.label} delay={0.1 + i * 0.05}>
-                    <div className="flex gap-4 items-start p-4 border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
-                      <div className="text-xs font-black mt-0.5 shrink-0" style={{ color: '#ef4444' }}>↑</div>
-                      <div>
-                        <div className="text-sm font-semibold mb-0.5">{c.label}</div>
-                        <div className="text-xs opacity-55">{c.sub}</div>
-                      </div>
-                    </div>
-                  </FadeUp>
-                ))}
-              </div>
-            </FadeUp>
-          </div>
-        </section>
-
-        <Divider />
-
         {/* ── THE CHALLENGE ── */}
         <section>
           <FadeUp>
@@ -878,6 +832,52 @@ export default function AIGameDesignCaseStudy() {
               </p>
             </div>
           </FadeUp>
+        </section>
+
+        <Divider />
+
+        {/* ── SITUATION ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">THE SITUATION</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
+              ONE GAME.<br />EVERY WEEK.
+            </h2>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-12 mb-12">
+            <FadeUp delay={0.1}>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75 mb-6">
+                magicPin ran a gaming campaign from Feb to Apr 2026 — 10 original mobile games, one released
+                every week. Each game had to be culturally relevant to what was happening in India at that
+                exact moment: IPL season, Holi, trending memes, festivals.
+              </p>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75">
+                The relevance window for a culturally-tied game is roughly 5 days. Miss it and the game
+                ships into silence. The team was 2 designers. And the traditional dev cycle for a game was 8 weeks.
+              </p>
+            </FadeUp>
+            <FadeUp delay={0.2}>
+              <div className="space-y-3">
+                {[
+                  { label: '1 game / week', sub: 'Fixed release cadence — no slippage allowed' },
+                  { label: '~5 day relevance window', sub: 'Cultural moment expires fast — late = irrelevant' },
+                  { label: '2 designers, no dedicated dev', sub: 'Design, assets, coordination, QA — all on us' },
+                  { label: '10 distinct cultural moments', sub: 'Each game needed its own concept, mechanic, tone' },
+                ].map((c, i) => (
+                  <FadeUp key={c.label} delay={0.1 + i * 0.05}>
+                    <div className="flex gap-4 items-start p-4 border" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                      <div className="text-xs font-black mt-0.5 shrink-0" style={{ color: '#ef4444' }}>↑</div>
+                      <div>
+                        <div className="text-sm font-semibold mb-0.5">{c.label}</div>
+                        <div className="text-xs opacity-55">{c.sub}</div>
+                      </div>
+                    </div>
+                  </FadeUp>
+                ))}
+              </div>
+            </FadeUp>
+          </div>
         </section>
 
         <Divider />
