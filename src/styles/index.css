@@ -1,11 +1,13 @@
 @import './fonts.css';
-
-/* Hide default cursor on pointer devices — custom cursor renders instead */
-@media (pointer: fine) {
-  *, *::before, *::after { cursor: none !important; }
-}
 @import './tailwind.css';
 @import './theme.css';
+
+/* Hide default cursor — custom cursor renders instead.
+   Must come AFTER all @imports to override Tailwind utilities.
+   Applied unconditionally so it wins over cursor:pointer etc. */
+html, html *, html *::before, html *::after {
+  cursor: none !important;
+}
 
 /* ── Header name glitch animation ────────────────────────────── */
 /* Used by the "glitch" style in HeaderNameAnimation.tsx.

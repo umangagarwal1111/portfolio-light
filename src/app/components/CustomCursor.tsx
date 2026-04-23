@@ -1,28 +1,32 @@
 import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const mouse = useRef({ x: -200, y: -200 });
   const ring = useRef({ x: -200, y: -200 });
-  const hovering = useRef(false);
   const rafId = useRef<number>(0);
 
   useEffect(() => {
     // Skip on touch/coarse-pointer devices
     if (window.matchMedia('(pointer: coarse)').matches) return;
 
-    // Force cursor: none immediately via JS — no CSS timing delay
-    document.documentElement.style.cursor = 'none';
-    document.body.style.cursor = 'none';
+    // Belt-and-suspenders: force cursor:none via inline style on html + body
+    // (in addition to CSS rule) so it takes effect with zero delay on re-entry
+    const html = document.documentElement;
+    const body = document.body;
+    const prevHtml = html.style.cursor;
+    const prevBody = body.style.cursor;
+    html.style.setProperty('cursor', 'none', 'important');
+    body.style.setProperty('cursor', 'none', 'important');
 
     const onMove = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY };
     };
 
-    const onHoverStart = (e: MouseEvent) => {
+    const onOver = (e: MouseEvent) => {
       if ((e.target as Element).closest('a, button, [role="button"], input, select, textarea, [data-cursor-hover]')) {
-        hovering.current = true;
         if (ringRef.current) {
           ringRef.current.style.width = '48px';
           ringRef.current.style.height = '48px';
@@ -30,10 +34,9 @@ export default function CustomCursor() {
       }
     };
 
-    const onHoverEnd = (e: MouseEvent) => {
+    const onOut = (e: MouseEvent) => {
       const related = e.relatedTarget as Element | null;
       if (!related?.closest('a, button, [role="button"], input, select, textarea, [data-cursor-hover]')) {
-        hovering.current = false;
         if (ringRef.current) {
           ringRef.current.style.width = '32px';
           ringRef.current.style.height = '32px';
@@ -41,9 +44,9 @@ export default function CustomCursor() {
       }
     };
 
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseover', onHoverStart);
-    document.addEventListener('mouseout', onHoverEnd);
+    document.addEventListener('mousemove', onMove, { passive: true });
+    document.addEventListener('mouseover', onOver, { passive: true });
+    document.addEventListener('mouseout', onOut, { passive: true });
 
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
@@ -66,18 +69,17 @@ export default function CustomCursor() {
     rafId.current = requestAnimationFrame(animate);
 
     return () => {
-      document.documentElement.style.cursor = '';
-      document.body.style.cursor = '';
+      html.style.cursor = prevHtml;
+      body.style.cursor = prevBody;
       document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseover', onHoverStart);
-      document.removeEventListener('mouseout', onHoverEnd);
+      document.removeEventListener('mouseover', onOver);
+      document.removeEventListener('mouseout', onOut);
       cancelAnimationFrame(rafId.current);
     };
   }, []);
 
-  return (
+  return createPortal(
     <>
-      {/* Dot — exact position, no opacity transition */}
       <div
         ref={dotRef}
         style={{
@@ -90,12 +92,11 @@ export default function CustomCursor() {
           background: '#ffffff',
           mixBlendMode: 'difference',
           pointerEvents: 'none',
-          zIndex: 99999,
+          zIndex: 2147483647,
           willChange: 'transform',
           transform: 'translate(-200px, -200px) translate(-50%, -50%)',
         }}
       />
-      {/* Ring — lagging follower */}
       <div
         ref={ringRef}
         style={{
@@ -108,13 +109,14 @@ export default function CustomCursor() {
           border: '1.5px solid #ffffff',
           mixBlendMode: 'difference',
           pointerEvents: 'none',
-          zIndex: 99998,
+          zIndex: 2147483646,
           opacity: 0.75,
           transition: 'width 0.2s ease, height 0.2s ease',
           willChange: 'transform',
           transform: 'translate(-200px, -200px) translate(-50%, -50%)',
         }}
       />
-    </>
+    </>,
+    document.body
   );
 }
