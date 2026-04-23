@@ -109,15 +109,137 @@ const RECOMMENDATIONS = [
 // ─── TESTIMONIALS AUTO-SCROLL CAROUSEL ─────────────────────────
 function TestimonialsCarousel() {
   const doubled = [...RECOMMENDATIONS, ...RECOMMENDATIONS];
+  const trackRef = useRef<HTMLDivElement>(null);
+  const posRef = useRef(0);
+  const rafRef = useRef<number>(0);
+  const pausedRef = useRef(false);
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const dragRef = useRef({ active: false, startX: 0, startScroll: 0 });
+
+  const SPEED = 0.6; // px per frame
+  const RESUME_DELAY = 1500; // ms after user stops
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    // Total width of one set of cards (half the duplicated track)
+    const getHalfWidth = () => track.scrollWidth / 2;
+
+    const tick = () => {
+      if (!pausedRef.current) {
+        posRef.current += SPEED;
+        // Seamless loop: when we've scrolled one full set, snap back
+        if (posRef.current >= getHalfWidth()) {
+          posRef.current -= getHalfWidth();
+        }
+        track.style.transform = `translateX(${-posRef.current}px)`;
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+
+    const pause = () => {
+      pausedRef.current = true;
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+    };
+
+    const scheduleResume = () => {
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = setTimeout(() => {
+        pausedRef.current = false;
+      }, RESUME_DELAY);
+    };
+
+    // ── Wheel scroll (desktop horizontal scroll) ──
+    const onWheel = (e: WheelEvent) => {
+      // Only intercept horizontal or shifted-wheel (shift+scroll = horizontal on many mice)
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey;
+      if (!isHorizontal) return;
+      e.preventDefault();
+      pause();
+      posRef.current += e.deltaX || e.deltaY;
+      // Clamp within seamless loop bounds
+      const half = getHalfWidth();
+      if (posRef.current < 0) posRef.current += half;
+      if (posRef.current >= half) posRef.current -= half;
+      track.style.transform = `translateX(${-posRef.current}px)`;
+      scheduleResume();
+    };
+
+    // ── Mouse drag ──
+    const onMouseDown = (e: MouseEvent) => {
+      dragRef.current = { active: true, startX: e.clientX, startScroll: posRef.current };
+      pause();
+      track.style.cursor = 'grabbing';
+    };
+    const onMouseMove = (e: MouseEvent) => {
+      if (!dragRef.current.active) return;
+      const delta = dragRef.current.startX - e.clientX;
+      let next = dragRef.current.startScroll + delta;
+      const half = getHalfWidth();
+      if (next < 0) next += half;
+      if (next >= half) next -= half;
+      posRef.current = next;
+      track.style.transform = `translateX(${-posRef.current}px)`;
+    };
+    const onMouseUp = () => {
+      if (!dragRef.current.active) return;
+      dragRef.current.active = false;
+      track.style.cursor = 'grab';
+      scheduleResume();
+    };
+
+    // ── Touch drag ──
+    const onTouchStart = (e: TouchEvent) => {
+      dragRef.current = { active: true, startX: e.touches[0].clientX, startScroll: posRef.current };
+      pause();
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!dragRef.current.active) return;
+      const delta = dragRef.current.startX - e.touches[0].clientX;
+      let next = dragRef.current.startScroll + delta;
+      const half = getHalfWidth();
+      if (next < 0) next += half;
+      if (next >= half) next -= half;
+      posRef.current = next;
+      track.style.transform = `translateX(${-posRef.current}px)`;
+    };
+    const onTouchEnd = () => {
+      dragRef.current.active = false;
+      scheduleResume();
+    };
+
+    const container = track.parentElement!;
+    container.addEventListener('wheel', onWheel, { passive: false });
+    track.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+    track.addEventListener('touchstart', onTouchStart, { passive: true });
+    track.addEventListener('touchmove', onTouchMove, { passive: true });
+    track.addEventListener('touchend', onTouchEnd);
+
+    track.style.cursor = 'grab';
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+      container.removeEventListener('wheel', onWheel);
+      track.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+      track.removeEventListener('touchstart', onTouchStart);
+      track.removeEventListener('touchmove', onTouchMove);
+      track.removeEventListener('touchend', onTouchEnd);
+    };
+  }, []);
+
   return (
     <div className="overflow-hidden -mx-6 md:-mx-12">
       <div
-        className="flex gap-5 md:gap-8"
-        style={{ animation: 'marquee-scroll 45s linear infinite', width: 'max-content' }}
-        onMouseEnter={e => ((e.currentTarget as HTMLDivElement).style.animationPlayState = 'paused')}
-        onMouseLeave={e => ((e.currentTarget as HTMLDivElement).style.animationPlayState = 'running')}
-        onTouchStart={e => ((e.currentTarget as HTMLDivElement).style.animationPlayState = 'paused')}
-        onTouchEnd={e => ((e.currentTarget as HTMLDivElement).style.animationPlayState = 'running')}
+        ref={trackRef}
+        className="flex gap-5 md:gap-8 select-none"
+        style={{ width: 'max-content', willChange: 'transform' }}
       >
         {doubled.map((rec, i) => (
           <div
