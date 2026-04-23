@@ -1,4 +1,9 @@
 @import './fonts.css';
+
+/* Hide default cursor on pointer devices — custom cursor renders instead */
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
 @import './tailwind.css';
 @import './theme.css';
 

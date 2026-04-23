@@ -6,11 +6,13 @@
   import MagicFleetCaseStudy from "./app/pages/MagicFleetCaseStudy.tsx";
   import AIGameDesignCaseStudy from "./app/pages/AIGameDesignCaseStudy.tsx";
   import { ThemeProvider } from "./app/context/ThemeContext.tsx";
+  import CustomCursor from "./app/components/CustomCursor.tsx";
   import "./styles/index.css";
 
   createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
       <BrowserRouter>
+        <CustomCursor />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/work/magicpin" element={<MagicPinCaseStudy />} />
