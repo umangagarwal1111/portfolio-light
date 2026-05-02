@@ -92,7 +92,7 @@ const RECOMMENDATIONS = [
   },
   {
     quote:
-      "Umang's leadership and guidance during my time working with him were truly valuable. He doesn't just focus on the final design; he takes the time to understand the problem, helping bring clarity to the design process. His expertise and direction made a real difference, and I feel fortunate to have had him as a mentor.",
+      "I worked with Umang during my time at magicpin. His mentorship was genuinely formative for me as a designer. He doesn't just deliver strong design work; he has a deep instinct for product and users, and a real talent for cutting through ambiguity to find what actually matters. He brought the same clarity to how he managed me: his feedback was honest and specific, making me sharper, and I feel fortunate to have had him as a manager early in my career.",
     name: 'Samakshi Goel',
     title: 'Product Designer',
     company: 'Loqbox',
