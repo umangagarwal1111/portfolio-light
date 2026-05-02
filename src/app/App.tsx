@@ -85,7 +85,7 @@ const RECOMMENDATIONS = [
   },
   {
     quote:
-      "I worked with Umang during my time at magicpin. His mentorship was genuinely formative for me as a designer. He doesn't just deliver strong design work; he has a deep instinct for product and users, and a real talent for cutting through ambiguity to find what actually matters. He brought the same clarity to how he managed me: his feedback was honest and specific, making me sharper, and I feel fortunate to have had him as a manager early in my career.",
+      "I worked with Umang during my stint at Magicpin, where he led several critical design initiatives across both Android and iOS apps. He is a true partner in solving user problems—bringing together data, user empathy, and strong design thinking to craft experiences that are both intuitive and delightful. In a fast-paced environment, Umang stands out for his calm, thoughtful approach and his deep curiosity to understand problem statements before jumping to solutions. His ability to balance speed with quality makes him a rare and valuable contributor to any team.",
     name: 'Harsh Bahrey',
     title: 'Sr. Product Manager',
     company: 'Skillsoft',
