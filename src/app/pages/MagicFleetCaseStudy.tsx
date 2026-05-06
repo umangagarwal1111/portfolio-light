@@ -905,83 +905,94 @@ export default function MagicFleetCaseStudy() {
             </h2>
           </FadeUp>
 
-          {/* Before/After metric cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0" style={{ border: '1px solid var(--portfolio-border)' }}>
+          {/* Before/After metric rows — v2 */}
+          <div style={{ border: '1px solid var(--portfolio-border)' }}>
             {[
               {
-                label: 'ON-TIME DELIVERY',
-                before: '68%', after: '83%',
-                delta: '+22%', good: true,
-                context: 'Orders delivered within the promised time window',
+                label: 'On-Time Delivery',
+                context: 'Orders delivered within the promised window',
+                before: '68%', after: '83%', delta: '+22%',
+                barBefore: 68, barAfter: 83,
                 note: '~1 in 3 late deliveries eliminated',
               },
               {
-                label: 'COST PER ORDER (CPO)',
-                before: '₹68', after: '₹54',
-                delta: '-21%', good: true,
+                label: 'Cost Per Order (CPO)',
                 context: 'Fully-loaded cost per completed order',
-                note: 'Surge control + route optimisation + multi-drop trips',
-                border: true,
+                before: '₹68', after: '₹54', delta: '−21%',
+                barBefore: 68, barAfter: 54,
+                note: 'Surge control · route optimisation · multi-drop trips',
+                invert: true,
               },
               {
-                label: 'RIDER RETENTION',
-                before: '32%', after: '48%',
-                delta: '+50%', good: true,
-                context: 'Riders active 3 months after onboarding',
+                label: 'Rider Retention',
+                context: 'Riders still active 3 months after onboarding',
+                before: '32%', after: '48%', delta: '+50%',
+                barBefore: 32, barAfter: 48,
                 note: 'Earnings transparency + performance feedback loop',
               },
               {
-                label: 'ORDERS PER RIDER / MONTH',
-                before: '~15', after: '~28',
-                delta: '+87%', good: true,
+                label: 'Orders per Rider / Month',
                 context: 'Orders completed per active rider monthly',
-                note: 'Multi-drop routing + demand zone direction',
-                border: true,
+                before: '~15', after: '~28', delta: '+87%',
+                barBefore: 38, barAfter: 70,
+                note: 'Multi-drop routing · demand zone direction',
               },
               {
-                label: 'ISSUE RESOLUTION TIME',
-                before: '~120 min', after: '~42 min',
-                delta: '-65%', good: true,
-                context: 'Time from issue reported to resolution',
-                note: 'In-app reporting eliminated phone-based escalation',
+                label: 'Issue Resolution Time',
+                context: 'Time from issue reported to resolved',
+                before: '~120 min', after: '~42 min', delta: '−65%',
+                barBefore: 100, barAfter: 35,
+                note: 'In-app reporting replaced phone-based escalation',
+                invert: true,
               },
               {
-                label: 'HIGH DEMAND ZONE FULFILMENT',
-                before: '36%', after: '74%',
-                delta: '+106%', good: true,
+                label: 'High Demand Zone Fulfilment',
                 context: 'Orders fulfilled in designated high-demand zones',
+                before: '36%', after: '74%', delta: '+106%',
+                barBefore: 36, barAfter: 74,
                 note: 'Zone incentives + surge levers directed rider supply',
-                border: true,
               },
             ].map((m, i) => (
               <FadeUp key={m.label} delay={i * 0.05}>
                 <div
-                  className="p-6 md:p-8"
-                  style={{
-                    borderRight: m.border ? '1px solid var(--portfolio-border)' : undefined,
-                    borderBottom: i < 4 ? '1px solid var(--portfolio-border)' : undefined,
-                  }}
+                  className="grid md:grid-cols-[1fr_auto] gap-6 md:gap-12 px-8 py-7 items-center"
+                  style={{ borderBottom: i < 5 ? '1px solid var(--portfolio-border)' : undefined }}
                 >
-                  <div className="text-[10px] tracking-widest opacity-50 mb-5">{m.label}</div>
-                  {/* Before → After */}
-                  <div className="flex items-end gap-4 mb-4">
-                    <div>
-                      <div className="text-[9px] opacity-40 mb-1">BEFORE</div>
-                      <div className="text-2xl md:text-3xl font-black tracking-tight opacity-35">{m.before}</div>
+                  {/* Left: label + bar + note */}
+                  <div>
+                    <div className="flex items-baseline gap-3 mb-3">
+                      <span className="text-xs tracking-widest opacity-45">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="text-base md:text-lg font-bold tracking-tight">{m.label}</span>
                     </div>
-                    <div className="text-lg opacity-25 mb-1">→</div>
-                    <div>
-                      <div className="text-[9px] opacity-40 mb-1">AFTER</div>
-                      <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: m.good ? '#22c55e' : '#ef4444' }}>{m.after}</div>
+                    <p className="text-sm opacity-60 mb-4 leading-snug">{m.context}</p>
+                    {/* Progress bar */}
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.2 }}>
+                        <div className="h-full rounded-full" style={{ width: `${m.barBefore}%`, background: 'var(--portfolio-fg)', opacity: 0.4 }} />
+                      </div>
+                      <span className="text-xs opacity-35 shrink-0 w-6">→</span>
+                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.2 }}>
+                        <div className="h-full rounded-full" style={{ width: `${m.barAfter}%`, background: m.invert ? '#22c55e' : '#22c55e', opacity: 0.8 }} />
+                      </div>
                     </div>
-                    <div className="ml-auto text-right">
-                      <div className="text-[9px] opacity-40 mb-1">CHANGE</div>
-                      <div className="text-xl font-black" style={{ color: m.good ? '#22c55e' : '#ef4444' }}>{m.delta}</div>
-                    </div>
+                    <p className="text-xs opacity-35 italic">{m.note}</p>
                   </div>
-                  <div style={{ borderTop: '1px solid var(--portfolio-border)' }} className="pt-4 space-y-1">
-                    <div className="text-xs opacity-60">{m.context}</div>
-                    <div className="text-[10px] opacity-35 italic">{m.note}</div>
+
+                  {/* Right: before → after → delta */}
+                  <div className="flex items-center gap-5 md:gap-8 shrink-0">
+                    <div className="text-center">
+                      <div className="text-[10px] tracking-widest opacity-35 mb-1.5">BEFORE</div>
+                      <div className="text-2xl md:text-3xl font-black tracking-tight opacity-30">{m.before}</div>
+                    </div>
+                    <div className="text-xl opacity-20 font-light">→</div>
+                    <div className="text-center">
+                      <div className="text-[10px] tracking-widest opacity-35 mb-1.5">AFTER</div>
+                      <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: '#22c55e' }}>{m.after}</div>
+                    </div>
+                    <div className="text-center pl-5 md:pl-8" style={{ borderLeft: '1px solid var(--portfolio-border)' }}>
+                      <div className="text-[10px] tracking-widest opacity-35 mb-1.5">CHANGE</div>
+                      <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: '#22c55e' }}>{m.delta}</div>
+                    </div>
                   </div>
                 </div>
               </FadeUp>
