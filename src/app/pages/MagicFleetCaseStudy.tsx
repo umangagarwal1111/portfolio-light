@@ -342,9 +342,9 @@ function VizInfoHierarchy() {
 
 function VizDataFlow() {
   const nodes = [
-    { label: 'Riders', sub: '100k+ delivery partners', icon: '📱' },
-    { label: 'Central Hub', sub: 'Sync queue + offline cache', icon: '🖥️' },
-    { label: 'Manager Dashboard', sub: 'Real-time operations view', icon: '📊' },
+    { label: 'Rider App', sub: 'Orders · earnings · status', icon: '🛵' },
+    { label: 'Backend', sub: 'Auto-assign · sync · cache', icon: '⚙️' },
+    { label: 'Manager App', sub: 'Same app · different view', icon: '👔' },
   ];
   return (
     <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
@@ -385,7 +385,7 @@ function VizUserGroups() {
   ];
   return (
     <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
-      <div className="text-[10px] tracking-widest opacity-60 mb-5">PLATFORM ECOSYSTEM — 2 USER GROUPS · ASSIGNMENT & ROUTING IS AUTOMATED</div>
+      <div className="text-[10px] tracking-widest opacity-60 mb-5">ONE APP · ROLE DECIDED AT LOGIN · ASSIGNMENT & ROUTING AUTOMATED IN BACKEND</div>
       <div className="grid grid-cols-2 gap-6">
         {groups.map((g) => (
           <div key={g.role} className="border rounded p-4" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
@@ -842,9 +842,9 @@ export default function MagicFleetCaseStudy() {
             />
             <ChallengeCard
               number="02"
-              title="Two Users, Opposite Contexts"
-              description="Managers sit at a desk overseeing hundreds of riders across a city. Riders are in motion, on a phone, often in low-connectivity areas. Same platform — but one user needs density of information, the other needs radical simplicity."
-              impact="A single interface that tried to serve both would fail both. The design had to fork at the right level without creating two separate products to maintain."
+              title="One App, Two Completely Different Experiences"
+              description="Managers and riders log into the same app — but what they need from it is entirely different. A manager periodically checks fleet health and payouts on their phone. A rider is in the app multiple times a day, between deliveries, often on 2G."
+              impact="The interface had to adapt by role at login — same codebase, same app, two distinct experiences — without creating a maintenance burden of two separate products."
               imageUrl={IMG.shifScheduling}
               delay={0.05}
             />
@@ -871,8 +871,8 @@ export default function MagicFleetCaseStudy() {
             <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
               <div className="text-xs tracking-widest opacity-65 mb-4">CORE QUESTION</div>
               <p className="text-2xl md:text-4xl font-bold leading-tight opacity-90">
-                "How do we design one platform that works for a manager at a desk and a rider on a bike —
-                reliably, at scale, even when the internet isn't there?"
+                "How do we build one app that adapts by role at login — giving managers fleet-level control
+                and riders a simple, offline-tolerant experience — without building two separate products?"
               </p>
             </div>
           </FadeUp>
@@ -888,23 +888,23 @@ export default function MagicFleetCaseStudy() {
               TWO USERS,<br />ONE PLATFORM
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              MagicFleet serves two user groups with fundamentally different contexts. Managers register and
-              oversee riders — this is a web-first, data-dense workflow. Riders are the primary users — a
-              mobile-first, offline-tolerant, high-frequency interaction pattern. All order assignment and
-              routing is handled automatically in the backend.
+              MagicFleet is a single mobile app with two interfaces. Your role — manager or rider — is
+              determined at login, and the entire experience adapts accordingly. Managers onboard and oversee
+              their team of riders. Riders are the primary users by volume. All order assignment and routing
+              is handled automatically in the backend. Today, only riders are active on the platform.
             </p>
           </FadeUp>
 
           <div className="grid md:grid-cols-2 gap-0 md:gap-8">
             <UserPersonaCard
               role="Fleet Manager"
-              description="Registers and manages a team of riders. Monitors fleet-level performance, tracks payouts, handles compliance and KYC documentation. Desktop-first, lower interaction frequency."
-              painPoint="I need to know how my fleet is performing, who's active, and whether payouts are going out correctly — without digging through five different screens."
+              description="Uses the same app as riders but with a manager view unlocked at login. Onboards riders, monitors fleet performance, tracks payouts, and handles KYC. Lower interaction frequency — checks in periodically, not continuously."
+              painPoint="I need to see who's active, how my fleet is performing, and whether payouts are going out correctly — all in one place, on my phone."
               delay={0}
             />
             <UserPersonaCard
               role="Delivery Rider"
-              description="The primary user. Receives auto-assigned orders, tracks earnings in real-time, views performance metrics, and manages availability. Mobile-only, frequently offline, high interaction volume."
+              description="The primary user by volume. Receives auto-assigned orders via backend, tracks real-time earnings, views performance metrics, and manages availability. Mobile-only, frequently offline, multiple sessions per day."
               painPoint="Tell me what I'm earning, show me my next job, and don't make me tap more than twice to get there. I'm on a bike, not at a desk."
               delay={0.1}
             />
@@ -977,9 +977,9 @@ export default function MagicFleetCaseStudy() {
           <div className="grid gap-6">
             <FeatureCard
               number="01"
-              title="Fleet Manager Dashboard"
-              description="A comprehensive operational dashboard that gives fleet managers instant visibility into regional performance. Shows real-time metrics, alerts, and drill-down capability into specific issues."
-              insight="Reduce decision time from 15 minutes to under 60 seconds by showing only the metrics that matter for immediate action."
+              title="Manager View — Fleet at a Glance"
+              description="When a manager logs in, the same app surfaces a fleet-level view: registered riders, active count, collective performance, and payout status. Designed for periodic check-ins, not continuous monitoring."
+              insight="Managers don't need a desktop dashboard — they need a mobile view that answers 'is everything okay?' in under 30 seconds."
               imageUrl={IMG.dashboardOverview}
               delay={0}
             />
@@ -1044,10 +1044,11 @@ export default function MagicFleetCaseStudy() {
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <FadeUp delay={0.1}>
               <p className="text-lg md:text-xl leading-relaxed opacity-75 mb-6">
-                magicFleet operates as an integrated ecosystem. Riders receive auto-assigned orders through the
-                backend — the app's job is to surface what they need to act on and capture what happened. That data
-                flows into the manager dashboard, where fleet performance aggregates at the team level. Managers
-                see the health of their fleet; riders see their own earnings, orders, and performance in real-time.
+                MagicFleet is one app that adapts at login. Riders get a lightweight, action-focused interface —
+                current order, earnings, performance. Managers get a fleet-level view of their registered riders —
+                who's active, collective performance, payouts. All assignment and routing happens in the backend
+                automatically; neither user sees or controls it. Data from rider activity flows up to the manager
+                view in near real-time, with offline sync for connectivity gaps.
               </p>
               <p className="text-lg md:text-xl leading-relaxed opacity-75">
                 The system is built for <strong className="text-[var(--portfolio-fg)] opacity-100">eventual consistency</strong> — accepting
