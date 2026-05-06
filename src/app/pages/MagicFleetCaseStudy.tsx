@@ -583,7 +583,7 @@ export default function MagicFleetCaseStudy() {
 
           <FadeUp delay={0.2}>
             <p className="text-lg md:text-2xl max-w-3xl leading-relaxed opacity-75">
-              MagicPin's growth was being capped by third-party delivery providers — unpredictable pricing, availability gaps at peak hours, and zero control over the last-mile experience. MagicFleet was the answer: a purpose-built, in-house fleet management platform that returned control over cost, reliability, and the rider relationship. Scaled to 20K monthly active riders.
+              MagicPin's growth was being capped by third-party delivery providers — unpredictable pricing, availability gaps at peak hours, and zero control over the last-mile experience. MagicFleet was the answer: a purpose-built, in-house fleet management platform that returned control over cost, reliability, and the rider relationship. Now live across 7 major metros with 300K+ registered riders.
             </p>
           </FadeUp>
         </section>
@@ -846,16 +846,16 @@ export default function MagicFleetCaseStudy() {
           <FadeUp delay={0.4} className="mt-12">
             <div className="grid md:grid-cols-3 gap-8 pt-12 border-t border-black/15">
               <div>
-                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">100k+</div>
-                <p className="text-sm md:text-base opacity-75">Active delivery riders at peak scale</p>
+                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">300K+</div>
+                <p className="text-sm md:text-base opacity-75">Registered riders on the platform</p>
               </div>
               <div>
-                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">15+</div>
-                <p className="text-sm md:text-base opacity-75">Cities — expanding without provider dependency</p>
+                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">50K+</div>
+                <p className="text-sm md:text-base opacity-75">Monthly active riders</p>
               </div>
               <div>
-                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">20K</div>
-                <p className="text-sm md:text-base opacity-75">Monthly active riders at launch</p>
+                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">7</div>
+                <p className="text-sm md:text-base opacity-75">Major metros — Delhi NCR, Bengaluru, Pune, Hyderabad, Chennai, Kolkata, Mumbai</p>
               </div>
             </div>
           </FadeUp>
