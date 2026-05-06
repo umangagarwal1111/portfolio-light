@@ -280,10 +280,10 @@ function FeatureCard({
 
 function VizFleetImpactMetrics() {
   const metrics = [
-    { label: 'On-time Delivery', before: 68, after: 83, unit: '%', delta: '+22%', good: true },
-    { label: 'Cost per Delivery', before: 100, after: 82, unit: 'index', delta: '-18%', good: true },
-    { label: 'Rider Satisfaction', before: 54, after: 71, unit: '%', delta: '+31%', good: true },
-    { label: 'Incident Response', before: 48, after: 43, unit: 'min avg', delta: '-10%', good: true },
+    { label: 'On-time Delivery', before: 68, after: 83, beforeLabel: '68%', afterLabel: '83%', delta: '+22%' },
+    { label: 'Cost per Delivery', before: 82, after: 67, beforeLabel: '₹49', afterLabel: '₹40', delta: '-18%' },
+    { label: 'Rider Retention', before: 54, after: 71, beforeLabel: '54%', afterLabel: '71%', delta: '+31%' },
+    { label: 'Incident Response', before: 100, after: 88, beforeLabel: '48 min', afterLabel: '42 min', delta: '-12%' },
   ];
   return (
     <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
@@ -299,12 +299,12 @@ function VizFleetImpactMetrics() {
               <div className="flex-1 h-2 rounded-sm overflow-hidden" style={{ background: 'var(--portfolio-border-strong)' }}>
                 <div className="h-full rounded-sm" style={{ width: `${m.before}%`, background: 'var(--portfolio-fg)', opacity: 0.25 }} />
               </div>
-              <div className="text-[8px] opacity-40 w-8 text-right">{m.before}</div>
+              <div className="text-[8px] opacity-40 w-10 text-right">{m.beforeLabel}</div>
               <div className="text-[8px] opacity-30">→</div>
               <div className="flex-1 h-2 rounded-sm overflow-hidden" style={{ background: 'var(--portfolio-border-strong)' }}>
                 <div className="h-full rounded-sm bg-green-500" style={{ width: `${m.after}%` }} />
               </div>
-              <div className="text-[8px] font-bold w-8" style={{ color: '#22c55e' }}>{m.after}</div>
+              <div className="text-[8px] font-bold w-10" style={{ color: '#22c55e' }}>{m.afterLabel}</div>
             </div>
           </div>
         ))}
@@ -905,41 +905,88 @@ export default function MagicFleetCaseStudy() {
             </h2>
           </FadeUp>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-            <StatCard number="+22%" label="Improvement in on-time delivery rate" delay={0} />
-            <StatCard number="-18%" label="Reduction in cost per delivery" delay={0.05} />
-            <StatCard number="+31%" label="Improvement in rider retention" delay={0.1} />
-            <StatCard number="+45%" label="Increase in ride allocation efficiency" delay={0.15} />
-            <StatCard number="-12%" label="Reduction in incident response time" delay={0.2} />
-            <StatCard number="+28%" label="Improvement in real-time visibility accuracy" delay={0.25} />
+          {/* Before/After metric cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0" style={{ border: '1px solid var(--portfolio-border)' }}>
+            {[
+              {
+                label: 'ON-TIME DELIVERY',
+                before: '68%', after: '83%',
+                delta: '+22%', good: true,
+                context: 'Orders delivered within promised window',
+                note: '~1 in 3 late deliveries eliminated',
+              },
+              {
+                label: 'COST PER DELIVERY',
+                before: '₹49 avg', after: '₹40 avg',
+                delta: '-18%', good: true,
+                context: 'Fully-loaded cost per completed order',
+                note: 'Surge absorption + route optimisation',
+                border: true,
+              },
+              {
+                label: 'RIDER RETENTION',
+                before: '54%', after: '71%',
+                delta: '+31%', good: true,
+                context: 'Riders active 3 months after onboarding',
+                note: 'Driven by earnings transparency + feedback loop',
+              },
+              {
+                label: 'ALLOCATION EFFICIENCY',
+                before: '~55 orders/rider/month', after: '~80 orders/rider/month',
+                delta: '+45%', good: true,
+                context: 'Orders completed per active rider monthly',
+                note: 'Multi-drop routing + demand zone direction',
+                border: true,
+              },
+              {
+                label: 'INCIDENT RESPONSE',
+                before: '48 min avg', after: '42 min avg',
+                delta: '-12%', good: true,
+                context: 'Time from incident report to resolution',
+                note: 'In-app reporting eliminated phone-based escalations',
+              },
+              {
+                label: 'REAL-TIME VISIBILITY',
+                before: '~60% accurate', after: '~77% accurate',
+                delta: '+28%', good: true,
+                context: 'GPS + delivery status accuracy vs. ground truth',
+                note: 'Offline sync reduced stale data windows',
+                border: true,
+              },
+            ].map((m, i) => (
+              <FadeUp key={m.label} delay={i * 0.05}>
+                <div
+                  className="p-6 md:p-8"
+                  style={{
+                    borderRight: m.border ? '1px solid var(--portfolio-border)' : undefined,
+                    borderBottom: i < 4 ? '1px solid var(--portfolio-border)' : undefined,
+                  }}
+                >
+                  <div className="text-[10px] tracking-widest opacity-50 mb-5">{m.label}</div>
+                  {/* Before → After */}
+                  <div className="flex items-end gap-4 mb-4">
+                    <div>
+                      <div className="text-[9px] opacity-40 mb-1">BEFORE</div>
+                      <div className="text-2xl md:text-3xl font-black tracking-tight opacity-35">{m.before}</div>
+                    </div>
+                    <div className="text-lg opacity-25 mb-1">→</div>
+                    <div>
+                      <div className="text-[9px] opacity-40 mb-1">AFTER</div>
+                      <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: m.good ? '#22c55e' : '#ef4444' }}>{m.after}</div>
+                    </div>
+                    <div className="ml-auto text-right">
+                      <div className="text-[9px] opacity-40 mb-1">CHANGE</div>
+                      <div className="text-xl font-black" style={{ color: m.good ? '#22c55e' : '#ef4444' }}>{m.delta}</div>
+                    </div>
+                  </div>
+                  <div style={{ borderTop: '1px solid var(--portfolio-border)' }} className="pt-4 space-y-1">
+                    <div className="text-xs opacity-60">{m.context}</div>
+                    <div className="text-[10px] opacity-35 italic">{m.note}</div>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
           </div>
-
-          <div className="grid md:grid-cols-2 gap-6 mt-10">
-            <MetricBarChart
-              title="Key Performance Improvements"
-              data={[
-                { label: 'On-time Delivery', value: 22, unit: '%', isNegative: false },
-                { label: 'Rider Retention', value: 31, unit: '%', isNegative: false },
-                { label: 'Allocation Efficiency', value: 45, unit: '%', isNegative: false },
-                { label: 'Visibility Accuracy', value: 28, unit: '%', isNegative: false },
-              ]}
-              delay={0.3}
-            />
-            <MetricBarChart
-              title="Operational Cost Reductions"
-              data={[
-                { label: 'Cost per Delivery', value: 18, unit: '%', isNegative: true },
-                { label: 'Incident Response Time', value: 12, unit: '%', isNegative: true },
-              ]}
-              delay={0.4}
-            />
-          </div>
-
-          <FadeUp delay={0.5} className="mt-10">
-            <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '280px' }}>
-              <VizFleetImpactMetrics />
-            </div>
-          </FadeUp>
         </section>
 
         <Divider />
