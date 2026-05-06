@@ -734,110 +734,143 @@ export default function MagicFleetCaseStudy() {
           </div>
 
           <FadeUp delay={0.3} className="mt-12 pt-12 border-t border-black/15">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-0" style={{ border: '1px solid var(--portfolio-border)' }}>
 
               {/* 01 — Surge pricing */}
-              <div className="border border-black/15 p-6">
-                <div className="text-[10px] tracking-widest opacity-50 mb-4">01 — COST CONTROL</div>
-                {/* Mini viz: surge bars before vs after */}
-                <div className="mb-5">
-                  <div className="flex items-end gap-1 h-16 mb-1">
-                    {[30, 45, 55, 80, 95, 70, 60].map((h, i) => (
-                      <div key={i} className="flex-1 rounded-sm" style={{ height: `${h}%`, background: i >= 3 ? '#ef4444' : 'var(--portfolio-border-strong)', opacity: i >= 3 ? 0.85 : 0.35 }} />
+              <div className="p-8 flex flex-col" style={{ borderRight: '1px solid var(--portfolio-border)', borderBottom: '1px solid var(--portfolio-border)' }}>
+                <div className="text-[10px] tracking-widest opacity-50 mb-6">01 — COST CONTROL</div>
+                {/* Viz */}
+                <div className="flex-1 flex flex-col justify-center mb-6" style={{ minHeight: '120px' }}>
+                  <div className="flex items-end gap-1.5 h-20 mb-2">
+                    {[
+                      { h: 28, surge: false },
+                      { h: 38, surge: false },
+                      { h: 48, surge: false },
+                      { h: 82, surge: true },
+                      { h: 96, surge: true },
+                      { h: 88, surge: true },
+                      { h: 62, surge: true },
+                      { h: 44, surge: false },
+                    ].map((bar, i) => (
+                      <div key={i} className="flex-1 flex flex-col justify-end h-full">
+                        <div className="w-full rounded-sm transition-all" style={{
+                          height: `${bar.h}%`,
+                          background: bar.surge ? '#ef4444' : 'var(--portfolio-fg)',
+                          opacity: bar.surge ? 0.7 : 0.2,
+                        }} />
+                      </div>
                     ))}
                   </div>
-                  <div className="flex justify-between text-[8px] opacity-40">
-                    <span>6am</span><span>Peak hours →</span><span>10pm</span>
+                  <div className="flex justify-between text-[9px] opacity-35 mb-4">
+                    <span>6am</span>
+                    <span>↑ Peak hours</span>
+                    <span>10pm</span>
                   </div>
-                  <div className="flex items-center gap-2 mt-3">
+                  <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1.5">
-                      <div className="w-2 h-2 rounded-sm" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.4 }} />
-                      <span className="text-[9px] opacity-50">3PL: cost absorbed by us</span>
+                      <div className="w-2.5 h-2.5 rounded-sm" style={{ background: 'var(--portfolio-fg)', opacity: 0.25 }} />
+                      <span className="text-[9px] opacity-45">3PL: surge cost absorbed by us</span>
                     </div>
-                    <span className="text-[9px] opacity-30 mx-1">vs</span>
                     <div className="flex items-center gap-1.5">
-                      <div className="w-2 h-2 rounded-sm bg-green-500" style={{ opacity: 0.7 }} />
-                      <span className="text-[9px] opacity-50">MagicFleet: we set & pass surge</span>
+                      <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#ef4444', opacity: 0.7 }} />
+                      <span className="text-[9px] opacity-45">Peak: uncontrolled spike</span>
                     </div>
                   </div>
                 </div>
-                <p className="text-sm font-semibold mb-1 tracking-tight">Surge pricing was a cost we absorbed</p>
-                <p className="text-xs opacity-60 leading-relaxed">3PL surge during peak = uncontrolled cost increase per order. With MagicFleet, we define the surge, control its duration, and choose whether to pass it to the customer or use it as a lever to attract more riders.</p>
+                <div style={{ borderTop: '1px solid var(--portfolio-border)' }} className="pt-5">
+                  <p className="text-sm font-bold mb-2 tracking-tight">Surge pricing was a cost we fully absorbed</p>
+                  <p className="text-xs leading-relaxed" style={{ opacity: 0.55 }}>With MagicFleet, we define the surge amount, control its duration, and choose whether to pass it to the customer or use it as a lever to attract more riders during peak hours.</p>
+                </div>
               </div>
 
               {/* 02 — Routes & rider behaviour */}
-              <div className="border border-black/15 p-6">
-                <div className="text-[10px] tracking-widest opacity-50 mb-4">02 — ROUTE & RIDER CONTROL</div>
-                {/* Mini viz: inefficient vs efficient route */}
-                <div className="mb-5 relative h-16 w-full">
-                  <svg viewBox="0 0 200 60" className="w-full h-full">
-                    {/* Before: long wavy route */}
-                    <path d="M10,30 Q30,10 50,30 Q70,50 90,30 Q110,10 130,30" stroke="#ef4444" strokeWidth="1.5" fill="none" strokeDasharray="3,2" opacity="0.6" />
-                    <circle cx="10" cy="30" r="3" fill="#ef4444" opacity="0.6" />
-                    <circle cx="130" cy="30" r="3" fill="#ef4444" opacity="0.6" />
-                    <text x="65" y="55" fontSize="6" fill="currentColor" opacity="0.4" textAnchor="middle">Before: rider's own route</text>
-                    {/* After: direct route */}
-                    <path d="M140,30 L185,30" stroke="#22c55e" strokeWidth="1.5" fill="none" opacity="0.7" />
-                    <circle cx="140" cy="30" r="3" fill="#22c55e" opacity="0.7" />
-                    <circle cx="185" cy="30" r="3" fill="#22c55e" opacity="0.7" />
-                    <circle cx="162" cy="22" r="3" fill="#22c55e" opacity="0.5" />
-                    <text x="162" y="55" fontSize="6" fill="currentColor" opacity="0.4" textAnchor="middle">After: optimised + multi-drop</text>
-                  </svg>
+              <div className="p-8 flex flex-col" style={{ borderBottom: '1px solid var(--portfolio-border)' }}>
+                <div className="text-[10px] tracking-widest opacity-50 mb-6">02 — ROUTE & RIDER CONTROL</div>
+                {/* Viz */}
+                <div className="flex-1 flex flex-col justify-center mb-6" style={{ minHeight: '120px' }}>
+                  <div className="grid grid-cols-2 gap-6 mb-4">
+                    <div>
+                      <div className="text-[9px] opacity-40 mb-3">Before — rider's route</div>
+                      <svg viewBox="0 0 100 48" className="w-full" style={{ height: '64px' }}>
+                        <circle cx="12" cy="24" r="4" fill="#ef4444" opacity="0.7" />
+                        <path d="M16,24 Q28,8 40,24 Q52,40 64,24 Q76,8 88,24" stroke="#ef4444" strokeWidth="1.5" fill="none" strokeDasharray="4,2" opacity="0.55" />
+                        <circle cx="88" cy="24" r="4" fill="#ef4444" opacity="0.7" />
+                        <text x="50" y="44" fontSize="7" fill="currentColor" opacity="0.35" textAnchor="middle">longer · costlier</text>
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-[9px] opacity-40 mb-3">After — optimised route</div>
+                      <svg viewBox="0 0 100 48" className="w-full" style={{ height: '64px' }}>
+                        <circle cx="12" cy="28" r="4" fill="#22c55e" opacity="0.8" />
+                        <line x1="16" y1="28" x2="50" y2="28" stroke="#22c55e" strokeWidth="1.5" opacity="0.7" />
+                        <circle cx="50" cy="20" r="3.5" fill="#22c55e" opacity="0.5" />
+                        <line x1="50" y1="28" x2="88" y2="28" stroke="#22c55e" strokeWidth="1.5" opacity="0.7" />
+                        <circle cx="88" cy="28" r="4" fill="#22c55e" opacity="0.8" />
+                        <text x="50" y="44" fontSize="7" fill="currentColor" opacity="0.35" textAnchor="middle">multi-drop · efficient</text>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm font-semibold mb-1 tracking-tight">Longer routes = more money spent per order</p>
-                <p className="text-xs opacity-60 leading-relaxed">With 3PLs, riders took any route they chose. MagicFleet lets us suggest optimal routes, direct riders to high-demand zones, and enable multi-order pickups on a single trip — reducing cost per delivery and increasing rider earnings simultaneously.</p>
+                <div style={{ borderTop: '1px solid var(--portfolio-border)' }} className="pt-5">
+                  <p className="text-sm font-bold mb-2 tracking-tight">Longer routes = more money spent per order</p>
+                  <p className="text-xs leading-relaxed" style={{ opacity: 0.55 }}>MagicFleet lets us suggest optimal routes, direct riders to high-demand zones, and enable multi-order pickups on a single trip — reducing cost per delivery while increasing rider earnings.</p>
+                </div>
               </div>
 
               {/* 03 — Expansion */}
-              <div className="border border-black/15 p-6">
-                <div className="text-[10px] tracking-widest opacity-50 mb-4">03 — GEOGRAPHIC EXPANSION</div>
-                {/* Mini viz: zone grid */}
-                <div className="mb-5">
-                  <div className="grid grid-cols-2 gap-2">
+              <div className="p-8 flex flex-col" style={{ borderRight: '1px solid var(--portfolio-border)' }}>
+                <div className="text-[10px] tracking-widest opacity-50 mb-6">03 — GEOGRAPHIC EXPANSION</div>
+                {/* Viz */}
+                <div className="flex-1 flex flex-col justify-center mb-6" style={{ minHeight: '120px' }}>
+                  <div className="grid grid-cols-2 gap-6">
                     <div>
-                      <div className="text-[8px] opacity-40 mb-1.5">3PL coverage</div>
-                      <div className="grid grid-cols-4 gap-0.5">
-                        {[1,1,0,0, 1,1,0,0, 0,0,0,0, 0,0,0,0].map((active, i) => (
-                          <div key={i} className="aspect-square rounded-sm" style={{ background: active ? 'var(--portfolio-fg)' : 'var(--portfolio-border-strong)', opacity: active ? 0.35 : 0.12 }} />
+                      <div className="text-[9px] opacity-40 mb-2">3PL coverage</div>
+                      <div className="grid gap-1" style={{ gridTemplateColumns: 'repeat(5, 1fr)' }}>
+                        {[1,1,0,0,0, 1,1,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0].map((a, i) => (
+                          <div key={i} className="rounded-sm" style={{ aspectRatio: '1', background: a ? 'var(--portfolio-fg)' : 'var(--portfolio-border-strong)', opacity: a ? 0.3 : 0.1 }} />
                         ))}
                       </div>
                     </div>
                     <div>
-                      <div className="text-[8px] opacity-40 mb-1.5">MagicFleet zones</div>
-                      <div className="grid grid-cols-4 gap-0.5">
-                        {[1,1,1,0, 1,1,1,1, 0,1,1,1, 0,0,1,1].map((active, i) => (
-                          <div key={i} className="aspect-square rounded-sm" style={{ background: active ? '#22c55e' : 'var(--portfolio-border-strong)', opacity: active ? 0.6 : 0.12 }} />
+                      <div className="text-[9px] opacity-40 mb-2">MagicFleet zones</div>
+                      <div className="grid gap-1" style={{ gridTemplateColumns: 'repeat(5, 1fr)' }}>
+                        {[1,1,1,1,0, 1,1,1,1,1, 1,1,1,1,1, 0,1,1,1,1, 0,0,1,1,1].map((a, i) => (
+                          <div key={i} className="rounded-sm" style={{ aspectRatio: '1', background: a ? '#22c55e' : 'var(--portfolio-border-strong)', opacity: a ? 0.55 : 0.08 }} />
                         ))}
                       </div>
                     </div>
                   </div>
                 </div>
-                <p className="text-sm font-semibold mb-1 tracking-tight">Expansion was gated on provider availability</p>
-                <p className="text-xs opacity-60 leading-relaxed">If a 3PL didn't cover a locality, we couldn't onboard merchants there. MagicFleet removed that ceiling — we create high-demand zones, offer location-based incentives, and direct riders to wherever we want to grow next.</p>
+                <div style={{ borderTop: '1px solid var(--portfolio-border)' }} className="pt-5">
+                  <p className="text-sm font-bold mb-2 tracking-tight">Expansion was gated on provider availability</p>
+                  <p className="text-xs leading-relaxed" style={{ opacity: 0.55 }}>If a 3PL didn't cover a locality, we couldn't onboard merchants there. MagicFleet removed that ceiling — we create high-demand zones, offer location-based incentives, and direct riders wherever we want to grow.</p>
+                </div>
               </div>
 
-              {/* 04 — Rider & customer interaction */}
-              <div className="border border-black/15 p-6">
-                <div className="text-[10px] tracking-widest opacity-50 mb-4">04 — RIDER ACCOUNTABILITY</div>
-                {/* Mini viz: performance score tiers */}
-                <div className="mb-5 space-y-1.5">
+              {/* 04 — Rider accountability */}
+              <div className="p-8 flex flex-col">
+                <div className="text-[10px] tracking-widest opacity-50 mb-6">04 — RIDER ACCOUNTABILITY</div>
+                {/* Viz */}
+                <div className="flex-1 flex flex-col justify-center mb-6 space-y-2.5" style={{ minHeight: '120px' }}>
                   {[
                     { score: '100%', label: 'No verification needed', color: '#22c55e', w: '100%' },
-                    { score: '95%',  label: 'Basic verification', color: '#86efac', w: '75%' },
-                    { score: '90%',  label: 'Strict verification', color: '#f59e0b', w: '55%' },
-                    { score: '<85%', label: 'Blacklisted / fewer orders', color: '#ef4444', w: '35%' },
+                    { score: '95%',  label: 'Basic verification',      color: '#86efac', w: '72%'  },
+                    { score: '90%',  label: 'Strict verification',     color: '#f59e0b', w: '50%'  },
+                    { score: '<85%', label: 'Blacklisted · no orders', color: '#ef4444', w: '28%'  },
                   ].map((tier) => (
-                    <div key={tier.score} className="flex items-center gap-2">
-                      <div className="text-[8px] font-bold w-8 shrink-0 opacity-60">{tier.score}</div>
-                      <div className="flex-1 h-3 rounded-sm overflow-hidden" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.2 }}>
-                        <div className="h-full rounded-sm" style={{ width: tier.w, background: tier.color, opacity: 0.75 }} />
+                    <div key={tier.score} className="flex items-center gap-3">
+                      <div className="text-[9px] font-bold shrink-0 opacity-55" style={{ width: '32px' }}>{tier.score}</div>
+                      <div className="flex-1 rounded-sm overflow-hidden" style={{ height: '10px', background: 'var(--portfolio-border-strong)', opacity: 0.18 }}>
+                        <div className="h-full rounded-sm" style={{ width: tier.w, background: tier.color, opacity: 0.8 }} />
                       </div>
-                      <div className="text-[8px] opacity-50 w-28 shrink-0">{tier.label}</div>
+                      <div className="text-[9px] shrink-0 opacity-45" style={{ width: '140px' }}>{tier.label}</div>
                     </div>
                   ))}
                 </div>
-                <p className="text-sm font-semibold mb-1 tracking-tight">No control over how riders represented MagicPin</p>
-                <p className="text-xs opacity-60 leading-relaxed">3PLs owned the rider relationship. We had no visibility into dress code compliance, OTP verification, or delivery disputes. MagicFleet gave us a performance scoring system — tiered verification, instant penalties, account holds, and blacklisting for bad actors.</p>
+                <div style={{ borderTop: '1px solid var(--portfolio-border)' }} className="pt-5">
+                  <p className="text-sm font-bold mb-2 tracking-tight">No control over how riders represented MagicPin</p>
+                  <p className="text-xs leading-relaxed" style={{ opacity: 0.55 }}>MagicFleet introduced a performance scoring system — tiered OTP verification, instant penalties, account holds, and blacklisting for bad actors. Better riders get fewer friction points; worse riders get fewer orders.</p>
+                </div>
               </div>
 
             </div>
