@@ -834,9 +834,9 @@ export default function MagicFleetCaseStudy() {
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
             <ChallengeCard
               number="01"
-              title="No Data Ownership"
-              description="With third-party providers, MagicPin had no visibility into what was actually happening on the ground — no route data, no rider behaviour, no failure attribution. Every operational decision was made blind."
-              impact="Without data, there was no way to improve. Cost spikes, SLA failures, and rider churn had no root cause analysis attached to them."
+              title="Data Without Clarity"
+              description="Building in-house meant we now owned the data — GPS pings, delivery status, earnings, incidents, rider behaviour. But raw data at scale isn't insight. The challenge was deciding what to surface, to whom, and when — without overwhelming both users."
+              impact="Too much information is the same as no information. The design had to impose a clear hierarchy on the data, or every screen would become noise."
               imageUrl={IMG.dashboardOverview}
               delay={0}
             />
