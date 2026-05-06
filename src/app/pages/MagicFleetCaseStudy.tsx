@@ -376,21 +376,17 @@ function VizUserGroups() {
   const groups = [
     {
       role: 'Fleet Manager', icon: '👔',
-      screens: ['Live dispatch map', 'Shift scheduling', 'Performance analytics', 'Alert dashboard'],
+      screens: ['Rider onboarding & KYC', 'Fleet performance dashboard', 'Earnings & payout tracking', 'Compliance & document review'],
     },
     {
-      role: 'Dispatcher', icon: '🎯',
-      screens: ['Order assignment', 'Rider availability', 'Zone coverage view', 'SLA tracker'],
-    },
-    {
-      role: 'Rider', icon: '🛵',
-      screens: ['Active order view', 'Earnings & ledger', 'Surge zone map', 'Profile & support'],
+      role: 'Delivery Rider', icon: '🛵',
+      screens: ['Active order view', 'Earnings & ledger', 'Surge zone map', 'Performance & ratings'],
     },
   ];
   return (
     <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center">
-      <div className="text-[10px] tracking-widest opacity-60 mb-5">PLATFORM ECOSYSTEM — 3 USER GROUPS</div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="text-[10px] tracking-widest opacity-60 mb-5">PLATFORM ECOSYSTEM — 2 USER GROUPS · ASSIGNMENT & ROUTING IS AUTOMATED</div>
+      <div className="grid grid-cols-2 gap-6">
         {groups.map((g) => (
           <div key={g.role} className="border rounded p-4" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
             <div className="text-xl mb-2">{g.icon}</div>
@@ -491,7 +487,7 @@ function CaseImage({
 
 // ── Image sources — export from Figma and drop into public/case-studies/magicfleet/ ──
 const IMG: Record<string, string | undefined> = {
-  heroMockup: undefined, // INSERT: Hero mockup with dashboard, rider app, dispatch console
+  heroMockup: undefined, // INSERT: Hero mockup with manager dashboard and rider app screens
   dashboardOverview: undefined, // INSERT: Fleet Manager Dashboard Overview
   liveTracking: undefined, // INSERT: Live GPS Tracking Screen
   riderApp: undefined, // INSERT: Rider App Interface
@@ -846,26 +842,26 @@ export default function MagicFleetCaseStudy() {
             />
             <ChallengeCard
               number="02"
-              title="Three Completely Different Users"
-              description="Fleet managers, dispatchers, and riders have fundamentally different mental models and time horizons. A fleet manager thinks in days and regions. A dispatcher thinks in minutes and zones. A rider thinks in the next 500 metres."
-              impact="One platform had to serve all three — without forcing any of them to wade through what the other two needed."
+              title="Two Users, Opposite Contexts"
+              description="Managers sit at a desk overseeing hundreds of riders across a city. Riders are in motion, on a phone, often in low-connectivity areas. Same platform — but one user needs density of information, the other needs radical simplicity."
+              impact="A single interface that tried to serve both would fail both. The design had to fork at the right level without creating two separate products to maintain."
               imageUrl={IMG.shifScheduling}
               delay={0.05}
             />
             <ChallengeCard
               number="03"
               title="Offline as the Default State"
-              description="Riders operated in areas with poor or no connectivity. The system couldn't assume data would sync in real-time — yet dispatchers needed real-time visibility and managers needed accurate analytics."
-              impact="An online-first design would break constantly in production. The entire architecture had to be rethought for offline-first with graceful sync."
+              description="Riders operated in areas with poor or no connectivity. The app couldn't rely on live data syncing — yet managers needed accurate, up-to-date fleet analytics to make operational decisions."
+              impact="An online-first design would break constantly in the field. The entire data architecture had to be rethought around offline-first operation with graceful background sync."
               imageUrl={IMG.incidentReporting}
               delay={0.1}
             />
             <ChallengeCard
               number="04"
-              title="Decision Speed vs. Data Volume"
-              description="Real-time logistics generates enormous amounts of data — GPS pings, delivery statuses, incidents, earnings, zone loads. All equally present, none prioritised. The challenge was ruthless hierarchy, not more information."
-              impact="An overwhelmed dispatcher is a slow dispatcher. Every second of cognitive overhead in an assignment decision compounds across thousands of daily orders."
-              imageUrl={IMG.liveTracking}
+              title="Rider Trust & Retention"
+              description="Riders had no visibility into how their earnings were calculated, why orders came when they did, or how their performance was being judged. Lack of transparency created distrust and drove churn."
+              impact="Without trust, rider retention was entirely dependent on pay rates. Giving riders visibility into their own data was a retention lever — but only if the UX made it effortless to understand."
+              imageUrl={IMG.riderEarnings}
               delay={0.15}
             />
           </div>
@@ -875,8 +871,8 @@ export default function MagicFleetCaseStudy() {
             <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
               <div className="text-xs tracking-widest opacity-65 mb-4">CORE QUESTION</div>
               <p className="text-2xl md:text-4xl font-bold leading-tight opacity-90">
-                "How do we design one platform that gives three completely different users exactly what they
-                need — in real-time, at scale, even when the internet isn't there?"
+                "How do we design one platform that works for a manager at a desk and a rider on a bike —
+                reliably, at scale, even when the internet isn't there?"
               </p>
             </div>
           </FadeUp>
@@ -889,32 +885,28 @@ export default function MagicFleetCaseStudy() {
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">USER RESEARCH</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
-              THREE USER<br />ARCHETYPES
+              TWO USERS,<br />ONE PLATFORM
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              magicFleet serves three distinct user groups, each with different workflows, constraints, and needs.
-              Each one requires a tailored experience, but all three must work in seamless concert.
+              MagicFleet serves two user groups with fundamentally different contexts. Managers register and
+              oversee riders — this is a web-first, data-dense workflow. Riders are the primary users — a
+              mobile-first, offline-tolerant, high-frequency interaction pattern. All order assignment and
+              routing is handled automatically in the backend.
             </p>
           </FadeUp>
 
-          <div className="grid md:grid-cols-3 gap-0 md:gap-8">
+          <div className="grid md:grid-cols-2 gap-0 md:gap-8">
             <UserPersonaCard
               role="Fleet Manager"
-              description="Responsible for 5k–15k riders across a city. Needs regional overview, performance analytics, and the ability to identify and resolve operational issues."
-              painPoint="I need to see the health of my entire fleet at a glance — on-time rates, incident count, driver churn — so I can spot problems before they cascade."
+              description="Registers and manages a team of riders. Monitors fleet-level performance, tracks payouts, handles compliance and KYC documentation. Desktop-first, lower interaction frequency."
+              painPoint="I need to know how my fleet is performing, who's active, and whether payouts are going out correctly — without digging through five different screens."
               delay={0}
             />
             <UserPersonaCard
-              role="Dispatcher"
-              description="Manages real-time assignment and routing for 500–1000 active riders. Works under pressure to optimize assignments for speed and cost."
-              painPoint="Give me the right rider for the right delivery, right now. I need to see availability, location, current load, and historical performance instantly."
-              delay={0.1}
-            />
-            <UserPersonaCard
               role="Delivery Rider"
-              description="The frontline of operations. Executes deliveries, manages their schedule, and tracks earnings. Often works in poor connectivity areas with limited mobile data."
-              painPoint="I want to know what I'm earning, when my next delivery is, and how I'm performing. Keep it simple — I'm on the move, not in an office."
-              delay={0.2}
+              description="The primary user. Receives auto-assigned orders, tracks earnings in real-time, views performance metrics, and manages availability. Mobile-only, frequently offline, high interaction volume."
+              painPoint="Tell me what I'm earning, show me my next job, and don't make me tap more than twice to get there. I'm on a bike, not at a desk."
+              delay={0.1}
             />
           </div>
         </section>
@@ -1052,10 +1044,10 @@ export default function MagicFleetCaseStudy() {
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <FadeUp delay={0.1}>
               <p className="text-lg md:text-xl leading-relaxed opacity-75 mb-6">
-                magicFleet operates as an integrated ecosystem. Real-time rider location data flows into the central
-                dashboard, enabling dispatchers to make instant assignment decisions. Those assignments update rider
-                apps instantly (when connectivity allows) or queue for sync when offline. Performance metrics aggregate
-                at the fleet level, alerting managers to issues before they become critical.
+                magicFleet operates as an integrated ecosystem. Riders receive auto-assigned orders through the
+                backend — the app's job is to surface what they need to act on and capture what happened. That data
+                flows into the manager dashboard, where fleet performance aggregates at the team level. Managers
+                see the health of their fleet; riders see their own earnings, orders, and performance in real-time.
               </p>
               <p className="text-lg md:text-xl leading-relaxed opacity-75">
                 The system is built for <strong className="text-[var(--portfolio-fg)] opacity-100">eventual consistency</strong> — accepting
@@ -1145,8 +1137,8 @@ export default function MagicFleetCaseStudy() {
               delay={0}
             />
             <LearningCard
-              title="Simplify for the Busy User"
-              body="Dispatchers have 5 seconds to make a decision. Managers check the dashboard between meetings. Riders check phones while riding. Every screen must answer one question clearly."
+              title="Design for the Hardest Context"
+              body="Riders check their phones between deliveries — in motion, one hand, 3 seconds of attention. If the design works for them, it works for everyone. Design up from the hardest constraint, not down from the easiest."
               delay={0.05}
             />
             <LearningCard
@@ -1160,8 +1152,8 @@ export default function MagicFleetCaseStudy() {
               delay={0.15}
             />
             <LearningCard
-              title="The Middle Role is Critical"
-              body="Dispatchers bridge managers and riders. Optimize for them first — if dispatchers have the tools they need, riders and managers benefit. Neglect them, and the whole system breaks."
+              title="Automation Shifts the Design Problem"
+              body="When assignment and routing is automated, the design problem moves from 'how do I make the decision?' to 'how do I trust the decision?' Surfacing the logic behind auto-assignments reduced rider complaints more than any UI change."
               delay={0.2}
             />
             <LearningCard
