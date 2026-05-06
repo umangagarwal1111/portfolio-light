@@ -587,7 +587,7 @@ export default function MagicFleetCaseStudy() {
 
           <FadeUp delay={0.2}>
             <p className="text-lg md:text-2xl max-w-3xl leading-relaxed opacity-75">
-              Designed & built from scratch, an in-house last-mile fleet management platform that reduced third-party logistics dependency and scaled to 20K monthly active riders.
+              MagicPin's growth was being capped by third-party delivery providers — unpredictable pricing, availability gaps at peak hours, and zero control over the last-mile experience. MagicFleet was the answer: a purpose-built, in-house fleet management platform that returned control over cost, reliability, and the rider relationship. Scaled to 20K monthly active riders.
             </p>
           </FadeUp>
         </section>
@@ -710,6 +710,69 @@ export default function MagicFleetCaseStudy() {
 
         <Divider />
 
+        {/* ── THE SITUATION ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">THE SITUATION</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
+              WHY WE BUILT<br />THIS FROM SCRATCH
+            </h2>
+          </FadeUp>
+          <div className="grid md:grid-cols-2 gap-12">
+            <FadeUp delay={0.1}>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75">
+                MagicPin was scaling fast — but its delivery operations were entirely dependent on third-party logistics
+                providers. That dependency came with compounding problems: surge pricing during peak hours ate into
+                margins, availability gaps meant unfulfilled orders exactly when demand was highest, and competing
+                platforms were being prioritised over MagicPin on the same provider networks.
+              </p>
+            </FadeUp>
+            <FadeUp delay={0.2}>
+              <p className="text-lg md:text-xl leading-relaxed opacity-75">
+                There was no delivery data ownership — no visibility into route efficiency, rider behaviour, or failure
+                reasons. Geographic expansion was gated on whether a provider covered the area. And the last-mile
+                experience, the moment customers judge MagicPin, was entirely outside our control. The decision to
+                build an in-house fleet platform wasn't a product bet — it was a strategic necessity.
+              </p>
+            </FadeUp>
+          </div>
+
+          <FadeUp delay={0.3} className="mt-12 pt-12 border-t border-black/15">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                { label: 'Cost control lost to surge pricing', icon: '↑' },
+                { label: 'Zero data on route & rider performance', icon: '○' },
+                { label: 'Expansion blocked by provider coverage', icon: '⊘' },
+                { label: 'Last-mile experience out of our hands', icon: '×' },
+              ].map((item) => (
+                <div key={item.label} className="border-t-2 pt-5" style={{ borderColor: 'var(--portfolio-fg)' }}>
+                  <div className="text-2xl font-black mb-3 opacity-40">{item.icon}</div>
+                  <p className="text-sm opacity-65 leading-snug">{item.label}</p>
+                </div>
+              ))}
+            </div>
+          </FadeUp>
+
+          <FadeUp delay={0.4} className="mt-12">
+            <div className="grid md:grid-cols-3 gap-8 pt-12 border-t border-black/15">
+              <div>
+                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">100k+</div>
+                <p className="text-sm md:text-base opacity-75">Active delivery riders at peak scale</p>
+              </div>
+              <div>
+                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">15+</div>
+                <p className="text-sm md:text-base opacity-75">Cities — expanding without provider dependency</p>
+              </div>
+              <div>
+                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">20K</div>
+                <p className="text-sm md:text-base opacity-75">Monthly active riders at launch</p>
+              </div>
+            </div>
+          </FadeUp>
+        </section>
+
+        <Divider />
+
         {/* ── IMPACT METRICS ── */}
         <section>
           <FadeUp>
@@ -758,97 +821,51 @@ export default function MagicFleetCaseStudy() {
 
         <Divider />
 
-        {/* ── CONTEXT ── */}
-        <section>
-          <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">CONTEXT</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
-              THE SCALE OF<br />LOGISTICS
-            </h2>
-          </FadeUp>
-          <div className="grid md:grid-cols-2 gap-12">
-            <FadeUp delay={0.1}>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75">
-                magicFleet is Magicpin's internal fleet management platform, built to orchestrate tens of
-                thousands of delivery riders across India's major cities. It handles rider onboarding,
-                real-time GPS tracking, shift scheduling, performance management, payments, and compliance
-                at a massive scale — managing millions of deliveries every month.
-              </p>
-            </FadeUp>
-            <FadeUp delay={0.2}>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75">
-                The platform powers three critical user groups: fleet managers who oversee regional operations,
-                dispatchers who manage real-time assignment and routing, and riders who execute deliveries.
-                Each user group has fundamentally different needs, but all must work together in real-time to
-                ensure operational success.
-              </p>
-            </FadeUp>
-          </div>
-
-          <FadeUp delay={0.3} className="mt-12 pt-12 border-t border-black/15">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div>
-                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">100k+</div>
-                <p className="text-sm md:text-base opacity-75">Active delivery riders across cities</p>
-              </div>
-              <div>
-                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">15+</div>
-                <p className="text-sm md:text-base opacity-75">Major cities with operations</p>
-              </div>
-              <div>
-                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">Millions</div>
-                <p className="text-sm md:text-base opacity-75">Deliveries coordinated monthly</p>
-              </div>
-            </div>
-          </FadeUp>
-        </section>
-
-        <Divider />
-
         {/* ── THE CHALLENGE ── */}
         <section>
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE CHALLENGE</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
-              OPERATIONAL CHAOS<br />AT SCALE
+              BUILDING FOR A PROBLEM<br />THAT DIDN'T EXIST YET
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              Real-time logistics is inherently chaotic. Managing 100k+ riders requires visibility,
-              decisiveness, and the ability to respond instantly to changing conditions.
+              There was no existing internal tool to build on. No benchmark to reference. We were designing
+              a platform for operations that were simultaneously being built — which meant every design decision
+              had to anticipate scale we hadn't yet reached.
             </p>
           </FadeUp>
 
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
             <ChallengeCard
               number="01"
-              title="Data Overload"
-              description="Fleet managers faced overwhelming amounts of real-time data with no clear hierarchy or priority. GPS coordinates, rider status, delivery progress, metrics — all equally emphasized, making decisions harder, not easier."
-              impact="Without clear data prioritization, managers made slower decisions, missed critical issues, and couldn't respond quickly to operational problems."
+              title="No Data Ownership"
+              description="With third-party providers, MagicPin had no visibility into what was actually happening on the ground — no route data, no rider behaviour, no failure attribution. Every operational decision was made blind."
+              impact="Without data, there was no way to improve. Cost spikes, SLA failures, and rider churn had no root cause analysis attached to them."
               imageUrl={IMG.dashboardOverview}
               delay={0}
             />
             <ChallengeCard
               number="02"
-              title="Real-Time Visibility Gaps"
-              description="Live tracking existed but lacked context — where riders were didn't matter if you couldn't understand why they were there or what they were doing. Historical data and current state weren't connected."
-              impact="Dispatchers couldn't make intelligent routing decisions, leading to inefficient assignments and longer delivery times."
-              imageUrl={IMG.liveTracking}
+              title="Three Completely Different Users"
+              description="Fleet managers, dispatchers, and riders have fundamentally different mental models and time horizons. A fleet manager thinks in days and regions. A dispatcher thinks in minutes and zones. A rider thinks in the next 500 metres."
+              impact="One platform had to serve all three — without forcing any of them to wade through what the other two needed."
+              imageUrl={IMG.shifScheduling}
               delay={0.05}
             />
             <ChallengeCard
               number="03"
-              title="Multi-Role UX Complexity"
-              description="Each user group (managers, dispatchers, riders) had different workflows, but were using scattered tools. Workflows weren't integrated, causing friction and context switching."
-              impact="Operational efficiency suffered as teams wasted time switching between systems instead of focusing on deliveries."
-              imageUrl={IMG.shifScheduling}
+              title="Offline as the Default State"
+              description="Riders operated in areas with poor or no connectivity. The system couldn't assume data would sync in real-time — yet dispatchers needed real-time visibility and managers needed accurate analytics."
+              impact="An online-first design would break constantly in production. The entire architecture had to be rethought for offline-first with graceful sync."
+              imageUrl={IMG.incidentReporting}
               delay={0.1}
             />
             <ChallengeCard
               number="04"
-              title="Offline & Connectivity Constraints"
-              description="Riders often worked in areas with poor connectivity. The system couldn't sync data reliably, causing failed deliveries to go unreported and creating blind spots for managers."
-              impact="Lost visibility into delivery status meant operational decisions were made with incomplete information, reducing reliability."
-              imageUrl={IMG.incidentReporting}
+              title="Decision Speed vs. Data Volume"
+              description="Real-time logistics generates enormous amounts of data — GPS pings, delivery statuses, incidents, earnings, zone loads. All equally present, none prioritised. The challenge was ruthless hierarchy, not more information."
+              impact="An overwhelmed dispatcher is a slow dispatcher. Every second of cognitive overhead in an assignment decision compounds across thousands of daily orders."
+              imageUrl={IMG.liveTracking}
               delay={0.15}
             />
           </div>
@@ -858,59 +875,11 @@ export default function MagicFleetCaseStudy() {
             <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
               <div className="text-xs tracking-widest opacity-65 mb-4">CORE QUESTION</div>
               <p className="text-2xl md:text-4xl font-bold leading-tight opacity-90">
-                "How can we give fleet managers and dispatchers the real-time visibility and decision-making
-                tools they need to orchestrate 100k+ riders reliably and efficiently?"
+                "How do we design one platform that gives three completely different users exactly what they
+                need — in real-time, at scale, even when the internet isn't there?"
               </p>
             </div>
           </FadeUp>
-        </section>
-
-        <Divider />
-
-        {/* ── GOALS ── */}
-        <section>
-          <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">DESIGN GOALS</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              DESIGNING FOR<br />RELIABILITY
-            </h2>
-          </FadeUp>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              {
-                title: 'Real-Time Decision Support',
-                body: 'Provide managers and dispatchers with the most critical information first — sorted by relevance and urgency, not volume. Enable decisions in seconds, not minutes.',
-              },
-              {
-                title: 'Multi-Role Integration',
-                body: 'Connect workflows across managers, dispatchers, and riders. What one role does should directly impact the others, eliminating context switching and information silos.',
-              },
-              {
-                title: 'Offline-First Architecture',
-                body: 'Design for the reality of poor connectivity. Critical data should sync reliably, and the system should function offline, syncing when connectivity returns.',
-              },
-              {
-                title: 'Scalable Data Visualization',
-                body: 'As scale grows, visualizations must grow with it. Show individual rider status when needed, aggregate to fleet-level insights when necessary.',
-              },
-              {
-                title: 'Incident Management & Recovery',
-                body: 'Build systems that surface issues early and provide rapid response tools. When incidents happen, ensure recovery is fast and well-coordinated.',
-              },
-              {
-                title: 'Rider Empowerment',
-                body: 'Riders are not just executors — give them visibility into their performance, earnings, and feedback. Better-informed riders perform better and stay longer.',
-              },
-            ].map((goal, i) => (
-              <FadeUp key={goal.title} delay={i * 0.05}>
-                <div className="border-t border-black/15 pt-6 pb-2">
-                  <h3 className="text-lg md:text-xl font-bold mb-2 tracking-tight">{goal.title}</h3>
-                  <p className="opacity-75 leading-relaxed text-sm md:text-base">{goal.body}</p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
         </section>
 
         <Divider />
@@ -1238,12 +1207,13 @@ export default function MagicFleetCaseStudy() {
             <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
               <div className="text-xs tracking-widest opacity-65 mb-4">REFLECTION</div>
               <p className="text-2xl md:text-3xl font-bold leading-tight opacity-85 mb-6">
-                Building systems at scale is fundamentally different from building consumer products. The constraints are tighter, the stakes are higher, and the impact is more immediate.
+                The best design decision on MagicFleet wasn't a screen or an interaction — it was the decision to build at all.
               </p>
               <p className="text-lg md:text-xl leading-relaxed opacity-75">
-                magicFleet taught me that good design in logistics isn't about making things pretty — it's about
-                making 100,000 people more efficient, more informed, and ultimately more successful. Every small
-                decision compounds across millions of transactions. Design with that weight in mind.
+                Owning the fleet meant owning the data, the cost structure, and the rider relationship. The design work
+                was only possible because the strategic call was made first. This taught me that as a designer, understanding
+                why a product exists — the business constraint it solves, not just the user problem it addresses — is what
+                separates work that looks good from work that actually matters.
               </p>
             </div>
           </FadeUp>
