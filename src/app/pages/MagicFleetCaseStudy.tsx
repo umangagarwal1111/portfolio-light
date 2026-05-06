@@ -173,12 +173,12 @@ function ChallengeCard({
           <h3 className="text-xl md:text-2xl font-bold mb-6 tracking-tight">{title}</h3>
           <div className="space-y-4">
             <div>
-              <div className="text-xs tracking-widest opacity-65 mb-2">DESCRIPTION</div>
+              <div className="text-xs tracking-widest opacity-65 mb-2">THE PROBLEM</div>
               <p className="text-sm md:text-base opacity-75 leading-relaxed">{description}</p>
             </div>
             <div className="w-full h-[1px] bg-black/10" />
             <div>
-              <div className="text-xs tracking-widest opacity-65 mb-2">IMPACT</div>
+              <div className="text-xs tracking-widest opacity-65 mb-2">HOW WE SOLVED IT</div>
               <p className="text-sm md:text-base opacity-75 leading-relaxed">{impact}</p>
             </div>
           </div>
@@ -299,8 +299,8 @@ function VizFleetImpactMetrics() {
               <div className="flex-1 h-2 rounded-sm overflow-hidden" style={{ background: 'var(--portfolio-border-strong)' }}>
                 <div className="h-full rounded-sm" style={{ width: `${m.before}%`, background: 'var(--portfolio-fg)', opacity: 0.25 }} />
               </div>
-              <div className="text-[8px] opacity-40 w-10 text-right">{m.beforeLabel}</div>
-              <div className="text-[8px] opacity-30">→</div>
+              <div className="text-[8px] opacity-65 w-10 text-right">{m.beforeLabel}</div>
+              <div className="text-[8px] opacity-55">→</div>
               <div className="flex-1 h-2 rounded-sm overflow-hidden" style={{ background: 'var(--portfolio-border-strong)' }}>
                 <div className="h-full rounded-sm bg-green-500" style={{ width: `${m.after}%` }} />
               </div>
@@ -331,11 +331,11 @@ function VizInfoHierarchy() {
             <div className="w-full rounded-sm py-3 px-4 text-center" style={{ background: t.color, opacity: t.color.includes('var') ? 1 : undefined }}>
               <div className="text-[9px] font-black tracking-widest" style={{ color: t.color === 'var(--portfolio-border-strong)' ? 'var(--portfolio-fg)' : '#fff', opacity: t.color.includes('var') ? 0.7 : 1 }}>{t.label}</div>
             </div>
-            <div className="text-[8px] opacity-50 text-center">{t.items}</div>
+            <div className="text-[8px] opacity-65 text-center">{t.items}</div>
           </div>
         ))}
       </div>
-      <div className="mt-5 text-[9px] opacity-40 text-center">Priority determines screen real estate · Critical = always visible, no scroll</div>
+      <div className="mt-5 text-[9px] opacity-65 text-center">Priority determines screen real estate · Critical = always visible, no scroll</div>
     </div>
   );
 }
@@ -355,19 +355,19 @@ function VizDataFlow() {
             <div className="border rounded p-4 text-center flex-shrink-0" style={{ borderColor: 'var(--portfolio-border-strong)', minWidth: '110px' }}>
               <div className="text-xl mb-1">{n.icon}</div>
               <div className="text-[10px] font-bold opacity-80">{n.label}</div>
-              <div className="text-[8px] opacity-50 mt-0.5 leading-tight">{n.sub}</div>
+              <div className="text-[8px] opacity-65 mt-0.5 leading-tight">{n.sub}</div>
             </div>
             {i < nodes.length - 1 && (
               <div className="flex flex-col items-center gap-1">
-                <div className="text-[8px] opacity-40">GPS + Status</div>
-                <div className="text-sm opacity-50">⟶</div>
-                <div className="text-[8px] opacity-40">Processed metrics</div>
+                <div className="text-[8px] opacity-65">GPS + Status</div>
+                <div className="text-sm opacity-65">⟶</div>
+                <div className="text-[8px] opacity-65">Processed metrics</div>
               </div>
             )}
           </div>
         ))}
       </div>
-      <div className="mt-5 text-[9px] opacity-40 text-center">Async sync every 30s · Offline-first · Conflict resolution on reconnect</div>
+      <div className="mt-5 text-[9px] opacity-65 text-center">Async sync every 30s · Offline-first · Conflict resolution on reconnect</div>
     </div>
   );
 }
@@ -393,8 +393,8 @@ function VizUserGroups() {
             <div className="text-[10px] font-bold mb-3 opacity-80">{g.role}</div>
             <div className="space-y-1">
               {g.screens.map((s) => (
-                <div key={s} className="text-[8px] opacity-55 flex items-start gap-1">
-                  <span className="opacity-40 shrink-0">·</span>{s}
+                <div key={s} className="text-[8px] opacity-70 flex items-start gap-1">
+                  <span className="opacity-65 shrink-0">·</span>{s}
                 </div>
               ))}
             </div>
@@ -738,7 +738,7 @@ export default function MagicFleetCaseStudy() {
 
               {/* 01 — Surge pricing */}
               <div className="p-8 flex flex-col" style={{ borderRight: '1px solid var(--portfolio-border)', borderBottom: '1px solid var(--portfolio-border)' }}>
-                <div className="text-[10px] tracking-widest opacity-50 mb-6">01 — COST CONTROL</div>
+                <div className="text-[10px] tracking-widest opacity-65 mb-6">01 — COST CONTROL</div>
                 {/* Viz */}
                 <div className="flex-1 flex flex-col justify-center mb-6" style={{ minHeight: '120px' }}>
                   <div className="flex items-end gap-1.5 h-20 mb-2">
@@ -761,7 +761,7 @@ export default function MagicFleetCaseStudy() {
                       </div>
                     ))}
                   </div>
-                  <div className="flex justify-between text-[9px] opacity-35 mb-4">
+                  <div className="flex justify-between text-[9px] opacity-60 mb-4">
                     <span>6am</span>
                     <span>↑ Peak hours</span>
                     <span>10pm</span>
@@ -769,11 +769,11 @@ export default function MagicFleetCaseStudy() {
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-sm" style={{ background: 'var(--portfolio-fg)', opacity: 0.25 }} />
-                      <span className="text-[9px] opacity-45">3PL: surge cost absorbed by us</span>
+                      <span className="text-[9px] opacity-65">3PL: surge cost absorbed by us</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#ef4444', opacity: 0.7 }} />
-                      <span className="text-[9px] opacity-45">Peak: uncontrolled spike</span>
+                      <span className="text-[9px] opacity-65">Peak: uncontrolled spike</span>
                     </div>
                   </div>
                 </div>
@@ -785,12 +785,12 @@ export default function MagicFleetCaseStudy() {
 
               {/* 02 — Routes & rider behaviour */}
               <div className="p-8 flex flex-col" style={{ borderBottom: '1px solid var(--portfolio-border)' }}>
-                <div className="text-[10px] tracking-widest opacity-50 mb-6">02 — ROUTE & RIDER CONTROL</div>
+                <div className="text-[10px] tracking-widest opacity-65 mb-6">02 — ROUTE & RIDER CONTROL</div>
                 {/* Viz */}
                 <div className="flex-1 flex flex-col justify-center mb-6" style={{ minHeight: '120px' }}>
                   <div className="grid grid-cols-2 gap-6 mb-4">
                     <div>
-                      <div className="text-[9px] opacity-40 mb-3">Before — rider's route</div>
+                      <div className="text-[9px] opacity-65 mb-3">Before — rider's route</div>
                       <svg viewBox="0 0 100 48" className="w-full" style={{ height: '64px' }}>
                         <circle cx="12" cy="24" r="4" fill="#ef4444" opacity="0.7" />
                         <path d="M16,24 Q28,8 40,24 Q52,40 64,24 Q76,8 88,24" stroke="#ef4444" strokeWidth="1.5" fill="none" strokeDasharray="4,2" opacity="0.55" />
@@ -799,7 +799,7 @@ export default function MagicFleetCaseStudy() {
                       </svg>
                     </div>
                     <div>
-                      <div className="text-[9px] opacity-40 mb-3">After — optimised route</div>
+                      <div className="text-[9px] opacity-65 mb-3">After — optimised route</div>
                       <svg viewBox="0 0 100 48" className="w-full" style={{ height: '64px' }}>
                         <circle cx="12" cy="28" r="4" fill="#22c55e" opacity="0.8" />
                         <line x1="16" y1="28" x2="50" y2="28" stroke="#22c55e" strokeWidth="1.5" opacity="0.7" />
@@ -819,12 +819,12 @@ export default function MagicFleetCaseStudy() {
 
               {/* 03 — Expansion */}
               <div className="p-8 flex flex-col" style={{ borderRight: '1px solid var(--portfolio-border)' }}>
-                <div className="text-[10px] tracking-widest opacity-50 mb-6">03 — GEOGRAPHIC EXPANSION</div>
+                <div className="text-[10px] tracking-widest opacity-65 mb-6">03 — GEOGRAPHIC EXPANSION</div>
                 {/* Viz */}
                 <div className="flex-1 flex flex-col justify-center mb-6" style={{ minHeight: '120px' }}>
                   <div className="grid grid-cols-2 gap-6">
                     <div>
-                      <div className="text-[9px] opacity-40 mb-2">3PL coverage</div>
+                      <div className="text-[9px] opacity-65 mb-2">3PL coverage</div>
                       <div className="grid gap-1" style={{ gridTemplateColumns: 'repeat(5, 1fr)' }}>
                         {[1,1,0,0,0, 1,1,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0].map((a, i) => (
                           <div key={i} className="rounded-sm" style={{ aspectRatio: '1', background: a ? 'var(--portfolio-fg)' : 'var(--portfolio-border-strong)', opacity: a ? 0.3 : 0.1 }} />
@@ -832,7 +832,7 @@ export default function MagicFleetCaseStudy() {
                       </div>
                     </div>
                     <div>
-                      <div className="text-[9px] opacity-40 mb-2">MagicFleet zones</div>
+                      <div className="text-[9px] opacity-65 mb-2">MagicFleet zones</div>
                       <div className="grid gap-1" style={{ gridTemplateColumns: 'repeat(5, 1fr)' }}>
                         {[1,1,1,1,0, 1,1,1,1,1, 1,1,1,1,1, 0,1,1,1,1, 0,0,1,1,1].map((a, i) => (
                           <div key={i} className="rounded-sm" style={{ aspectRatio: '1', background: a ? '#22c55e' : 'var(--portfolio-border-strong)', opacity: a ? 0.55 : 0.08 }} />
@@ -849,7 +849,7 @@ export default function MagicFleetCaseStudy() {
 
               {/* 04 — Rider accountability */}
               <div className="p-8 flex flex-col">
-                <div className="text-[10px] tracking-widest opacity-50 mb-6">04 — RIDER ACCOUNTABILITY</div>
+                <div className="text-[10px] tracking-widest opacity-65 mb-6">04 — RIDER ACCOUNTABILITY</div>
                 {/* Viz */}
                 <div className="flex-1 flex flex-col justify-center mb-6 space-y-2.5" style={{ minHeight: '120px' }}>
                   {[
@@ -961,7 +961,7 @@ export default function MagicFleetCaseStudy() {
                   {/* Left: label + bar + note */}
                   <div>
                     <div className="flex items-baseline gap-3 mb-3">
-                      <span className="text-xs tracking-widest opacity-45">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="text-xs tracking-widest opacity-55">{String(i + 1).padStart(2, '0')}</span>
                       <span className="text-base md:text-lg font-bold tracking-tight">{m.label}</span>
                     </div>
                     <p className="text-sm opacity-60 mb-4 leading-snug">{m.context}</p>
@@ -970,27 +970,27 @@ export default function MagicFleetCaseStudy() {
                       <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.2 }}>
                         <div className="h-full rounded-full" style={{ width: `${m.barBefore}%`, background: 'var(--portfolio-fg)', opacity: 0.4 }} />
                       </div>
-                      <span className="text-xs opacity-35 shrink-0 w-6">→</span>
+                      <span className="text-xs opacity-55 shrink-0 w-6">→</span>
                       <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.2 }}>
                         <div className="h-full rounded-full" style={{ width: `${m.barAfter}%`, background: m.invert ? '#22c55e' : '#22c55e', opacity: 0.8 }} />
                       </div>
                     </div>
-                    <p className="text-xs opacity-35 italic">{m.note}</p>
+                    <p className="text-xs opacity-65 italic">{m.note}</p>
                   </div>
 
                   {/* Right: before → after → delta */}
                   <div className="flex items-center gap-5 md:gap-8 shrink-0">
                     <div className="text-center">
-                      <div className="text-[10px] tracking-widest opacity-35 mb-1.5">BEFORE</div>
-                      <div className="text-2xl md:text-3xl font-black tracking-tight opacity-30">{m.before}</div>
+                      <div className="text-[10px] tracking-widest opacity-60 mb-1.5">BEFORE</div>
+                      <div className="text-2xl md:text-3xl font-black tracking-tight opacity-55">{m.before}</div>
                     </div>
-                    <div className="text-xl opacity-20 font-light">→</div>
+                    <div className="text-xl opacity-45 font-light">→</div>
                     <div className="text-center">
-                      <div className="text-[10px] tracking-widest opacity-35 mb-1.5">AFTER</div>
+                      <div className="text-[10px] tracking-widest opacity-65 mb-1.5">AFTER</div>
                       <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: '#22c55e' }}>{m.after}</div>
                     </div>
                     <div className="text-center pl-5 md:pl-8" style={{ borderLeft: '1px solid var(--portfolio-border)' }}>
-                      <div className="text-[10px] tracking-widest opacity-35 mb-1.5">CHANGE</div>
+                      <div className="text-[10px] tracking-widest opacity-65 mb-1.5">CHANGE</div>
                       <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: '#22c55e' }}>{m.delta}</div>
                     </div>
                   </div>
@@ -1007,46 +1007,46 @@ export default function MagicFleetCaseStudy() {
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE CHALLENGE</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
-              BUILDING FOR A PROBLEM<br />THAT DIDN'T EXIST YET
+              FOUR PROBLEMS<br />ONE PLATFORM HAD TO SOLVE
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              There was no existing internal tool to build on. No benchmark to reference. We were designing
-              a platform for operations that were simultaneously being built — which meant every design decision
-              had to anticipate scale we hadn't yet reached.
+              The core product challenge was rider-centric: how do you onboard riders at scale,
+              keep them earning, help them understand their own performance, and support them
+              when things go wrong — all from a single mobile app?
             </p>
           </FadeUp>
 
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
             <ChallengeCard
               number="01"
-              title="Data Without Clarity"
-              description="Building in-house meant we now owned the data — GPS pings, delivery status, earnings, incidents, rider behaviour. But raw data at scale isn't insight. The challenge was deciding what to surface, to whom, and when — without overwhelming both users."
-              impact="Too much information is the same as no information. The design had to impose a clear hierarchy on the data, or every screen would become noise."
-              imageUrl={IMG.dashboardOverview}
+              title="Onboarding Riders at Scale"
+              description="We needed to grow the rider supply fast — across 7 metros simultaneously. The onboarding process involved document verification, KYC, vehicle checks, and training. Done manually or through fragmented tools, this would bottleneck growth before it started."
+              impact="We designed a streamlined in-app onboarding flow for managers — step-by-step rider registration, document upload, and instant status tracking. What used to take days of back-and-forth dropped to a single guided session."
+              imageUrl={IMG.riderApp}
               delay={0}
             />
             <ChallengeCard
               number="02"
-              title="One App, Two Completely Different Experiences"
-              description="Managers and riders log into the same app — but what they need from it is entirely different. A manager periodically checks fleet health and payouts on their phone. A rider is in the app multiple times a day, between deliveries, often on 2G."
-              impact="The interface had to adapt by role at login — same codebase, same app, two distinct experiences — without creating a maintenance burden of two separate products."
-              imageUrl={IMG.shifScheduling}
+              title="Helping Riders Earn More Per Day"
+              description="A rider earning more per day is a rider who stays. But riders had no visibility into where demand was highest, when to be online, or how to stack more orders into a single trip. They were flying blind on the decisions that most affected their income."
+              impact="We built surge zone maps, high-demand hour indicators, and multi-order trip support directly into the rider home screen. Riders could now make active decisions about where and when to be — lifting orders per rider per month from ~15 to ~28."
+              imageUrl={IMG.riderEarnings}
               delay={0.05}
             />
             <ChallengeCard
               number="03"
-              title="Offline as the Default State"
-              description="Riders operated in areas with poor or no connectivity. The app couldn't rely on live data syncing — yet managers needed accurate, up-to-date fleet analytics to make operational decisions."
-              impact="An online-first design would break constantly in the field. The entire data architecture had to be rethought around offline-first operation with graceful background sync."
-              imageUrl={IMG.incidentReporting}
+              title="Making Performance & Financials Legible"
+              description="Riders couldn't see how their earnings were broken down, what their on-time rate was, or why their performance score changed. Without that visibility, they had no way to improve — and no reason to trust the platform enough to stay."
+              impact="We designed a transparent earnings ledger (base pay, surge, bonuses, deductions — line by line) and a clear performance dashboard with on-time rate, acceptance rate, and ratings. Rider retention improved from 32% to 48% within months of launch."
+              imageUrl={IMG.dashboardOverview}
               delay={0.1}
             />
             <ChallengeCard
               number="04"
-              title="Rider Trust & Retention"
-              description="Riders had no visibility into how their earnings were calculated, why orders came when they did, or how their performance was being judged. Lack of transparency created distrust and drove churn."
-              impact="Without trust, rider retention was entirely dependent on pay rates. Giving riders visibility into their own data was a retention lever — but only if the UX made it effortless to understand."
-              imageUrl={IMG.riderEarnings}
+              title="Faster Support When Deliveries Go Wrong"
+              description="When a delivery issue arose — wrong address, customer unavailable, payment problem — riders had to call a support number and wait. Every minute spent on hold was a delivery stalled. High resolution times meant disrupted SLAs and frustrated riders."
+              impact="We built an in-app issue reporting flow with categorised problem types, photo evidence, and real-time status updates. Riders no longer needed to call. Issue resolution time dropped from ~120 minutes to ~42 minutes."
+              imageUrl={IMG.incidentReporting}
               delay={0.15}
             />
           </div>
@@ -1056,8 +1056,8 @@ export default function MagicFleetCaseStudy() {
             <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
               <div className="text-xs tracking-widest opacity-65 mb-4">CORE QUESTION</div>
               <p className="text-2xl md:text-4xl font-bold leading-tight opacity-90">
-                "How do we build one app that adapts by role at login — giving managers fleet-level control
-                and riders a simple, offline-tolerant experience — without building two separate products?"
+                "How do we design an app that makes riders want to join, earn more, stay longer,
+                and reach out when they need help — all in one place?"
               </p>
             </div>
           </FadeUp>
