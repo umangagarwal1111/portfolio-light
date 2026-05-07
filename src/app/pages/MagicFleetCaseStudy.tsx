@@ -146,28 +146,17 @@ function ChallengeCard({
   title,
   description,
   impact,
-  imageUrl,
   delay = 0,
 }: {
   number: string;
   title: string;
   description: string;
   impact: string;
-  imageUrl?: string;
   delay?: number;
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 hover:border-black/20 transition-colors duration-500 overflow-hidden">
-        {/* Screenshot evidence */}
-        <CaseImage
-          src={imageUrl}
-          alt={`Challenge ${number}: ${title}`}
-          label={`SCREENSHOT — ${title.toUpperCase()} (export from Figma)`}
-          aspect="3/2"
-          className="border-b border-black/15"
-          contain
-        />
+      <div className="border border-black/15 hover:border-black/20 transition-colors duration-500">
         <div className="p-6 md:p-8">
           <div className="text-xs tracking-widest opacity-60 mb-4">{number}</div>
           <h3 className="text-xl md:text-2xl font-bold mb-6 tracking-tight">{title}</h3>
@@ -1022,7 +1011,6 @@ export default function MagicFleetCaseStudy() {
               title="Onboarding Riders at Scale"
               description="We needed to grow the rider supply fast — across 7 metros simultaneously. The onboarding process involved document verification, KYC, vehicle checks, and training. Done manually or through fragmented tools, this would bottleneck growth before it started."
               impact="We designed a streamlined in-app onboarding flow for managers — step-by-step rider registration, document upload, and instant status tracking. What used to take days of back-and-forth dropped to a single guided session."
-              imageUrl={IMG.riderApp}
               delay={0}
             />
             <ChallengeCard
@@ -1030,7 +1018,6 @@ export default function MagicFleetCaseStudy() {
               title="Helping Riders Earn More Per Day"
               description="A rider earning more per day is a rider who stays. But riders had no visibility into where demand was highest, when to be online, or how to stack more orders into a single trip. They were flying blind on the decisions that most affected their income."
               impact="We built surge zone maps, high-demand hour indicators, and multi-order trip support directly into the rider home screen. Riders could now make active decisions about where and when to be — lifting orders per rider per month from ~15 to ~28."
-              imageUrl={IMG.riderEarnings}
               delay={0.05}
             />
             <ChallengeCard
@@ -1038,7 +1025,6 @@ export default function MagicFleetCaseStudy() {
               title="Making Performance & Financials Legible"
               description="Riders couldn't see how their earnings were broken down, what their on-time rate was, or why their performance score changed. Without that visibility, they had no way to improve — and no reason to trust the platform enough to stay."
               impact="We designed a transparent earnings ledger (base pay, surge, bonuses, deductions — line by line) and a clear performance dashboard with on-time rate, acceptance rate, and ratings. Rider retention improved from 32% to 48% within months of launch."
-              imageUrl={IMG.dashboardOverview}
               delay={0.1}
             />
             <ChallengeCard
@@ -1046,7 +1032,6 @@ export default function MagicFleetCaseStudy() {
               title="Faster Support When Deliveries Go Wrong"
               description="When a delivery issue arose — wrong address, customer unavailable, payment problem — riders had to call a support number and wait. Every minute spent on hold was a delivery stalled. High resolution times meant disrupted SLAs and frustrated riders."
               impact="We built an in-app issue reporting flow with categorised problem types, photo evidence, and real-time status updates. Riders no longer needed to call. Issue resolution time dropped from ~120 minutes to ~42 minutes."
-              imageUrl={IMG.incidentReporting}
               delay={0.15}
             />
           </div>
@@ -1165,7 +1150,6 @@ export default function MagicFleetCaseStudy() {
               title="Manager View — Fleet at a Glance"
               description="When a manager logs in, the same app surfaces a fleet-level view: registered riders, active count, collective performance, and payout status. Designed for periodic check-ins, not continuous monitoring."
               insight="Managers don't need a desktop dashboard — they need a mobile view that answers 'is everything okay?' in under 30 seconds."
-              imageUrl={IMG.dashboardOverview}
               delay={0}
             />
 
@@ -1174,7 +1158,6 @@ export default function MagicFleetCaseStudy() {
               title="Live GPS Tracking & Analytics"
               description="Real-time rider location tracking with contextual analytics. Not just where riders are, but what they're doing, how long they've been there, and predictive ETA for next deliveries."
               insight="Context changes everything. Raw GPS coordinates are meaningless without understanding what the rider is actually doing."
-              imageUrl={IMG.liveTracking}
               delay={0.05}
             />
 
@@ -1183,7 +1166,6 @@ export default function MagicFleetCaseStudy() {
               title="Intelligent Shift Scheduling"
               description="A scheduling system that lets managers create shifts with constraints (area, vehicle type, rider experience), then intelligently assigns riders based on availability, preference, and historical performance."
               insight="Predictive shift filling reduces 30-minute manual assignment down to 3 minutes, while improving rider satisfaction and retention."
-              imageUrl={IMG.shifScheduling}
               delay={0.1}
             />
 
@@ -1192,7 +1174,6 @@ export default function MagicFleetCaseStudy() {
               title="Rider Earnings & Incentives"
               description="A transparent earnings dashboard for riders showing real-time earnings, bonus structure, and performance feedback. Gamified incentives drive engagement and performance improvement."
               insight="Riders who see their earnings rise perform better. Transparency is a feature, not a detail."
-              imageUrl={IMG.riderEarnings}
               delay={0.15}
             />
 
@@ -1201,7 +1182,6 @@ export default function MagicFleetCaseStudy() {
               title="Incident Reporting & Resolution"
               description="A low-friction system for reporting delivery incidents (cancelled, delayed, damaged). Enables rapid issue escalation, category tracking, and automated resolution workflows."
               insight="Most incidents don't need manual intervention. Automate the 80% of routine issues so teams can focus on the 20% that need human judgment."
-              imageUrl={IMG.incidentReporting}
               delay={0.2}
             />
 
@@ -1210,7 +1190,6 @@ export default function MagicFleetCaseStudy() {
               title="Rider Mobile App"
               description="A lightweight, offline-friendly app for riders. Shows current assignment, route, earnings, performance, and feedback. Designed for low-data environments and quick interactions on the move."
               insight="Every extra second of load time on mobile means riders will switch apps. Offline-first isn't optional — it's essential."
-              imageUrl={IMG.riderApp}
               delay={0.25}
             />
           </div>
