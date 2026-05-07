@@ -577,123 +577,39 @@ export default function MagicFleetCaseStudy() {
           </FadeUp>
         </section>
 
-        {/* ── HERO MOCKUP: 3D MOBILE SCREENS ── */}
-        <section className="mb-12 md:mb-20">
+        {/* ── HERO MOCKUP: 4 PHONE SCREENS ── */}
+        <section className="mb-12 md:mb-20 overflow-x-auto md:overflow-visible">
           <div
-            className="relative w-full flex items-center justify-center overflow-visible py-20"
-            style={{
-              perspective: '1200px',
-            }}
+            className="flex items-end justify-center gap-5 md:gap-8 py-12 md:py-20 px-6"
+            style={{ minWidth: '680px' }}
           >
-            {/* Mobile Mockups Container */}
-            <div className="relative flex items-center justify-center px-0 w-full overflow-x-auto md:overflow-visible">
-              {/* Mockup 1 - Rider Screen (Surge Hours) */}
+            {[
+              { src: '/case-studies/magicfleet/Orders.png',   alt: 'Active Orders screen', label: 'ACTIVE ORDERS', delay: 0,    offsetY: 0   },
+              { src: '/case-studies/magicfleet/Earnings.png', alt: 'Earnings screen',       label: 'EARNINGS',      delay: 0.08, offsetY: -40 },
+              { src: '/case-studies/magicfleet/Ledger.png',   alt: 'Ledger screen',         label: 'LEDGER',        delay: 0.16, offsetY: -20 },
+              { src: '/case-studies/magicfleet/Profile.png',  alt: 'Profile screen',        label: 'PROFILE',       delay: 0.24, offsetY: 0   },
+            ].map((screen) => (
               <motion.div
-                initial={{ opacity: 0, y: 40, rotateX: 15 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                key={screen.src}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: screen.offsetY }}
                 viewport={{ once: true }}
-                transition={{ delay: 0, duration: 0.7 }}
-                whileHover={{ scale: 1.08, y: -20 }}
-                className="flex-shrink-0 relative cursor-pointer group"
-                style={{
-                  transformStyle: 'preserve-3d',
-                  width: '560px',
-                }}
+                transition={{ delay: screen.delay, duration: 0.7, ease: [0.215, 0.61, 0.355, 1] }}
+                whileHover={{ y: screen.offsetY - 14, transition: { duration: 0.25, ease: 'easeOut' } }}
+                className="flex-shrink-0 flex flex-col items-center gap-4"
+                style={{ width: 'clamp(150px, 20vw, 240px)' }}
               >
-                <motion.img
-                  src="https://www.figma.com/api/mcp/asset/02a5a244-e387-4505-97ac-f50331b6ff88"
-                  alt="Rider App - Surge Hours"
-                  className="w-full h-auto rounded-3xl transition-all duration-300"
-                  whileHover={{ boxShadow: '0 50px 120px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3)' }}
-                  style={{
-                    boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2)',
-                    clipPath: 'inset(0 18% 0 18%)',
-                  }}
+                <img
+                  src={screen.src}
+                  alt={screen.alt}
+                  className="w-full h-auto rounded-[20px]"
+                  style={{ boxShadow: '0 32px 80px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.2)' }}
                 />
+                <span className="text-[10px] tracking-widest opacity-65">{screen.label}</span>
               </motion.div>
-
-              {/* Mockup 2 - Ledger Screen */}
-              <motion.div
-                initial={{ opacity: 0, y: 40, rotateX: 15 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1, duration: 0.7 }}
-                whileHover={{ scale: 1.08, y: -20 }}
-                className="flex-shrink-0 relative cursor-pointer group"
-                style={{
-                  transformStyle: 'preserve-3d',
-                  width: '560px',
-                  marginLeft: '-195px',
-                }}
-              >
-                <motion.img
-                  src="https://www.figma.com/api/mcp/asset/bae52dc3-e03b-45e8-9a44-877f659ba25b"
-                  alt="Ledger App - Earnings Data"
-                  className="w-full h-auto rounded-3xl transition-all duration-300"
-                  whileHover={{ boxShadow: '0 50px 120px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3)' }}
-                  style={{
-                    boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2)',
-                    clipPath: 'inset(0 18% 0 18%)',
-                  }}
-                />
-              </motion.div>
-
-              {/* Mockup 3 - Earnings Screen */}
-              <motion.div
-                initial={{ opacity: 0, y: 40, rotateX: 15 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.7 }}
-                whileHover={{ scale: 1.08, y: -20 }}
-                className="flex-shrink-0 relative cursor-pointer group"
-                style={{
-                  transformStyle: 'preserve-3d',
-                  width: '560px',
-                  marginLeft: '-195px',
-                }}
-              >
-                <motion.img
-                  src="https://www.figma.com/api/mcp/asset/356b939a-4873-427b-b2b2-d398c95e8923"
-                  alt="Earnings App - Withdrawal Options"
-                  className="w-full h-auto rounded-3xl transition-all duration-300"
-                  whileHover={{ boxShadow: '0 50px 120px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3)' }}
-                  style={{
-                    boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2)',
-                    clipPath: 'inset(0 18% 0 18%)',
-                  }}
-                />
-              </motion.div>
-
-              {/* Mockup 4 - Profile Screen */}
-              <motion.div
-                initial={{ opacity: 0, y: 40, rotateX: 15 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.7 }}
-                whileHover={{ scale: 1.08, y: -20 }}
-                className="flex-shrink-0 relative cursor-pointer group"
-                style={{
-                  transformStyle: 'preserve-3d',
-                  width: '560px',
-                  marginLeft: '-195px',
-                }}
-              >
-                <motion.img
-                  src="https://www.figma.com/api/mcp/asset/85f2a276-eadb-4c74-a2ea-7b74d50f2196"
-                  alt="Profile App - User Settings"
-                  className="w-full h-auto rounded-3xl transition-all duration-300"
-                  whileHover={{ boxShadow: '0 50px 120px rgba(0, 0, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3)' }}
-                  style={{
-                    boxShadow: '0 25px 80px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2)',
-                    clipPath: 'inset(0 18% 0 18%)',
-                  }}
-                />
-              </motion.div>
-            </div>
+            ))}
           </div>
         </section>
-
-        <Divider />
 
         {/* ── THE SITUATION ── */}
         <section>
