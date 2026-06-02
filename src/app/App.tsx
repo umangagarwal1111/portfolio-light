@@ -19,7 +19,6 @@ import {
   useIsMobile,
   MomentumTilt,
   ElasticSection,
-  TapRevealImage,
   SectionCounter,
   TouchRipple,
   ScrollBlur,
@@ -478,6 +477,7 @@ function MobileProjectItem({
   slug,
   isUnlocked,
   onPasswordRequired,
+  noEdgeFade,
 }: {
   title: string;
   yearDisplay: string;
@@ -487,8 +487,8 @@ function MobileProjectItem({
   slug?: string;
   isUnlocked?: boolean;
   onPasswordRequired?: () => void;
+  noEdgeFade?: boolean;
 }) {
-  const [showImage, setShowImage] = useState(false);
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -528,20 +528,24 @@ function MobileProjectItem({
           {description}
         </p>
 
-        {/* Tap hint */}
-        <motion.span
-          className="relative z-10 mt-3 inline-block text-xs tracking-widest"
-          animate={{ opacity: showImage ? 0 : 0.3 }}
-        >
-          TAP TO PREVIEW
-        </motion.span>
-
-        {/* Tap-to-reveal image */}
-        <TapRevealImage
-          imageUrl={imageUrl}
-          isVisible={showImage}
-          onDismiss={() => setShowImage(false)}
-        />
+        {/* Project image */}
+        {imageUrl && (
+          <div className="relative z-10 mt-5 overflow-hidden rounded-sm" style={{ height: '200px' }}>
+            <img
+              src={imageUrl}
+              alt={title}
+              className="w-full h-full object-cover"
+            />
+            {!noEdgeFade && (
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to right, var(--portfolio-bg) 0%, transparent 15%, transparent 85%, var(--portfolio-bg) 100%)',
+                }}
+              />
+            )}
+          </div>
+        )}
       </motion.div>
     </TouchRipple>
   );
@@ -638,6 +642,32 @@ function DesktopProjectItem({
         >
           VIEW CASE STUDY →
         </motion.span>
+      )}
+
+      {/* Project image */}
+      {imageUrl && (
+        <motion.div
+          className="relative z-10 mt-8 overflow-hidden rounded-sm"
+          style={{ height: '320px' }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: index * 0.1 + 0.2 }}
+        >
+          <img
+            src={imageUrl}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+          {!noEdgeFade && (
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: 'linear-gradient(to right, var(--portfolio-bg) 0%, transparent 12%, transparent 88%, var(--portfolio-bg) 100%)',
+              }}
+            />
+          )}
+        </motion.div>
       )}
 
       <motion.span className="absolute right-0 bottom-4 text-8xl md:text-9xl font-black opacity-0 group-hover:opacity-[0.04] transition-opacity duration-700 select-none hidden md:block">
