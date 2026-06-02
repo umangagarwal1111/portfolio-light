@@ -7,7 +7,6 @@ import {
   SplitTextReveal,
   MagneticButton,
   TextScramble,
-  CursorImage,
   Marquee,
   StaggeredReveal,
   AnimatedSection,
@@ -473,23 +472,29 @@ function MobileProjectItem({
   yearDisplay,
   description,
   imageUrl,
+  tag,
+  imageBgLight,
+  imageBgDark,
   index,
   slug,
   isUnlocked,
   onPasswordRequired,
-  noEdgeFade,
 }: {
   title: string;
   yearDisplay: string;
   description: string;
   imageUrl: string;
+  tag?: string;
+  imageBgLight?: string;
+  imageBgDark?: string;
   index: number;
   slug?: string;
   isUnlocked?: boolean;
   onPasswordRequired?: () => void;
-  noEdgeFade?: boolean;
 }) {
   const navigate = useNavigate();
+  const { theme } = useTheme();
+  const imageBg = theme === 'dark' ? (imageBgDark || '#1e1e1e') : (imageBgLight || '#ebebeb');
 
   const handleClick = () => {
     if (!slug || !isUnlocked) {
@@ -505,45 +510,44 @@ function MobileProjectItem({
         className="relative py-10 cursor-pointer"
         style={{ borderBottom: '1px solid var(--portfolio-border-strong)' }}
         onClick={handleClick}
-        // y removed: animating upward while the user scrolls down is an
-        // opposing-motion pattern that reads as scroll resistance on mobile.
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-30px' }}
         transition={{ duration: 0.5, delay: index * 0.08 }}
       >
-        {/* Project number watermark */}
-        <span className="absolute right-2 top-6 text-6xl font-black opacity-[0.04] select-none">
-          {String(index + 1).padStart(2, '0')}
-        </span>
+        {/* Tag */}
+        {tag && (
+          <span className="relative z-10 text-xs tracking-widest uppercase opacity-40 mb-2 block">
+            {tag} · {yearDisplay}
+          </span>
+        )}
 
-        <div className="relative z-10 flex items-start justify-between gap-4">
-          <h3 className="text-3xl font-bold leading-none tracking-tight flex-1">
-            {title}
-          </h3>
-          <span className="text-lg font-normal opacity-50">{yearDisplay}</span>
-        </div>
+        <h3 className="relative z-10 text-3xl font-bold leading-tight tracking-tight">
+          {title}
+        </h3>
 
         <p className="relative z-10 mt-3 text-base leading-relaxed opacity-50">
           {description}
         </p>
 
-        {/* Project image */}
+        {slug && (
+          <span className="relative z-10 mt-4 inline-block text-xs tracking-widest opacity-50">
+            READ CASE STUDY →
+          </span>
+        )}
+
+        {/* Image panel */}
         {imageUrl && (
-          <div className="relative z-10 mt-5 overflow-hidden rounded-sm" style={{ height: '200px' }}>
+          <div
+            className="relative z-10 mt-6 overflow-hidden rounded-lg flex items-center justify-center"
+            style={{ background: imageBg, minHeight: '200px' }}
+          >
             <img
               src={imageUrl}
               alt={title}
-              className="w-full h-full object-cover"
+              className="w-full object-contain p-4"
+              style={{ maxHeight: '220px' }}
             />
-            {!noEdgeFade && (
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to right, var(--portfolio-bg) 0%, transparent 15%, transparent 85%, var(--portfolio-bg) 100%)',
-                }}
-              />
-            )}
           </div>
         )}
       </motion.div>
@@ -557,27 +561,30 @@ function DesktopProjectItem({
   yearDisplay,
   description,
   imageUrl,
+  tag,
+  imageBgLight,
+  imageBgDark,
   index,
   slug,
   isUnlocked,
   onPasswordRequired,
-  isFirstProject,
-  noEdgeFade,
 }: {
   title: string;
   yearDisplay: string;
   description: string;
   imageUrl: string;
+  tag?: string;
+  imageBgLight?: string;
+  imageBgDark?: string;
   index: number;
   slug?: string;
   isUnlocked?: boolean;
   onPasswordRequired?: () => void;
-  isFirstProject?: boolean;
-  noEdgeFade?: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { theme } = useTheme();
+  const imageBg = theme === 'dark' ? (imageBgDark || '#1e1e1e') : (imageBgLight || '#ebebeb');
 
   const handleClick = () => {
     if (!slug || !isUnlocked) {
@@ -589,97 +596,58 @@ function DesktopProjectItem({
 
   return (
     <motion.div
-      ref={containerRef}
       className="relative py-12 md:py-16 group cursor-pointer"
       style={{ borderBottom: '1px solid var(--portfolio-border-strong)' }}
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      initial={{ opacity: 0, x: -60 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{
-        duration: 0.7,
-        delay: index * 0.1,
-        ease: [0.215, 0.61, 0.355, 1],
-      }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.215, 0.61, 0.355, 1] }}
     >
-      <motion.div
-        className="absolute inset-0 bg-black/[0.03]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-      />
+      <div className="grid grid-cols-[1fr_1.3fr] gap-10 items-center">
+        {/* Left: text */}
+        <div className="flex flex-col">
+          {tag && (
+            <span className="text-xs tracking-widest uppercase opacity-40 mb-3">
+              {tag} · {yearDisplay}
+            </span>
+          )}
+          <TextScramble
+            text={title}
+            as="h3"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight"
+          />
+          <p className="mt-4 text-base md:text-lg leading-relaxed opacity-50 max-w-sm">
+            {description}
+          </p>
+          {slug && (
+            <motion.span
+              className="mt-6 inline-block text-xs tracking-widest opacity-50 group-hover:opacity-100 transition-opacity duration-300"
+              animate={{ x: isHovered ? 6 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              READ CASE STUDY →
+            </motion.span>
+          )}
+        </div>
 
-      <div className="relative z-10 flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-8">
-        <TextScramble
-          text={title}
-          as="h3"
-          className="text-4xl md:text-6xl lg:text-7xl font-bold leading-none tracking-tight transition-all duration-500 group-hover:tracking-normal flex-1"
-        />
-        <motion.span
-          className="text-xl md:text-2xl font-normal opacity-50 group-hover:opacity-100 transition-opacity duration-500"
-          animate={{ x: isHovered ? -10 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {yearDisplay}
-        </motion.span>
-      </div>
-
-      <motion.p
-        className="relative z-10 mt-4 md:mt-6 text-lg md:text-xl leading-relaxed max-w-3xl opacity-50 group-hover:opacity-80 transition-opacity duration-500"
-        animate={{ x: isHovered ? 20 : 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-      >
-        {description}
-      </motion.p>
-
-      {slug && (
-        <motion.span
-          className="relative z-10 mt-4 inline-block text-xs tracking-widest opacity-0 group-hover:opacity-40 transition-opacity duration-500"
-          animate={{ x: isHovered ? 20 : 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-        >
-          VIEW CASE STUDY →
-        </motion.span>
-      )}
-
-      {/* Project image */}
-      {imageUrl && (
+        {/* Right: image panel */}
         <motion.div
-          className="relative z-10 mt-8 overflow-hidden rounded-sm"
-          style={{ height: '320px' }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: index * 0.1 + 0.2 }}
+          className="relative overflow-hidden rounded-xl flex items-center justify-center"
+          style={{ background: imageBg, minHeight: '340px' }}
+          animate={{ scale: isHovered ? 1.015 : 1 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
         >
           <img
             src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover"
+            className="w-full object-contain p-6"
+            style={{ maxHeight: '360px' }}
           />
-          {!noEdgeFade && (
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: 'linear-gradient(to right, var(--portfolio-bg) 0%, transparent 12%, transparent 88%, var(--portfolio-bg) 100%)',
-              }}
-            />
-          )}
         </motion.div>
-      )}
-
-      <motion.span className="absolute right-0 bottom-4 text-8xl md:text-9xl font-black opacity-0 group-hover:opacity-[0.04] transition-opacity duration-700 select-none hidden md:block">
-        {String(index + 1).padStart(2, '0')}
-      </motion.span>
-
-      <CursorImage
-          imageUrl={imageUrl}
-          isVisible={isHovered}
-          containerRef={containerRef}
-          noEdgeFade={noEdgeFade}
-        />
+      </div>
     </motion.div>
   );
 }
@@ -976,10 +944,12 @@ export default function App() {
       title: 'AI-POWERED GAME DESIGN',
       year: 2026,
       yearDisplay: '2026',
+      tag: 'AI + DESIGN',
       description:
         'Reduced game development time by 80% while increasing user engagement 10x by integrating AI tools into our design and development workflow.',
-      imageUrl:
-        '/game-campaign-preview.jpg',
+      imageUrl: '/game-campaign-preview.jpg',
+      imageBgLight: '#EDE0C4',
+      imageBgDark: '#2A2418',
       slug: '/work/ai-game-design',
       password: 'OPENWORK11',
     },
@@ -987,10 +957,12 @@ export default function App() {
       title: 'magicFleet: A fleet management application',
       year: 2025,
       yearDisplay: '2025',
+      tag: 'FLEET MANAGEMENT · B2B',
       description:
         'Led the design of a fleet management platform orchestrating 100k+ delivery riders. Built real-time visibility, intelligent shift scheduling, and rider engagement systems. +22% on-time delivery, -18% cost per delivery.',
-      imageUrl:
-        '/magicfleet-preview.png',
+      imageUrl: '/magicfleet-preview.png',
+      imageBgLight: '#D4E3F5',
+      imageBgDark: '#182030',
       noEdgeFade: true,
       slug: '/work/magicfleet',
       password: 'OPENWORK11',
@@ -999,10 +971,12 @@ export default function App() {
       title: 'MAGICPIN APP REVAMP',
       year: 2023,
       yearDisplay: '2023—2024',
+      tag: 'APP REDESIGN · CONSUMER',
       description:
         'Led the largest UX overhaul in magicPin history — redesigning the full ordering and discovery experience for millions of Indian users. Delivered +32% AOV, +65% conversion on personalised sections, and a design system of 150+ components.',
-      imageUrl:
-        '/magicpin-revamp-preview.jpg',
+      imageUrl: '/magicpin-revamp-preview.jpg',
+      imageBgLight: '#F5DDD8',
+      imageBgDark: '#2A1818',
       slug: '/work/magicpin',
       password: 'OPENWORK11',
     },
@@ -1401,7 +1375,6 @@ export default function App() {
                     setSelectedProjectForPassword(project);
                     setPasswordDialogOpen(true);
                   }}
-                  isFirstProject={index === 0}
                 />
               ))}
             </div>
