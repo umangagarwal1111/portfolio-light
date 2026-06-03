@@ -171,7 +171,7 @@ export function TextScramble({
         text
           .split('')
           .map((char, index) => {
-            if (char === ' ') return ' ';
+            if (char === ' ' || char === '\n') return char;
             if (index < iteration) return text[index];
             return chars[Math.floor(Math.random() * chars.length)];
           })

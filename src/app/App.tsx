@@ -522,7 +522,7 @@ function MobileProjectItem({
           </span>
         )}
 
-        <h3 className="relative z-10 text-3xl font-bold leading-tight tracking-tight">
+        <h3 className="relative z-10 text-3xl font-bold leading-tight tracking-tight whitespace-pre-line">
           {title}
         </h3>
 
@@ -617,7 +617,7 @@ function DesktopProjectItem({
           <TextScramble
             text={title}
             as="h3"
-            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight whitespace-pre-line"
           />
           <p className="mt-4 text-base md:text-lg leading-relaxed opacity-50 max-w-sm">
             {description}
@@ -954,7 +954,7 @@ export default function App() {
       password: 'OPENWORK11',
     },
     {
-      title: 'magicFleet: A fleet management application',
+      title: 'MAGICFLEET: FLEET MANAGEMENT APPLICATION',
       year: 2025,
       yearDisplay: '2025',
       tag: 'FLEET MANAGEMENT · B2B',
@@ -968,7 +968,7 @@ export default function App() {
       password: 'OPENWORK11',
     },
     {
-      title: 'MAGICPIN APP REVAMP',
+      title: 'MAGICPIN APP\nREVAMP',
       year: 2023,
       yearDisplay: '2023—2024',
       tag: 'APP REDESIGN · CONSUMER',
