@@ -910,22 +910,20 @@ export default function MagicFleetCaseStudy() {
               {/* Fleet Manager screens */}
               <div>
                 <div className="text-[10px] tracking-widest opacity-55 mb-3">FLEET MANAGER — APP SCREENS</div>
-                <div
-                  className="w-full overflow-hidden rounded-lg flex items-center justify-center"
-                  style={{ minHeight: '320px', background: 'var(--portfolio-border)', opacity: 0.9, border: '1px solid var(--portfolio-border-strong)' }}
-                >
-                  <span className="text-xs tracking-widest opacity-30">ADD SCREEN HERE</span>
-                </div>
+                <img
+                  src="/case-studies/magicfleet/manager-screens.png"
+                  alt="Fleet Manager app screens"
+                  className="w-full rounded-lg object-contain"
+                />
               </div>
               {/* Delivery Rider screens */}
               <div>
                 <div className="text-[10px] tracking-widest opacity-55 mb-3">DELIVERY RIDER — APP SCREENS</div>
-                <div
-                  className="w-full overflow-hidden rounded-lg flex items-center justify-center"
-                  style={{ minHeight: '320px', background: 'var(--portfolio-border)', opacity: 0.9, border: '1px solid var(--portfolio-border-strong)' }}
-                >
-                  <span className="text-xs tracking-widest opacity-30">ADD SCREEN HERE</span>
-                </div>
+                <img
+                  src="/case-studies/magicfleet/rider-screens.png"
+                  alt="Delivery Rider app screens"
+                  className="w-full rounded-lg object-contain"
+                />
               </div>
             </div>
           </FadeUp>
