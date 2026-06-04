@@ -306,25 +306,44 @@ function VizFleetImpactMetrics() {
 }
 
 function VizInfoHierarchy() {
-  const tiers = [
-    { label: 'CRITICAL', items: 'Active orders · Live GPS · Alerts', width: '40%', color: '#ef4444' },
-    { label: 'IMPORTANT', items: 'Earnings · Schedule · Zone heatmap', width: '65%', color: '#f59e0b' },
-    { label: 'CONTEXTUAL', items: 'Order history · Stats · Support · Settings', width: '100%', color: 'var(--portfolio-border-strong)' },
-  ];
   return (
-    <div className="w-full h-full bg-[var(--portfolio-bg)] p-6 flex flex-col justify-center items-center">
-      <div className="text-[10px] tracking-widest opacity-60 mb-6">INFORMATION HIERARCHY MODEL</div>
-      <div className="w-full max-w-md flex flex-col items-center gap-2">
-        {tiers.map((t) => (
-          <div key={t.label} className="flex flex-col items-center gap-1" style={{ width: t.width }}>
-            <div className="w-full rounded-sm py-3 px-4 text-center" style={{ background: t.color, opacity: t.color.includes('var') ? 1 : undefined }}>
-              <div className="text-[9px] font-black tracking-widest" style={{ color: t.color === 'var(--portfolio-border-strong)' ? 'var(--portfolio-fg)' : '#fff', opacity: t.color.includes('var') ? 0.7 : 1 }}>{t.label}</div>
-            </div>
-            <div className="text-[8px] opacity-65 text-center">{t.items}</div>
+    <div className="w-full py-8 px-6 flex flex-col items-center gap-6">
+      {/* Pyramid SVG */}
+      <svg viewBox="0 0 480 222" className="w-full max-w-lg" aria-hidden="true">
+        {/* CRITICAL — top/narrowest */}
+        <path d="M 158,2 L 322,2 L 370,70 L 110,70 Z" fill="#ef4444" />
+        <text x="240" y="26" textAnchor="middle" fill="white" fontSize="11" fontWeight="900" letterSpacing="3">CRITICAL</text>
+        <text x="240" y="45" textAnchor="middle" fill="white" fontSize="8.5" opacity="0.9">Active orders · Live GPS · Alerts</text>
+        <text x="240" y="61" textAnchor="middle" fill="white" fontSize="7.5" opacity="0.65">Always visible · no scroll</text>
+
+        {/* IMPORTANT — middle */}
+        <path d="M 107,74 L 373,74 L 421,142 L 59,142 Z" fill="#f59e0b" />
+        <text x="240" y="98" textAnchor="middle" fill="white" fontSize="11" fontWeight="900" letterSpacing="3">IMPORTANT</text>
+        <text x="240" y="117" textAnchor="middle" fill="white" fontSize="8.5" opacity="0.9">Earnings · Schedule · Zone heatmap</text>
+        <text x="240" y="133" textAnchor="middle" fill="white" fontSize="7.5" opacity="0.65">Above the fold · 1 tap away</text>
+
+        {/* CONTEXTUAL — bottom/widest */}
+        <path d="M 56,146 L 424,146 L 476,214 L 4,214 Z" style={{ fill: 'var(--portfolio-border-strong)' }} />
+        <text x="240" y="170" textAnchor="middle" fill="currentColor" fontSize="11" fontWeight="900" letterSpacing="3" opacity="0.85">CONTEXTUAL</text>
+        <text x="240" y="189" textAnchor="middle" fill="currentColor" fontSize="8.5" opacity="0.65">Order history · Stats · Support · Settings</text>
+        <text x="240" y="205" textAnchor="middle" fill="currentColor" fontSize="7.5" opacity="0.45">Scroll to access · 2+ taps</text>
+      </svg>
+
+      {/* Legend row */}
+      <div className="flex items-center gap-6 flex-wrap justify-center">
+        {[
+          { color: '#ef4444', label: 'Critical' },
+          { color: '#f59e0b', label: 'Important' },
+          { color: 'var(--portfolio-border-strong)', label: 'Contextual' },
+        ].map(({ color, label }) => (
+          <div key={label} className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-sm flex-shrink-0" style={{ background: color }} />
+            <span className="text-[10px] opacity-60 tracking-wide">{label}</span>
           </div>
         ))}
+        <span className="text-[10px] opacity-40">·</span>
+        <span className="text-[10px] opacity-50 tracking-wide">Priority = screen real estate</span>
       </div>
-      <div className="mt-5 text-[9px] opacity-65 text-center">Priority determines screen real estate · Critical = always visible, no scroll</div>
     </div>
   );
 }
@@ -580,23 +599,18 @@ export default function MagicFleetCaseStudy() {
         {/* ── HERO MOCKUP: 4 PHONE SCREENS ── */}
         <section className="mb-12 md:mb-20 overflow-x-auto md:overflow-visible">
           <div
-            className="flex items-end justify-center gap-5 md:gap-8 py-12 md:py-20 px-6"
+            className="flex items-start justify-center gap-5 md:gap-8 py-12 md:py-20 px-6"
             style={{ minWidth: '680px' }}
           >
             {[
-              { src: '/case-studies/magicfleet/Orders.png',   alt: 'Active Orders screen', label: 'ACTIVE ORDERS', delay: 0,    offsetY: 0   },
-              { src: '/case-studies/magicfleet/Earnings.png', alt: 'Earnings screen',       label: 'EARNINGS',      delay: 0.08, offsetY: -40 },
-              { src: '/case-studies/magicfleet/Ledger.png',   alt: 'Ledger screen',         label: 'LEDGER',        delay: 0.16, offsetY: -20 },
-              { src: '/case-studies/magicfleet/Profile.png',  alt: 'Profile screen',        label: 'PROFILE',       delay: 0.24, offsetY: 0   },
+              { src: '/case-studies/magicfleet/Orders.png',   alt: 'Active Orders screen', label: 'ACTIVE ORDERS' },
+              { src: '/case-studies/magicfleet/Ledger.png',   alt: 'Ledger screen',         label: 'LEDGER'        },
+              { src: '/case-studies/magicfleet/Earnings.png', alt: 'Earnings screen',       label: 'EARNINGS'      },
+              { src: '/case-studies/magicfleet/Profile.png',  alt: 'Profile screen',        label: 'PROFILE'       },
             ].map((screen) => (
-              <motion.div
+              <div
                 key={screen.src}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: screen.offsetY }}
-                viewport={{ once: true }}
-                transition={{ delay: screen.delay, duration: 0.7, ease: [0.215, 0.61, 0.355, 1] }}
-                whileHover={{ y: screen.offsetY - 14, transition: { duration: 0.25, ease: 'easeOut' } }}
-                className="flex-shrink-0 flex flex-col items-center gap-4"
+                className="flex-shrink-0 flex flex-col items-center gap-4 transition-transform duration-200 ease-out hover:-translate-y-3.5"
                 style={{ width: 'clamp(150px, 20vw, 240px)' }}
               >
                 <img
@@ -606,7 +620,7 @@ export default function MagicFleetCaseStudy() {
                   style={{ boxShadow: '0 32px 80px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.2)' }}
                 />
                 <span className="text-[10px] tracking-widest opacity-65">{screen.label}</span>
-              </motion.div>
+              </div>
             ))}
           </div>
         </section>
@@ -801,112 +815,6 @@ export default function MagicFleetCaseStudy() {
 
         <Divider />
 
-        {/* ── IMPACT METRICS ── */}
-        <section>
-          <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">IMPACT</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              OPERATIONAL METRICS<br />THAT MATTER
-            </h2>
-          </FadeUp>
-
-          {/* Before/After metric rows — v2 */}
-          <div style={{ border: '1px solid var(--portfolio-border)' }}>
-            {[
-              {
-                label: 'On-Time Delivery',
-                context: 'Orders delivered within the promised window',
-                before: '68%', after: '83%', delta: '+22%',
-                barBefore: 68, barAfter: 83,
-                note: '~1 in 3 late deliveries eliminated',
-              },
-              {
-                label: 'Cost Per Order (CPO)',
-                context: 'Fully-loaded cost per completed order',
-                before: '₹68', after: '₹54', delta: '−21%',
-                barBefore: 68, barAfter: 54,
-                note: 'Surge control · route optimisation · multi-drop trips',
-                invert: true,
-              },
-              {
-                label: 'Rider Retention',
-                context: 'Riders still active 3 months after onboarding',
-                before: '32%', after: '48%', delta: '+50%',
-                barBefore: 32, barAfter: 48,
-                note: 'Earnings transparency + performance feedback loop',
-              },
-              {
-                label: 'Orders per Rider / Month',
-                context: 'Orders completed per active rider monthly',
-                before: '~15', after: '~28', delta: '+87%',
-                barBefore: 38, barAfter: 70,
-                note: 'Multi-drop routing · demand zone direction',
-              },
-              {
-                label: 'Issue Resolution Time',
-                context: 'Time from issue reported to resolved',
-                before: '~120 min', after: '~42 min', delta: '−65%',
-                barBefore: 100, barAfter: 35,
-                note: 'In-app reporting replaced phone-based escalation',
-                invert: true,
-              },
-              {
-                label: 'High Demand Zone Fulfilment',
-                context: 'Orders fulfilled in designated high-demand zones',
-                before: '36%', after: '74%', delta: '+106%',
-                barBefore: 36, barAfter: 74,
-                note: 'Zone incentives + surge levers directed rider supply',
-              },
-            ].map((m, i) => (
-              <FadeUp key={m.label} delay={i * 0.05}>
-                <div
-                  className="grid md:grid-cols-[1fr_auto] gap-6 md:gap-12 px-8 py-7 items-center"
-                  style={{ borderBottom: i < 5 ? '1px solid var(--portfolio-border)' : undefined }}
-                >
-                  {/* Left: label + bar + note */}
-                  <div>
-                    <div className="flex items-baseline gap-3 mb-3">
-                      <span className="text-xs tracking-widest opacity-55">{String(i + 1).padStart(2, '0')}</span>
-                      <span className="text-base md:text-lg font-bold tracking-tight">{m.label}</span>
-                    </div>
-                    <p className="text-sm opacity-60 mb-4 leading-snug">{m.context}</p>
-                    {/* Progress bar */}
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.2 }}>
-                        <div className="h-full rounded-full" style={{ width: `${m.barBefore}%`, background: 'var(--portfolio-fg)', opacity: 0.4 }} />
-                      </div>
-                      <span className="text-xs opacity-55 shrink-0 w-6">→</span>
-                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.2 }}>
-                        <div className="h-full rounded-full" style={{ width: `${m.barAfter}%`, background: m.invert ? '#22c55e' : '#22c55e', opacity: 0.8 }} />
-                      </div>
-                    </div>
-                    <p className="text-xs opacity-65 italic">{m.note}</p>
-                  </div>
-
-                  {/* Right: before → after → delta */}
-                  <div className="flex items-center gap-5 md:gap-8 shrink-0">
-                    <div className="text-center">
-                      <div className="text-[10px] tracking-widest opacity-60 mb-1.5">BEFORE</div>
-                      <div className="text-2xl md:text-3xl font-black tracking-tight opacity-55">{m.before}</div>
-                    </div>
-                    <div className="text-xl opacity-45 font-light">→</div>
-                    <div className="text-center">
-                      <div className="text-[10px] tracking-widest opacity-65 mb-1.5">AFTER</div>
-                      <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: '#22c55e' }}>{m.after}</div>
-                    </div>
-                    <div className="text-center pl-5 md:pl-8" style={{ borderLeft: '1px solid var(--portfolio-border)' }}>
-                      <div className="text-[10px] tracking-widest opacity-65 mb-1.5">CHANGE</div>
-                      <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: '#22c55e' }}>{m.delta}</div>
-                    </div>
-                  </div>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-        </section>
-
-        <Divider />
-
         {/* ── THE CHALLENGE ── */}
         <section>
           <FadeUp>
@@ -995,6 +903,32 @@ export default function MagicFleetCaseStudy() {
               delay={0.1}
             />
           </div>
+
+          {/* User screens */}
+          <FadeUp delay={0.15} className="mt-10">
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Fleet Manager screens */}
+              <div>
+                <div className="text-[10px] tracking-widest opacity-55 mb-3">FLEET MANAGER — APP SCREENS</div>
+                <div
+                  className="w-full overflow-hidden rounded-lg flex items-center justify-center"
+                  style={{ minHeight: '320px', background: 'var(--portfolio-border)', opacity: 0.9, border: '1px solid var(--portfolio-border-strong)' }}
+                >
+                  <span className="text-xs tracking-widest opacity-30">ADD SCREEN HERE</span>
+                </div>
+              </div>
+              {/* Delivery Rider screens */}
+              <div>
+                <div className="text-[10px] tracking-widest opacity-55 mb-3">DELIVERY RIDER — APP SCREENS</div>
+                <div
+                  className="w-full overflow-hidden rounded-lg flex items-center justify-center"
+                  style={{ minHeight: '320px', background: 'var(--portfolio-border)', opacity: 0.9, border: '1px solid var(--portfolio-border-strong)' }}
+                >
+                  <span className="text-xs tracking-widest opacity-30">ADD SCREEN HERE</span>
+                </div>
+              </div>
+            </div>
+          </FadeUp>
         </section>
 
         <Divider />
@@ -1042,9 +976,7 @@ export default function MagicFleetCaseStudy() {
           <FadeUp delay={0.2} className="mt-12">
             <div className="border border-black/15 p-8 md:p-12 bg-black/[0.02]">
               <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Information Hierarchy Model</h3>
-              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '240px' }}>
-                <VizInfoHierarchy />
-              </div>
+              <VizInfoHierarchy />
             </div>
           </FadeUp>
         </section>
@@ -1063,51 +995,145 @@ export default function MagicFleetCaseStudy() {
           <div className="grid gap-6">
             <FeatureCard
               number="01"
-              title="Manager View — Fleet at a Glance"
-              description="When a manager logs in, the same app surfaces a fleet-level view: registered riders, active count, collective performance, and payout status. Designed for periodic check-ins, not continuous monitoring."
-              insight="Managers don't need a desktop dashboard — they need a mobile view that answers 'is everything okay?' in under 30 seconds."
+              title="Live GPS Tracking & Analytics"
+              description="Real-time rider location tracking with contextual analytics. Not just where riders are, but what they're doing, how long they've been there, and predictive ETA for next deliveries."
+              insight="Context changes everything. Raw GPS coordinates are meaningless without understanding what the rider is actually doing."
               delay={0}
             />
 
             <FeatureCard
               number="02"
-              title="Live GPS Tracking & Analytics"
-              description="Real-time rider location tracking with contextual analytics. Not just where riders are, but what they're doing, how long they've been there, and predictive ETA for next deliveries."
-              insight="Context changes everything. Raw GPS coordinates are meaningless without understanding what the rider is actually doing."
+              title="Intelligent Shift Scheduling"
+              description="A scheduling system that lets managers create shifts with constraints (area, vehicle type, rider experience), then intelligently assigns riders based on availability, preference, and historical performance."
+              insight="Predictive shift filling reduces 30-minute manual assignment down to 3 minutes, while improving rider satisfaction and retention."
               delay={0.05}
             />
 
             <FeatureCard
               number="03"
-              title="Intelligent Shift Scheduling"
-              description="A scheduling system that lets managers create shifts with constraints (area, vehicle type, rider experience), then intelligently assigns riders based on availability, preference, and historical performance."
-              insight="Predictive shift filling reduces 30-minute manual assignment down to 3 minutes, while improving rider satisfaction and retention."
+              title="Rider Earnings & Incentives"
+              description="A transparent earnings dashboard for riders showing real-time earnings, bonus structure, and performance feedback. Gamified incentives drive engagement and performance improvement."
+              insight="Riders who see their earnings rise perform better. Transparency is a feature, not a detail."
               delay={0.1}
             />
 
             <FeatureCard
               number="04"
-              title="Rider Earnings & Incentives"
-              description="A transparent earnings dashboard for riders showing real-time earnings, bonus structure, and performance feedback. Gamified incentives drive engagement and performance improvement."
-              insight="Riders who see their earnings rise perform better. Transparency is a feature, not a detail."
+              title="Incident Reporting & Resolution"
+              description="A low-friction system for reporting delivery incidents (cancelled, delayed, damaged). Enables rapid issue escalation, category tracking, and automated resolution workflows."
+              insight="Most incidents don't need manual intervention. Automate the 80% of routine issues so teams can focus on the 20% that need human judgment."
               delay={0.15}
             />
 
             <FeatureCard
               number="05"
-              title="Incident Reporting & Resolution"
-              description="A low-friction system for reporting delivery incidents (cancelled, delayed, damaged). Enables rapid issue escalation, category tracking, and automated resolution workflows."
-              insight="Most incidents don't need manual intervention. Automate the 80% of routine issues so teams can focus on the 20% that need human judgment."
-              delay={0.2}
-            />
-
-            <FeatureCard
-              number="06"
               title="Rider Mobile App"
               description="A lightweight, offline-friendly app for riders. Shows current assignment, route, earnings, performance, and feedback. Designed for low-data environments and quick interactions on the move."
               insight="Every extra second of load time on mobile means riders will switch apps. Offline-first isn't optional — it's essential."
-              delay={0.25}
+              delay={0.2}
             />
+          </div>
+        </section>
+
+        <Divider />
+
+        {/* ── IMPACT METRICS ── */}
+        <section>
+          <FadeUp>
+            <div className="text-xs tracking-widest opacity-65 mb-4">IMPACT</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
+              OPERATIONAL METRICS<br />THAT MATTER
+            </h2>
+          </FadeUp>
+
+          {/* Before/After metric rows */}
+          <div style={{ border: '1px solid var(--portfolio-border)' }}>
+            {[
+              {
+                label: 'On-Time Delivery',
+                context: 'Orders delivered within the promised window',
+                before: '68%', after: '83%', delta: '+22%',
+                barBefore: 68, barAfter: 83,
+                note: '~1 in 3 late deliveries eliminated',
+              },
+              {
+                label: 'Cost Per Order (CPO)',
+                context: 'Fully-loaded cost per completed order',
+                before: '₹68', after: '₹54', delta: '−21%',
+                barBefore: 68, barAfter: 54,
+                note: 'Surge control · route optimisation · multi-drop trips',
+                invert: true,
+              },
+              {
+                label: 'Rider Retention',
+                context: 'Riders still active 3 months after onboarding',
+                before: '32%', after: '48%', delta: '+50%',
+                barBefore: 32, barAfter: 48,
+                note: 'Earnings transparency + performance feedback loop',
+              },
+              {
+                label: 'Orders per Rider / Month',
+                context: 'Orders completed per active rider monthly',
+                before: '~15', after: '~28', delta: '+87%',
+                barBefore: 38, barAfter: 70,
+                note: 'Multi-drop routing · demand zone direction',
+              },
+              {
+                label: 'Issue Resolution Time',
+                context: 'Time from issue reported to resolved',
+                before: '~120 min', after: '~42 min', delta: '−65%',
+                barBefore: 100, barAfter: 35,
+                note: 'In-app reporting replaced phone-based escalation',
+                invert: true,
+              },
+              {
+                label: 'High Demand Zone Fulfilment',
+                context: 'Orders fulfilled in designated high-demand zones',
+                before: '36%', after: '74%', delta: '+106%',
+                barBefore: 36, barAfter: 74,
+                note: 'Zone incentives + surge levers directed rider supply',
+              },
+            ].map((m, i) => (
+              <FadeUp key={m.label} delay={i * 0.05}>
+                <div
+                  className="grid md:grid-cols-[1fr_auto] gap-6 md:gap-12 px-8 py-7 items-center"
+                  style={{ borderBottom: i < 5 ? '1px solid var(--portfolio-border)' : undefined }}
+                >
+                  <div>
+                    <div className="flex items-baseline gap-3 mb-3">
+                      <span className="text-xs tracking-widest opacity-55">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="text-base md:text-lg font-bold tracking-tight">{m.label}</span>
+                    </div>
+                    <p className="text-sm opacity-60 mb-4 leading-snug">{m.context}</p>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.2 }}>
+                        <div className="h-full rounded-full" style={{ width: `${m.barBefore}%`, background: 'var(--portfolio-fg)', opacity: 0.4 }} />
+                      </div>
+                      <span className="text-xs opacity-55 shrink-0 w-6">→</span>
+                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--portfolio-border-strong)', opacity: 0.2 }}>
+                        <div className="h-full rounded-full" style={{ width: `${m.barAfter}%`, background: '#22c55e', opacity: 0.8 }} />
+                      </div>
+                    </div>
+                    <p className="text-xs opacity-65 italic">{m.note}</p>
+                  </div>
+                  <div className="flex items-center gap-5 md:gap-8 shrink-0">
+                    <div className="text-center">
+                      <div className="text-[10px] tracking-widest opacity-60 mb-1.5">BEFORE</div>
+                      <div className="text-2xl md:text-3xl font-black tracking-tight opacity-55">{m.before}</div>
+                    </div>
+                    <div className="text-xl opacity-45 font-light">→</div>
+                    <div className="text-center">
+                      <div className="text-[10px] tracking-widest opacity-65 mb-1.5">AFTER</div>
+                      <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: '#22c55e' }}>{m.after}</div>
+                    </div>
+                    <div className="text-center pl-5 md:pl-8" style={{ borderLeft: '1px solid var(--portfolio-border)' }}>
+                      <div className="text-[10px] tracking-widest opacity-65 mb-1.5">CHANGE</div>
+                      <div className="text-2xl md:text-3xl font-black tracking-tight" style={{ color: '#22c55e' }}>{m.delta}</div>
+                    </div>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
           </div>
         </section>
 
