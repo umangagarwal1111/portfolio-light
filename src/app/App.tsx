@@ -545,8 +545,7 @@ function MobileProjectItem({
             <img
               src={imageUrl}
               alt={title}
-              className="w-full object-contain p-4"
-              style={{ maxHeight: '220px' }}
+              className="w-full h-full object-cover absolute inset-0"
             />
           </div>
         )}
@@ -643,8 +642,7 @@ function DesktopProjectItem({
           <img
             src={imageUrl}
             alt={title}
-            className="w-full object-contain p-6"
-            style={{ maxHeight: '360px' }}
+            className="w-full h-full object-cover absolute inset-0"
           />
         </motion.div>
       </div>
