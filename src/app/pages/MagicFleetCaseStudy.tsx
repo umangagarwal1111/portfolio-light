@@ -1023,6 +1023,7 @@ export default function MagicFleetCaseStudy() {
               title="Rider Mobile App"
               description="A lightweight, offline-friendly app for riders. Shows current assignment, route, earnings, performance, and feedback. Designed for low-data environments and quick interactions on the move."
               insight="Every extra second of load time on mobile means riders will switch apps. Offline-first isn't optional — it's essential."
+              imageUrl="/case-studies/magicfleet/rider-mobile-app-screens.png"
               delay={0.2}
             />
           </div>
