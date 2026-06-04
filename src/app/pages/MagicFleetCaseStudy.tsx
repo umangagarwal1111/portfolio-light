@@ -996,6 +996,7 @@ export default function MagicFleetCaseStudy() {
               title="Live GPS Tracking & Analytics"
               description="Real-time rider location tracking with contextual analytics. Not just where riders are, but what they're doing, how long they've been there, and predictive ETA for next deliveries."
               insight="Context changes everything. Raw GPS coordinates are meaningless without understanding what the rider is actually doing."
+              imageUrl="/case-studies/magicfleet/gps-tracking-screens.png"
               delay={0}
             />
 
