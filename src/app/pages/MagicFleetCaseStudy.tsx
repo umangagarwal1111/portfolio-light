@@ -1002,14 +1002,6 @@ export default function MagicFleetCaseStudy() {
 
             <FeatureCard
               number="02"
-              title="Intelligent Shift Scheduling"
-              description="A scheduling system that lets managers create shifts with constraints (area, vehicle type, rider experience), then intelligently assigns riders based on availability, preference, and historical performance."
-              insight="Predictive shift filling reduces 30-minute manual assignment down to 3 minutes, while improving rider satisfaction and retention."
-              delay={0.05}
-            />
-
-            <FeatureCard
-              number="03"
               title="Rider Earnings & Incentives"
               description="A transparent earnings dashboard for riders showing real-time earnings, bonus structure, and performance feedback. Gamified incentives drive engagement and performance improvement."
               insight="Riders who see their earnings rise perform better. Transparency is a feature, not a detail."
@@ -1017,15 +1009,15 @@ export default function MagicFleetCaseStudy() {
             />
 
             <FeatureCard
-              number="04"
+              number="03"
               title="Incident Reporting & Resolution"
               description="A low-friction system for reporting delivery incidents (cancelled, delayed, damaged). Enables rapid issue escalation, category tracking, and automated resolution workflows."
               insight="Most incidents don't need manual intervention. Automate the 80% of routine issues so teams can focus on the 20% that need human judgment."
-              delay={0.15}
+              delay={0.1}
             />
 
             <FeatureCard
-              number="05"
+              number="04"
               title="Rider Mobile App"
               description="A lightweight, offline-friendly app for riders. Shows current assignment, route, earnings, performance, and feedback. Designed for low-data environments and quick interactions on the move."
               insight="Every extra second of load time on mobile means riders will switch apps. Offline-first isn't optional — it's essential."
