@@ -1005,6 +1005,7 @@ export default function MagicFleetCaseStudy() {
               title="Rider Earnings & Incentives"
               description="A transparent earnings dashboard for riders showing real-time earnings, bonus structure, and performance feedback. Gamified incentives drive engagement and performance improvement."
               insight="Riders who see their earnings rise perform better. Transparency is a feature, not a detail."
+              imageUrl="/case-studies/magicfleet/rider-earnings-screens.png"
               delay={0.1}
             />
 
