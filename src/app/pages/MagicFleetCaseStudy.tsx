@@ -1014,6 +1014,7 @@ export default function MagicFleetCaseStudy() {
               title="Incident Reporting & Resolution"
               description="A low-friction system for reporting delivery incidents (cancelled, delayed, damaged). Enables rapid issue escalation, category tracking, and automated resolution workflows."
               insight="Most incidents don't need manual intervention. Automate the 80% of routine issues so teams can focus on the 20% that need human judgment."
+              imageUrl="/case-studies/magicfleet/incident-reporting-screens.png"
               delay={0.1}
             />
 
