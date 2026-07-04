@@ -1794,9 +1794,11 @@ export default function App() {
                   styledWords={{ "together": "font-['Playfair_Display'] italic font-normal tracking-normal" }}
                 />
               </ParallaxText>
-              <motion.button
-                onClick={() => setCVModalOpen(true)}
-                className="px-4 md:px-6 py-2 md:py-3 rounded text-xs md:text-sm font-bold tracking-widest transition-colors flex-shrink-0 mt-2"
+              <motion.a
+                href="/Umang_Agarwal_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 md:px-6 py-2 md:py-3 rounded text-xs md:text-sm font-bold tracking-widest transition-colors flex-shrink-0 mt-2 inline-flex items-center"
                 style={{
                   backgroundColor: 'rgba(0, 0, 0, 0.05)',
                   borderColor: 'var(--portfolio-border)',
@@ -1813,7 +1815,7 @@ export default function App() {
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 ⇩ RESUME
-              </motion.button>
+              </motion.a>
             </div>
             <LineReveal className="mb-12 md:mb-16" />
 
