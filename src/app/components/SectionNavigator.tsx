@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 export interface NavSection {
@@ -29,7 +29,6 @@ export function useSectionSpy(sections: NavSection[]): string {
 
         if (visible.size === 0) return;
 
-        // Pick the section whose top edge is closest to (but still below) 0
         let best = '';
         let bestY = Infinity;
         visible.forEach((y, id) => {
@@ -54,10 +53,14 @@ export function useSectionSpy(sections: NavSection[]): string {
 
 // ── SectionNavigator UI ──────────────────────────────────────────────────────
 export function SectionNavigator({ sections }: { sections: NavSection[] }) {
-  const activeId = useSectionSpy(sections);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [focusedId, setFocusedId] = useState<string | null>(null);
+  const activeId  = useSectionSpy(sections);
+  const [hoveredId,  setHoveredId]  = useState<string | null>(null);
+  const [focusedId,  setFocusedId]  = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const prefersReduced = useReducedMotion();
+  const navRef         = useRef<HTMLElement>(null);
+  const dragging       = useRef(false);
+  const lastDragId     = useRef('');
 
   const spring = prefersReduced
     ? { duration: 0 }
@@ -73,25 +76,73 @@ export function SectionNavigator({ sections }: { sections: NavSection[] }) {
     });
   };
 
+  // ── Drag roller ───────────────────────────────────────────────────────────
+  // Maps a pointer Y position to the nearest section and navigates to it.
+  // setPointerCapture keeps events firing even when the cursor leaves the nav.
+  const getSectionFromY = (clientY: number): NavSection | null => {
+    if (!navRef.current) return null;
+    const rect  = navRef.current.getBoundingClientRect();
+    const relY  = clientY - rect.top;
+    const index = Math.round((relY / rect.height) * (sections.length - 1));
+    return sections[Math.max(0, Math.min(sections.length - 1, index))] ?? null;
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLElement>) => {
+    dragging.current = true;
+    lastDragId.current = '';
+    setIsDragging(true);
+    navRef.current?.setPointerCapture(e.pointerId);
+    const s = getSectionFromY(e.clientY);
+    if (s) { lastDragId.current = s.id; scrollTo(s.id); }
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    if (!dragging.current) return;
+    const s = getSectionFromY(e.clientY);
+    if (s && s.id !== lastDragId.current) {
+      lastDragId.current = s.id;
+      scrollTo(s.id);
+    }
+  };
+
+  const handlePointerUp = () => {
+    dragging.current = false;
+    setIsDragging(false);
+  };
+
   return (
     <nav
+      ref={navRef}
       aria-label="Section navigator"
-      className="fixed right-4 md:right-7 top-1/2 z-40 flex flex-col items-end gap-[10px] md:gap-3"
-      style={{ transform: 'translateY(-50%)' }}
+      // No gap — py padding on each row makes hit areas contiguous.
+      // The nav grows/shrinks with content; top-1/2 + translateY centres it.
+      className="fixed right-4 md:right-7 top-1/2 z-40 flex flex-col items-end"
+      style={{
+        transform:  'translateY(-50%)',
+        cursor:     isDragging ? 'grabbing' : 'grab',
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+      }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
     >
       {sections.map(({ id, label }) => {
-        const isActive = id === activeId;
+        const isActive      = id === activeId;
         const isHighlighted = id === hoveredId || id === focusedId;
 
         return (
           <div
             key={id}
-            className="flex items-center gap-2 md:gap-3 cursor-pointer"
+            // py-[8px] creates a 18px tall hit zone per bar (8 + 2 + 8).
+            // Rows are flush — no gap prop — so there are zero dead zones.
+            className="flex items-center gap-2 md:gap-3 py-[8px]"
             onMouseEnter={() => setHoveredId(id)}
             onMouseLeave={() => setHoveredId(null)}
             onClick={() => scrollTo(id)}
           >
-            {/* Label — desktop only, fades in on hover/focus */}
+            {/* Label — desktop only, slides in from right on hover/focus */}
             <AnimatePresence>
               {isHighlighted && (
                 <motion.span
@@ -107,9 +158,8 @@ export function SectionNavigator({ sections }: { sections: NavSection[] }) {
               )}
             </AnimatePresence>
 
-            {/* Bar indicator */}
+            {/* Horizontal bar — width and opacity spring-animate on state change */}
             <motion.button
-              onClick={() => scrollTo(id)}
               onFocus={() => setFocusedId(id)}
               onBlur={() => setFocusedId(null)}
               onKeyDown={(e) => {
@@ -121,21 +171,19 @@ export function SectionNavigator({ sections }: { sections: NavSection[] }) {
               aria-label={`Go to ${label}`}
               aria-current={isActive ? 'true' : undefined}
               animate={{
-                width: isActive
-                  ? isHighlighted ? 28 : 22
-                  : isHighlighted ? 18 : 12,
-                opacity: isActive ? 1 : isHighlighted ? 0.55 : 0.18,
+                width:   isActive ? (isHighlighted ? 28 : 22) : (isHighlighted ? 18 : 12),
+                opacity: isActive ? 1 : (isHighlighted ? 0.55 : 0.18),
               }}
               initial={false}
               transition={spring}
-              className="block rounded-full border-none cursor-pointer focus-visible:ring-1 focus-visible:ring-offset-2"
+              className="block rounded-full border-none focus-visible:ring-1 focus-visible:ring-offset-2"
               style={{
-                height: 2,
-                minWidth: 12,
+                height:          2,
+                minWidth:        12,
                 backgroundColor: 'var(--portfolio-fg)',
-                padding: 0,
-                // Increase tap target without affecting layout
-                outline: 'none',
+                padding:         0,
+                outline:         'none',
+                cursor:          'inherit',
               }}
             />
           </div>
