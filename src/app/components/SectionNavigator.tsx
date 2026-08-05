@@ -72,9 +72,14 @@ export function SectionNavigator({ sections }: { sections: NavSection[] }) {
     : { type: 'spring' as const, stiffness: 420, damping: 32 };
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: prefersReduced ? 'auto' : 'smooth',
-    });
+    const el = document.getElementById(id);
+    if (!el) return;
+    // Offset for the fixed top nav so the section title is never hidden behind it.
+    // Query the actual nav height at call-time so this works regardless of nav size.
+    const fixedNav = document.querySelector('nav.fixed, nav[class*="fixed"]') as HTMLElement | null;
+    const offset = (fixedNav ? fixedNav.offsetHeight : 72) + 24; // 24px breathing room
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: prefersReduced ? 'auto' : 'smooth' });
   };
 
   // ── Drag roller ───────────────────────────────────────────────────────────
