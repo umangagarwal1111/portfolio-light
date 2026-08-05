@@ -903,11 +903,9 @@ export default function App() {
     target: heroRef,
     offset: ['start start', 'end start'],
   });
+  // Dissolve only — no scale or Y-shift. Scale caused left-edge drift on mx-auto
+  // content; Y-shift caused the hero text to bleed into the section below.
   const heroOpacity = useTransform(heroScroll, [0, 0.5], [1, 0]);
-  const heroScale = useTransform(heroScroll, [0, 0.5], [1, 0.95]);
-  // heroY parallax disabled on mobile — 3D parallax has no payoff on touch
-  // and causes the SCROLL indicator to overlap content below the hero.
-  const heroY = useTransform(heroScroll, [0, 1], isMobile ? [0, 0] : [0, 150]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -1185,13 +1183,13 @@ export default function App() {
         >
           <motion.div
             className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center"
-            style={isMobile ? undefined : { opacity: heroOpacity, scale: heroScale, y: heroY }}
+            style={isMobile ? undefined : { opacity: heroOpacity }}
           >
             <motion.span
               className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 text-[20rem] md:text-[30rem] font-black opacity-[0.02] select-none leading-none pointer-events-none hidden md:block"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 0.02, scale: 1 }}
-              transition={{ duration: 1.5, delay: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.02 }}
+              transition={{ duration: 2, delay: 0.5 }}
             >
               UA
             </motion.span>
