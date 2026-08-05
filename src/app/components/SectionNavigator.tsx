@@ -86,9 +86,10 @@ export function SectionNavigator({ sections }: { sections: NavSection[] }) {
         return (
           <div
             key={id}
-            className="flex items-center gap-2 md:gap-3"
+            className="flex items-center gap-2 md:gap-3 cursor-pointer"
             onMouseEnter={() => setHoveredId(id)}
             onMouseLeave={() => setHoveredId(null)}
+            onClick={() => scrollTo(id)}
           >
             {/* Label — desktop only, fades in on hover/focus */}
             <AnimatePresence>
