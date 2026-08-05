@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { useTheme } from '../context/ThemeContext';
+import { SectionNavigator, NavSection } from '../components/SectionNavigator';
 
 // ── Reusable fade-up wrapper ──────────────────────────────────────
 function FadeUp({
@@ -516,6 +517,20 @@ export default function MagicFleetCaseStudy() {
     window.scrollTo(0, 0);
   }, []);
 
+  const sections: NavSection[] = [
+    { id: 'cs-situation',     label: 'Situation'     },
+    { id: 'cs-challenge',     label: 'Challenge'     },
+    { id: 'cs-users',         label: 'Research'      },
+    { id: 'cs-design',        label: 'Design'        },
+    { id: 'cs-features',      label: 'Features'      },
+    { id: 'cs-impact',        label: 'Impact'        },
+    { id: 'cs-architecture',  label: 'Architecture'  },
+    { id: 'cs-monetization',  label: 'Monetization'  },
+    { id: 'cs-learnings',     label: 'Learnings'     },
+    { id: 'cs-outcomes',      label: 'Outcomes'      },
+    { id: 'cs-reflection',    label: 'Reflection'    },
+  ];
+
   return (
     <div
       className="min-h-screen overflow-x-hidden"
@@ -563,6 +578,8 @@ export default function MagicFleetCaseStudy() {
           </div>
         </div>
       </motion.nav>
+
+      <SectionNavigator sections={sections} />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
@@ -626,7 +643,7 @@ export default function MagicFleetCaseStudy() {
         </section>
 
         {/* ── THE SITUATION ── */}
-        <section>
+        <section id="cs-situation">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE SITUATION</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
@@ -816,7 +833,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── THE CHALLENGE ── */}
-        <section>
+        <section id="cs-challenge">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE CHALLENGE</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -875,7 +892,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── USERS ── */}
-        <section>
+        <section id="cs-users">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">USER RESEARCH</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -932,7 +949,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── DESIGN APPROACH ── */}
-        <section>
+        <section id="cs-design">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">DESIGN APPROACH</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -982,7 +999,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── KEY FEATURES ── */}
-        <section>
+        <section id="cs-features">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">CORE FEATURES</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -1032,7 +1049,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── IMPACT METRICS ── */}
-        <section>
+        <section id="cs-impact">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">IMPACT</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -1134,7 +1151,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── SYSTEM THINKING ── */}
-        <section>
+        <section id="cs-architecture">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">ARCHITECTURE</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
@@ -1177,7 +1194,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── PAYMENT & INCENTIVES SYSTEM ── */}
-        <section>
+        <section id="cs-monetization">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">MONETIZATION</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -1223,7 +1240,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── LEARNINGS ── */}
-        <section>
+        <section id="cs-learnings">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">LEARNINGS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -1268,7 +1285,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── OUTCOMES ── */}
-        <section>
+        <section id="cs-outcomes">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">OUTCOMES</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -1295,7 +1312,7 @@ export default function MagicFleetCaseStudy() {
         <Divider />
 
         {/* ── CONCLUSION ── */}
-        <section className="pb-24 md:pb-32">
+        <section id="cs-reflection" className="pb-24 md:pb-32">
           <FadeUp>
             <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
               <div className="text-xs tracking-widest opacity-65 mb-4">REFLECTION</div>

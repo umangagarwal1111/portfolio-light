@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { useTheme } from '../context/ThemeContext';
+import { SectionNavigator, NavSection } from '../components/SectionNavigator';
 
 // ── Reusable fade-up wrapper ──────────────────────────────────────
 function FadeUp({
@@ -701,6 +702,18 @@ export default function AIGameDesignCaseStudy() {
     window.scrollTo(0, 0);
   }, []);
 
+  const sections: NavSection[] = [
+    { id: 'cs-challenge',  label: 'Challenge'  },
+    { id: 'cs-situation',  label: 'Situation'  },
+    { id: 'cs-approach',   label: 'Approach'   },
+    { id: 'cs-campaign',   label: 'Campaign'   },
+    { id: 'cs-decisions',  label: 'Decisions'  },
+    { id: 'cs-process',    label: 'Process'    },
+    { id: 'cs-outcomes',   label: 'Outcomes'   },
+    { id: 'cs-learnings',  label: 'Learnings'  },
+    { id: 'cs-next',       label: "What's Next" },
+  ];
+
   return (
     <div
       className="min-h-screen overflow-x-hidden"
@@ -749,6 +762,8 @@ export default function AIGameDesignCaseStudy() {
         </div>
       </motion.nav>
 
+      <SectionNavigator sections={sections} />
+
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         {/* ── HERO ── */}
@@ -780,7 +795,7 @@ export default function AIGameDesignCaseStudy() {
         <Divider />
 
         {/* ── THE CHALLENGE ── */}
-        <section>
+        <section id="cs-challenge">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE CHALLENGE</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -837,7 +852,7 @@ export default function AIGameDesignCaseStudy() {
         <Divider />
 
         {/* ── SITUATION ── */}
-        <section>
+        <section id="cs-situation">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE SITUATION</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
@@ -883,7 +898,7 @@ export default function AIGameDesignCaseStudy() {
         <Divider />
 
         {/* ── THE APPROACH ── */}
-        <section>
+        <section id="cs-approach">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE APPROACH</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -960,7 +975,7 @@ export default function AIGameDesignCaseStudy() {
         <Divider />
 
         {/* ── THE GAMES ── */}
-        <section>
+        <section id="cs-campaign">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE CAMPAIGN</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -978,7 +993,7 @@ export default function AIGameDesignCaseStudy() {
         <Divider />
 
         {/* ── KEY DECISIONS ── */}
-        <section>
+        <section id="cs-decisions">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">KEY DECISIONS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -1053,7 +1068,7 @@ export default function AIGameDesignCaseStudy() {
         <Divider />
 
         {/* ── THE WORKFLOW ── */}
-        <section>
+        <section id="cs-process">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE PROCESS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -1109,7 +1124,7 @@ export default function AIGameDesignCaseStudy() {
         <Divider />
 
         {/* ── OUTCOMES ── */}
-        <section>
+        <section id="cs-outcomes">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">OUTCOMES</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -1143,7 +1158,7 @@ export default function AIGameDesignCaseStudy() {
         <Divider />
 
         {/* ── LEARNINGS ── */}
-        <section>
+        <section id="cs-learnings">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">LEARNINGS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -1173,7 +1188,7 @@ export default function AIGameDesignCaseStudy() {
         <Divider />
 
         {/* ── WHAT'S NEXT ── */}
-        <section className="pb-24 md:pb-32">
+        <section id="cs-next" className="pb-24 md:pb-32">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-8">WHAT'S NEXT</div>
             <p className="text-lg opacity-75 max-w-2xl mb-8 leading-relaxed">

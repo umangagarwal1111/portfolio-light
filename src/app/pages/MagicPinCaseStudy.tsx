@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { useTheme } from '../context/ThemeContext';
+import { SectionNavigator, NavSection } from '../components/SectionNavigator';
 
 // ── Reusable fade-up wrapper ──────────────────────────────────────
 function FadeUp({
@@ -437,6 +438,20 @@ export default function MagicPinCaseStudy() {
     window.scrollTo(0, 0);
   }, []);
 
+  const sections: NavSection[] = [
+    { id: 'cs-situation',    label: 'Situation'     },
+    { id: 'cs-context',      label: 'Context'       },
+    { id: 'cs-problem',      label: 'Problem'       },
+    { id: 'cs-goals',        label: 'Goals'         },
+    { id: 'cs-research',     label: 'Research'      },
+    { id: 'cs-principles',   label: 'Principles'    },
+    { id: 'cs-process',      label: 'Process'       },
+    { id: 'cs-design-system',label: 'Design System' },
+    { id: 'cs-decisions',    label: 'Decisions'     },
+    { id: 'cs-impact',       label: 'Impact'        },
+    { id: 'cs-learnings',    label: 'Learnings'     },
+  ];
+
   return (
     <div
       className="min-h-screen overflow-x-hidden"
@@ -485,6 +500,8 @@ export default function MagicPinCaseStudy() {
         </div>
       </motion.nav>
 
+      <SectionNavigator sections={sections} />
+
       <div className="max-w-7xl mx-auto px-6 md:px-12">
 
         {/* ── HERO ── */}
@@ -528,7 +545,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── SITUATION ── */}
-        <section>
+        <section id="cs-situation">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE SITUATION</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
@@ -590,7 +607,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── CONTEXT ── */}
-        <section>
+        <section id="cs-context">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">CONTEXT</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
@@ -618,7 +635,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── PROBLEM ── */}
-        <section>
+        <section id="cs-problem">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE PROBLEM</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -680,7 +697,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── GOALS ── */}
-        <section>
+        <section id="cs-goals">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">GOALS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -732,7 +749,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── RESEARCH ── */}
-        <section>
+        <section id="cs-research">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">RESEARCH</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -791,7 +808,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── DESIGN PRINCIPLES ── */}
-        <section>
+        <section id="cs-principles">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">DESIGN PRINCIPLES</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -841,7 +858,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── PROCESS ── */}
-        <section>
+        <section id="cs-process">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">PROCESS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
@@ -908,7 +925,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── DESIGN SYSTEM ── */}
-        <section>
+        <section id="cs-design-system">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">DESIGN SYSTEM</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
@@ -970,7 +987,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── KEY DESIGN DECISIONS ── */}
-        <section>
+        <section id="cs-decisions">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">KEY DESIGN DECISIONS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -1072,7 +1089,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── IMPACT METRICS ── */}
-        <section>
+        <section id="cs-impact">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">IMPACT</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
@@ -1118,7 +1135,7 @@ export default function MagicPinCaseStudy() {
         <Divider />
 
         {/* ── LEARNINGS ── */}
-        <section>
+        <section id="cs-learnings">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">LEARNINGS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
