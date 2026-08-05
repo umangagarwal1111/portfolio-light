@@ -57,6 +57,7 @@ export function SectionNavigator({ sections }: { sections: NavSection[] }) {
   const [hoveredId,  setHoveredId]  = useState<string | null>(null);
   const [focusedId,  setFocusedId]  = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [dragHoverId, setDragHoverId] = useState<string | null>(null);
   const prefersReduced = useReducedMotion();
   const navRef         = useRef<HTMLElement>(null);
   const dragging       = useRef(false);
@@ -93,21 +94,25 @@ export function SectionNavigator({ sections }: { sections: NavSection[] }) {
     setIsDragging(true);
     navRef.current?.setPointerCapture(e.pointerId);
     const s = getSectionFromY(e.clientY);
-    if (s) { lastDragId.current = s.id; scrollTo(s.id); }
+    if (s) { lastDragId.current = s.id; setDragHoverId(s.id); scrollTo(s.id); }
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
     if (!dragging.current) return;
     const s = getSectionFromY(e.clientY);
-    if (s && s.id !== lastDragId.current) {
-      lastDragId.current = s.id;
-      scrollTo(s.id);
+    if (s) {
+      setDragHoverId(s.id);
+      if (s.id !== lastDragId.current) {
+        lastDragId.current = s.id;
+        scrollTo(s.id);
+      }
     }
   };
 
   const handlePointerUp = () => {
     dragging.current = false;
     setIsDragging(false);
+    setDragHoverId(null);
   };
 
   return (
@@ -130,7 +135,7 @@ export function SectionNavigator({ sections }: { sections: NavSection[] }) {
     >
       {sections.map(({ id, label }) => {
         const isActive      = id === activeId;
-        const isHighlighted = id === hoveredId || id === focusedId;
+        const isHighlighted = id === hoveredId || id === focusedId || (isDragging && id === dragHoverId);
 
         return (
           <div
