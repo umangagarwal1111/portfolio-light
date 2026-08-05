@@ -1171,17 +1171,13 @@ export default function App() {
       </motion.nav>
 
       {/* ── HERO SECTION ── */}
-      {/* 170vh wrapper: the hero section is sticky top-0, so it stays in place
-          while the user scrolls. At 70vh of scroll the hero has fully faded out;
-          the remaining 100vh of wrapper height is where the content below slides
-          into view. Without this wrapper the sticky element has nothing to "stick
-          within" and would scroll away immediately. */}
-      <div style={{ height: '170vh' }}>
+      {/* MomentumTilt disabled: perspective + rotateX 3D context on mobile GPU
+          causes scroll jank and doesn't add perceptible value on touch. */}
       <MomentumTilt enabled={false}>
         <section
           id="hero"
           ref={heroRef}
-          className="sticky top-0 z-0 h-screen flex flex-col justify-between px-6 md:px-12 pt-28 md:pt-32 pb-6 overflow-hidden"
+          className="relative min-h-screen flex flex-col justify-between px-6 md:px-12 pt-28 md:pt-32 pb-6"
         >
           <motion.div
             className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center"
@@ -1288,12 +1284,6 @@ export default function App() {
           </motion.div>
         </section>
       </MomentumTilt>
-      </div>{/* end 170vh hero wrapper */}
-
-      {/* Post-hero content — position:relative + z-index:1 ensures these sections
-          stack above the sticky hero (z-0) and cover it as they slide into view.
-          Solid background prevents the faded-out hero from showing through. */}
-      <div style={{ position: 'relative', zIndex: 1, background: 'var(--portfolio-bg)' }}>
 
       {/* ── MARQUEE BANNER ── */}
       <div className="py-4 md:py-6" style={{ borderTop: '1px solid var(--portfolio-border)', borderBottom: '1px solid var(--portfolio-border)' }}>
@@ -1943,7 +1933,6 @@ export default function App() {
 
       {/* ── CV MODAL ── */}
       <CVModal isOpen={cvModalOpen} onClose={() => setCVModalOpen(false)} />
-      </div>{/* end post-hero content wrapper */}
     </div>
   );
 }
