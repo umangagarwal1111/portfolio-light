@@ -1036,7 +1036,8 @@ export default function App() {
           ease: [0.215, 0.61, 0.355, 1],
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 md:py-6 flex justify-between items-center">
+        <div className="px-6 md:px-12 py-4 md:py-6">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
           <HeaderNameAnimation onClick={() => scrollToSection('hero')} />
           <div className="flex items-center gap-4 md:gap-10 text-xs md:text-sm">
             {['work', 'about', 'contact'].map((section) => (
@@ -1170,6 +1171,7 @@ export default function App() {
             </motion.button>
           </div>
         </div>
+        </div>
       </motion.nav>
 
       {/* ── HERO SECTION ── */}
@@ -1182,7 +1184,7 @@ export default function App() {
           className="relative min-h-screen flex flex-col justify-between px-6 md:px-12 pt-28 md:pt-32 pb-6"
         >
           <motion.div
-            className="max-w-7xl w-full flex-1 flex flex-col justify-center"
+            className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center"
             style={isMobile ? undefined : { opacity: heroOpacity, scale: heroScale, y: heroY }}
           >
             <motion.span
