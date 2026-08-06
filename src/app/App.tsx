@@ -233,17 +233,17 @@ function TestimonialsCarousel() {
   }, []);
 
   return (
-    <div className="overflow-hidden -mx-6 md:-mx-12">
+    <div className="overflow-hidden -mx-6 md:-mx-12 py-[2px]">
       <div
         ref={trackRef}
-        className="flex gap-5 md:gap-8 select-none"
+        className="flex gap-5 md:gap-8 select-none px-6 md:px-12"
         style={{ width: 'max-content', willChange: 'transform' }}
       >
         {doubled.map((rec, i) => (
           <div
             key={i}
             className="flex-shrink-0 w-[80vw] md:w-[480px] flex flex-col gap-4 md:gap-6 p-5 md:p-10 rounded-lg"
-            style={{ borderColor: 'var(--portfolio-border)', borderWidth: '1px' }}
+            style={{ borderColor: 'var(--portfolio-border)', borderWidth: '1px', borderStyle: 'solid' }}
           >
             <span className="text-5xl md:text-8xl font-black leading-none opacity-10 select-none">
               &#34;
