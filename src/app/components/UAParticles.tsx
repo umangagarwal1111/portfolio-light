@@ -28,7 +28,7 @@ const REPULSION_FORCE = 7.5;   // strength of the scatter push
 const SPRING          = 0.052; // pull-back stiffness (lower = slower return)
 const DAMPING         = 0.87;  // velocity decay per frame (lower = more friction)
 const DOT_R           = 1.3;   // particle dot radius in CSS px
-const DOT_ALPHA       = 0.035; // overall dot opacity (watermark feel)
+const DOT_ALPHA       = 0.05;  // overall dot opacity (watermark feel)
 
 export function UAParticles({ className = '' }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
