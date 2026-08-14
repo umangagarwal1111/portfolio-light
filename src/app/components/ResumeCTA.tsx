@@ -121,10 +121,11 @@ export function ResumeCTA({ href, className = '' }: { href: string; className?: 
     if (!path || !body) return;
 
     const totalLen = path.getTotalLength();
-    progressRef.current = (progressRef.current + delta / LOOP_DURATION) % 1;
+    // Traverse BACKWARD so the rocket exits right-first, then sweeps left
+    progressRef.current = (1 + progressRef.current - delta / LOOP_DURATION) % 1;
 
     const dist   = progressRef.current * totalLen;
-    const ahead  = ((progressRef.current + 0.004) % 1) * totalLen; // 0.4% ahead for tangent
+    const ahead  = ((1 + progressRef.current - 0.004) % 1) * totalLen; // look behind in path = ahead in travel
 
     const pt  = path.getPointAtLength(dist);
     const ptA = path.getPointAtLength(ahead);
