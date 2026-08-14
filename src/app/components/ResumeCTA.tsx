@@ -3,18 +3,16 @@
  * ---------
  * Glassmorphic Resume button with animated border arc and rocket hover state.
  *
- * Rocket phase machine (on hover):
- *   hidden → present  : rocket springs in, gentle float for 1 s
- *   present → flying  : traces an invisible path covering the full contact section
- *   any → hidden      : cursor leaves, rocket springs out immediately
+ * Rocket phase machine:
+ *   hidden  → cursor enters → present  (springs in, floats gently, 1 s wait)
+ *   present → 1 s elapsed  → flying   (follows SVG path every frame via useAnimationFrame)
+ *   any     → cursor leaves → hidden   (springs out immediately)
  *
- * Path shape (counter-clockwise loop, matching reference):
- *   Start (right side) → up-left → far left → lower sweep → back right → home
- *   Rocket completes one full –360° rotation per loop (head-first).
+ * Path following is computed with SVGPathElement.getPointAtLength() so the rocket
+ * is EXACTLY on the bezier curve at all times and the heading angle is derived from
+ * the path tangent — no keyframe artifacts, perfectly fluid.
  *
- * Border: bright 25° arc sweeps the 1 px border via conic-gradient + Framer angle.
- *
- * SMOOTH_ROCKET = false → disables rocket entirely for quick revert.
+ * SMOOTH_ROCKET = false → disables rocket for quick revert.
  */
 
 import { useEffect, useRef, useState } from 'react';
@@ -24,27 +22,25 @@ import {
   useMotionValue,
   useTransform,
   animate,
+  useAnimationFrame,
 } from 'framer-motion';
 
-const SMOOTH_ROCKET = true;
+const SMOOTH_ROCKET   = true;
+const LOOP_DURATION   = 7000; // ms per complete loop
 
 // ── Flight path ───────────────────────────────────────────────────────────────
-// Coordinates are px offsets from the rocket's parked position (left of button).
-// The path is a large counter-clockwise loop spanning the full section width.
-// rotate: –360 total rotation so the nose always faces the direction of travel.
-const PATH = {
-  x:      [0, -280, -650, -980, -820, -420,  +60,  +200,  +170,   +30,    0],
-  y:      [0,  -90,  -30,  +80,  +190, +200, +185,   +90,   -60,   -25,    0],
-  rotate: [0,  -50,  -90, -130,  -165, -200, -235,  -278,  -320,  -350, -360],
-  times:  [0, 0.10, 0.22,  0.35,  0.47, 0.57, 0.67,  0.78,  0.88,  0.95,  1.0],
-};
-
-// Duration of one full loop (seconds)
-const LOOP_DURATION = 6;
+// Coordinates are in the rocket's own local space: (0,0) = parked position.
+// Shape (counter-clockwise): launch up-left → sweep far-left → arc back right →
+// loop past button → return. Matches the reference screenshot.
+const FLIGHT_PATH_D =
+  'M 0 0 ' +
+  'C -60 -140, -560 -120, -1060 -8 ' +  // up-left arc, reaches far left
+  'C -1160 50, -500 95, -22 75 ' +        // sweeps down-right
+  'C 115 72, 230 8, 222 -65 ' +           // loops right, past button
+  'C 212 -125, 42 -28, 0 0';             // curves back home
 
 // ── Smoke particles ───────────────────────────────────────────────────────────
-// Anchored at exhaust nozzle: SVG y=30.5 in viewBox 42 h, rendered 44 px tall
-// → 30.5/42 × 44 ≈ 32 px from top → 12 px from bottom
+// Anchored at exhaust nozzle: SVG y=30.5 / viewBox-h=42 × rendered 44 px ≈ 12 px from bottom
 const SMOKE = [
   { id: 0, delay: 0,    dx: -5,  dy: 14, size: 5, dur: 1.4 },
   { id: 1, delay: 0.32, dx:  7,  dy: 17, size: 4, dur: 1.2 },
@@ -64,7 +60,7 @@ function SmokeParticles() {
           key={p.id}
           className="absolute rounded-full"
           style={{ width: p.size, height: p.size, left: -p.size / 2, top: 0, background: 'var(--portfolio-fg)' }}
-          animate={{ x: [0, p.dx], y: [0, p.dy], opacity: [0, 0.3, 0], scale: [0.4, 1.5, 0.5] }}
+          animate={{ x: [0, p.dx], y: [0, p.dy], opacity: [0, 0.28, 0], scale: [0.4, 1.5, 0.5] }}
           transition={{ duration: p.dur, delay: p.delay, repeat: Infinity, ease: 'easeOut', repeatDelay: 0.05 }}
         />
       ))}
@@ -89,8 +85,15 @@ function RocketIcon() {
 type Phase = 'hidden' | 'present' | 'flying';
 
 export function ResumeCTA({ href, className = '' }: { href: string; className?: string }) {
-  const [phase, setPhase] = useState<Phase>('hidden');
-  const timer = useRef<ReturnType<typeof setTimeout>>();
+  const [phase, setPhase]   = useState<Phase>('hidden');
+  const timer               = useRef<ReturnType<typeof setTimeout>>();
+  const phaseRef            = useRef<Phase>('hidden');
+  const svgPathRef          = useRef<SVGPathElement | null>(null);
+  const rocketBodyRef       = useRef<HTMLDivElement | null>(null);
+  const progressRef         = useRef(0);
+
+  // Keep a ref in sync so the animation-frame callback never has a stale closure
+  useEffect(() => { phaseRef.current = phase; }, [phase]);
 
   const handleEnter = () => {
     setPhase('present');
@@ -102,10 +105,39 @@ export function ResumeCTA({ href, className = '' }: { href: string; className?: 
   };
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  const hovered = phase !== 'hidden';
+  // Reset path progress and clear inline transform when not flying
+  useEffect(() => {
+    if (phase !== 'flying') {
+      progressRef.current = 0;
+      if (rocketBodyRef.current) rocketBodyRef.current.style.transform = '';
+    }
+  }, [phase]);
+
+  // Per-frame path following — only runs during 'flying' phase
+  useAnimationFrame((_, delta) => {
+    if (phaseRef.current !== 'flying') return;
+    const path = svgPathRef.current;
+    const body = rocketBodyRef.current;
+    if (!path || !body) return;
+
+    const totalLen = path.getTotalLength();
+    progressRef.current = (progressRef.current + delta / LOOP_DURATION) % 1;
+
+    const dist   = progressRef.current * totalLen;
+    const ahead  = ((progressRef.current + 0.004) % 1) * totalLen; // 0.4% ahead for tangent
+
+    const pt  = path.getPointAtLength(dist);
+    const ptA = path.getPointAtLength(ahead);
+
+    // Heading angle: atan2(dx, -dy) so rotate=0 ↔ nose pointing up
+    const angle = Math.atan2(ptA.x - pt.x, -(ptA.y - pt.y)) * (180 / Math.PI);
+
+    body.style.transform = `translate(${pt.x}px, ${pt.y}px) rotate(${angle}deg)`;
+  });
 
   // ── Rotating border arc ───────────────────────────────────────────────────
-  const angle = useMotionValue(0);
+  const angle    = useMotionValue(0);
+  const hovered  = phase !== 'hidden';
   useEffect(() => {
     const ctrl = animate(angle, 360, { duration: 4, ease: 'linear', repeat: Infinity });
     return ctrl.stop;
@@ -129,37 +161,26 @@ export function ResumeCTA({ href, className = '' }: { href: string; className?: 
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
       >
+        {/* Hidden SVG that owns the path — used only for getPointAtLength() */}
+        <svg
+          aria-hidden="true"
+          style={{ position: 'absolute', visibility: 'hidden', pointerEvents: 'none', width: 0, height: 0, overflow: 'visible' }}
+        >
+          <path ref={svgPathRef} d={FLIGHT_PATH_D} />
+        </svg>
+
         {/* ── Rocket ──────────────────────────────────────────────────────── */}
         {SMOOTH_ROCKET && (
-          // Outer: controls visibility (springs in / out)
+          // Outer: spring entry / exit
           <motion.div
             className="absolute right-full flex items-end"
             style={{ paddingRight: 14, paddingBottom: 2, zIndex: 100 }}
             animate={phase === 'hidden' ? { x: -36, opacity: 0 } : { x: 0, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 280, damping: 22 }}
           >
-            {/* Middle: path flight when flying, or rests at origin */}
-            <motion.div
-              animate={
-                phase === 'flying'
-                  ? { x: PATH.x, y: PATH.y, rotate: PATH.rotate }
-                  : { x: 0, y: 0, rotate: 0 }
-              }
-              transition={
-                phase === 'flying'
-                  ? {
-                      duration: LOOP_DURATION,
-                      ease: 'easeInOut',
-                      times: PATH.times,
-                      repeat: Infinity,
-                      repeatType: 'loop',
-                    }
-                  : { duration: 0.5, ease: [0.215, 0.61, 0.355, 1] }
-              }
-              className="relative"
-              style={{ transformOrigin: '50% 70%' }} // pivot near rocket centre-of-mass
-            >
-              {/* Inner: gentle float while present; returns to 0,0 during flight */}
+            {/* Path-follower: transform is written directly in useAnimationFrame */}
+            <div ref={rocketBodyRef} style={{ position: 'relative' }}>
+              {/* Idle float — active only when present; held at 0 during flight */}
               <motion.div
                 animate={
                   phase === 'present'
@@ -167,14 +188,15 @@ export function ResumeCTA({ href, className = '' }: { href: string; className?: 
                     : { y: 0, rotate: 0 }
                 }
                 transition={{
-                  y:      { duration: 2.2, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
-                  rotate: { duration: 3.5, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
+                  y:        { duration: 2.2, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
+                  rotate:   { duration: 3.5, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
+                  default:  { duration: 0.3 },
                 }}
               >
                 <RocketIcon />
                 <SmokeParticles />
               </motion.div>
-            </motion.div>
+            </div>
           </motion.div>
         )}
 
@@ -198,16 +220,12 @@ export function ResumeCTA({ href, className = '' }: { href: string; className?: 
               transition:           'background 0.25s',
             }}
           >
-            {/* Shimmer — fires once on hover enter */}
             <AnimatePresence>
               {hovered && (
                 <motion.div
                   key="shimmer"
                   className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(90deg, transparent 0%, var(--portfolio-fg) 50%, transparent 100%)',
-                    opacity: 0.07,
-                  }}
+                  style={{ background: 'linear-gradient(90deg, transparent 0%, var(--portfolio-fg) 50%, transparent 100%)', opacity: 0.07 }}
                   initial={{ x: '-100%' }}
                   animate={{ x: '120%' }}
                   exit={{ opacity: 0 }}
@@ -215,7 +233,6 @@ export function ResumeCTA({ href, className = '' }: { href: string; className?: 
                 />
               )}
             </AnimatePresence>
-
             <span className="relative z-10">RESUME</span>
           </a>
         </motion.div>
