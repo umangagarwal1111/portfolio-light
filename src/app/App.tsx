@@ -24,6 +24,7 @@ import {
 } from './components/mobile-interactions';
 import { HeaderNameAnimation } from './components/HeaderNameAnimation';
 import { HeroParticles } from './components/HeroParticles';
+import { ResumeCTA } from './components/ResumeCTA';
 
 const SECTIONS = ['hero', 'work', 'press', 'recommendations', 'about', 'contact'];
 
@@ -1796,28 +1797,7 @@ export default function App() {
                   styledWords={{ "together": "font-['Playfair_Display'] italic font-normal tracking-normal" }}
                 />
               </ParallaxText>
-              <motion.a
-                href="/Umang_Agarwal_CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 md:px-6 py-2 md:py-3 rounded text-xs md:text-sm font-bold tracking-widest transition-colors flex-shrink-0 mt-2 inline-flex items-center"
-                style={{
-                  backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                  borderColor: 'var(--portfolio-border)',
-                  borderWidth: '1px',
-                  color: 'var(--portfolio-fg)',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.1)')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.05)')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                ⇩ RESUME
-              </motion.a>
+              <ResumeCTA href="/Umang_Agarwal_CV.pdf" className="flex-shrink-0 mt-2" />
             </div>
             <LineReveal className="mb-12 md:mb-16" />
 
