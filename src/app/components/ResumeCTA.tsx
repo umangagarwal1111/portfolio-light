@@ -1,39 +1,50 @@
 /**
  * ResumeCTA
  * ---------
- * Glassmorphic Resume CTA with animated border and rocket hover state.
+ * Glassmorphic Resume CTA with animated border arc and rocket hover state.
  *
- * Idle:
- *   - Glassmorphic button (backdrop-blur, semi-transparent)
- *   - A small arc of light travels continuously around the border
- *     (conic-gradient rotating at ~1 rev / 4 s)
+ * Rocket phase machine:
+ *   hidden  → cursor enters → present (spring in, gentle float for ~1 s)
+ *   present → 1 s elapsed  → flying  (traces invisible bezier loop, repeats)
+ *   any     → cursor leaves → hidden  (spring out)
  *
- * Hover:
- *   - Rocket springs in from the left with sway + float idle animation
- *   - Smoke particles drift from the rocket exhaust nozzle
- *   - Shimmer sweeps the button face once
- *   - Border arc intensifies
+ * Border: a bright 25° arc sweeps the 1 px border continuously (conic-gradient
+ * driven by a Framer Motion angle value, 4 s per revolution).
  *
- * Flag: SMOOTH_ROCKET = false → disables rocket + smoke for quick revert
+ * Flag: SMOOTH_ROCKET = false → disables rocket entirely for quick revert.
  */
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+  animate,
+} from 'framer-motion';
 
 const SMOOTH_ROCKET = true;
 
-// ── Smoke particle config — fixed values to avoid random re-render drift ───────
+// ── Rocket flight path ────────────────────────────────────────────────────────
+// Relative offsets (CSS px) from the rocket's parked position.
+// Smooth bezier approximated via 8 keyframe stops + `times` array.
+const PATH = {
+  x:      [0, -60, -180, -260, -220, -110, -45,  0],
+  y:      [0, -90,  -75,    0,   80,  100,  55,  0],
+  rotate: [0, -28,  -12,    8,   24,   10,   2,  0],
+  times:  [0, 0.13, 0.30, 0.47, 0.62, 0.77, 0.90, 1],
+};
+
+// ── Smoke particles ───────────────────────────────────────────────────────────
+// Anchor: exhaust nozzle at SVG y=30.5 / height=42 → ~32 px from top → 12 px from bottom
 const SMOKE = [
   { id: 0, delay: 0,    dx: -5,  dy: 14, size: 5, dur: 1.4 },
   { id: 1, delay: 0.32, dx:  7,  dy: 17, size: 4, dur: 1.2 },
-  { id: 2, delay: 0.6,  dx: -2,  dy: 13, size: 6, dur: 1.5 },
+  { id: 2, delay: 0.60, dx: -2,  dy: 13, size: 6, dur: 1.5 },
   { id: 3, delay: 0.88, dx:  9,  dy: 16, size: 4, dur: 1.3 },
   { id: 4, delay: 1.15, dx: -7,  dy: 19, size: 5, dur: 1.4 },
 ];
 
-// ── Smoke particles ───────────────────────────────────────────────────────────
-// Anchored at the exhaust nozzle: y=30.5 in SVG(0 0 30 42), rendered 44px tall
-//   → 30.5/42 × 44 ≈ 32 px from top → 12 px from bottom
 function SmokeParticles() {
   return (
     <div
@@ -44,26 +55,9 @@ function SmokeParticles() {
         <motion.div
           key={p.id}
           className="absolute rounded-full"
-          style={{
-            width:  p.size,
-            height: p.size,
-            left:   -p.size / 2,
-            top:    0,
-            background: 'var(--portfolio-fg)',
-          }}
-          animate={{
-            x:       [0, p.dx],
-            y:       [0, p.dy],
-            opacity: [0, 0.32, 0],
-            scale:   [0.4, 1.5, 0.5],
-          }}
-          transition={{
-            duration:    p.dur,
-            delay:       p.delay,
-            repeat:      Infinity,
-            ease:        'easeOut',
-            repeatDelay: 0.05,
-          }}
+          style={{ width: p.size, height: p.size, left: -p.size / 2, top: 0, background: 'var(--portfolio-fg)' }}
+          animate={{ x: [0, p.dx], y: [0, p.dy], opacity: [0, 0.3, 0], scale: [0.4, 1.5, 0.5] }}
+          transition={{ duration: p.dur, delay: p.delay, repeat: Infinity, ease: 'easeOut', repeatDelay: 0.05 }}
         />
       ))}
     </div>
@@ -73,62 +67,47 @@ function SmokeParticles() {
 // ── Rocket SVG ────────────────────────────────────────────────────────────────
 function RocketIcon() {
   return (
-    <svg
-      width="32"
-      height="44"
-      viewBox="0 0 30 42"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ color: 'var(--portfolio-fg)' }}
-      aria-hidden="true"
-    >
-      <path
-        d="M15 2C9.5 2 5 9 5 19.5V30L15 35.5L25 30V19.5C25 9 20.5 2 15 2Z"
-        stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"
-      />
+    <svg width="32" height="44" viewBox="0 0 30 42" fill="none" style={{ color: 'var(--portfolio-fg)' }} aria-hidden="true">
+      <path d="M15 2C9.5 2 5 9 5 19.5V30L15 35.5L25 30V19.5C25 9 20.5 2 15 2Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
       <circle cx="15" cy="17" r="3.5" stroke="currentColor" strokeWidth="1.4" />
-      <path d="M5 26.5L1.5 35L5 32"  stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5 26.5L1.5 35L5 32"   stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M25 26.5L28.5 35L25 32" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-      {/* Nozzle — smoke anchors here */}
-      <path d="M11 30.5H19" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M11 30.5H19"            stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
     </svg>
   );
 }
 
 // ── ResumeCTA ─────────────────────────────────────────────────────────────────
-export function ResumeCTA({
-  href,
-  className = '',
-}: {
-  href: string;
-  className?: string;
-}) {
+type Phase = 'hidden' | 'present' | 'flying';
+
+export function ResumeCTA({ href, className = '' }: { href: string; className?: string }) {
+  const [phase, setPhase] = useState<Phase>('hidden');
   const [hovered, setHovered] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>();
 
-  // ── Rotating border arc ───────────────────────────────────────────────────
-  // Drive a motion value 0→360, loop forever, build a conic-gradient from it.
+  const handleEnter = () => {
+    setHovered(true);
+    setPhase('present');
+    timer.current = setTimeout(() => setPhase('flying'), 1000);
+  };
+  const handleLeave = () => {
+    setHovered(false);
+    clearTimeout(timer.current);
+    setPhase('hidden');
+  };
+
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  // ── Rotating border arc ─────────────────────────────────────────────────
   const angle = useMotionValue(0);
-
   useEffect(() => {
-    const ctrl = animate(angle, 360, {
-      duration: 4,
-      ease: 'linear',
-      repeat: Infinity,
-    });
+    const ctrl = animate(angle, 360, { duration: 4, ease: 'linear', repeat: Infinity });
     return ctrl.stop;
   }, [angle]);
 
-  // Traveling arc: dim base border + a ~25° bright spot
   const borderBg = useTransform(angle, (a) => {
-    const intensity = hovered ? '65%' : '45%';
-    return [
-      `conic-gradient(from ${a}deg,`,
-      `  var(--portfolio-border) 0%,`,
-      `  color-mix(in srgb, var(--portfolio-fg) ${intensity}, transparent) 8%,`,
-      `  var(--portfolio-border) 16%,`,
-      `  var(--portfolio-border) 100%`,
-      `)`,
-    ].join('');
+    const hi = hovered ? '65%' : '45%';
+    return `conic-gradient(from ${a}deg, var(--portfolio-border) 0%, color-mix(in srgb, var(--portfolio-fg) ${hi}, transparent) 8%, var(--portfolio-border) 16%, var(--portfolio-border) 100%)`;
   });
 
   return (
@@ -139,52 +118,64 @@ export function ResumeCTA({
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: 0.2 }}
     >
-      {/* Rocket + Button row */}
       <div
         className="relative inline-flex items-center"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
       >
-        {/* Rocket — springs in from left on hover */}
+        {/* ── Rocket ─────────────────────────────────────────────────────── */}
         {SMOOTH_ROCKET && (
-          <AnimatePresence>
-            {hovered && (
+          <motion.div
+            className="absolute right-full flex items-end"
+            style={{ paddingRight: 14, paddingBottom: 2 }}
+            // Outer: visibility — springs in / out
+            animate={phase === 'hidden' ? { x: -36, opacity: 0 } : { x: 0, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+          >
+            {/* Middle: path flight OR at rest */}
+            <motion.div
+              animate={
+                phase === 'flying'
+                  ? { x: PATH.x, y: PATH.y, rotate: PATH.rotate }
+                  : { x: 0, y: 0, rotate: 0 }
+              }
+              transition={
+                phase === 'flying'
+                  ? { duration: 4, ease: 'easeInOut', times: PATH.times, repeat: Infinity, repeatType: 'loop' }
+                  : { duration: 0.5, ease: [0.215, 0.61, 0.355, 1] }
+              }
+              className="relative"
+            >
+              {/* Inner: idle float (only while present, stops during flight) */}
               <motion.div
-                className="absolute right-full flex items-end"
-                style={{ paddingRight: 14, paddingBottom: 2 }}
-                initial={{ x: -28, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -28, opacity: 0 }}
-                transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+                animate={
+                  phase === 'present'
+                    ? { y: [0, -4, 0], rotate: [-2, 2, -2] }
+                    : { y: 0, rotate: 0 }
+                }
+                transition={{
+                  y:      { duration: 2.2, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
+                  rotate: { duration: 3.5, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' },
+                }}
               >
-                <motion.div
-                  className="relative"
-                  animate={{ rotate: [-2, 2, -2], y: [0, -4, 0] }}
-                  transition={{
-                    rotate: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
-                    y:      { duration: 2.2, repeat: Infinity, ease: 'easeInOut' },
-                  }}
-                >
-                  <RocketIcon />
-                  <SmokeParticles />
-                </motion.div>
+                <RocketIcon />
+                <SmokeParticles />
               </motion.div>
-            )}
-          </AnimatePresence>
+            </motion.div>
+          </motion.div>
         )}
 
-        {/* ── Animated border wrapper ── */}
-        {/* p-[1px] exposes 1 px of the conic-gradient bg as the border */}
+        {/* ── Animated border wrapper (sharp corners) ─────────────────── */}
         <motion.div
-          className="relative p-[1px] rounded-xl overflow-hidden"
+          className="relative p-[1px] overflow-hidden"
           style={{ background: borderBg }}
         >
-          {/* ── Glassmorphic anchor button ── */}
+          {/* ── Glassmorphic button ───────────────────────────────────── */}
           <a
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative rounded-[10px] overflow-hidden px-5 md:px-7 py-[10px] md:py-3 text-xs md:text-sm font-bold tracking-[0.14em] inline-flex items-center"
+            className="relative overflow-hidden px-5 md:px-7 py-[10px] md:py-3 text-xs md:text-sm font-bold tracking-[0.14em] inline-flex items-center"
             style={{
               background:           'color-mix(in srgb, var(--portfolio-fg) 6%, transparent)',
               backdropFilter:       'blur(14px) saturate(160%)',
@@ -194,16 +185,13 @@ export function ResumeCTA({
               transition:           'background 0.25s',
             }}
           >
-            {/* Shimmer sweep — fires once on hover enter */}
+            {/* Shimmer — fires once on hover enter */}
             <AnimatePresence>
               {hovered && (
                 <motion.div
                   key="shimmer"
                   className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(90deg, transparent 0%, var(--portfolio-fg) 50%, transparent 100%)',
-                    opacity: 0.07,
-                  }}
+                  style={{ background: 'linear-gradient(90deg, transparent 0%, var(--portfolio-fg) 50%, transparent 100%)', opacity: 0.07 }}
                   initial={{ x: '-100%' }}
                   animate={{ x: '120%' }}
                   exit={{ opacity: 0 }}
