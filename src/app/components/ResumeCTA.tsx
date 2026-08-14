@@ -1,103 +1,68 @@
 /**
  * ResumeCTA
  * ---------
- * Animated Resume CTA with glassmorphic button and rocket hover state.
+ * Glassmorphic Resume CTA with animated border and rocket hover state.
  *
  * Idle:
- *   - "● AVAILABLE" status badge floats above the button
- *   - Glassmorphic button: backdrop-blur + semi-transparent bg
- *   - No arrow — just "RESUME" in bold caps
+ *   - Glassmorphic button (backdrop-blur, semi-transparent)
+ *   - A small arc of light travels continuously around the border
+ *     (conic-gradient rotating at ~1 rev / 4 s)
  *
  * Hover:
- *   - Badge slides out upward (AnimatePresence exit)
- *   - Rocket springs in from the left with a gentle idle sway
- *   - Smoke particles drift from the rocket exhaust
- *   - "↗" slides in after "RESUME"
+ *   - Rocket springs in from the left with sway + float idle animation
+ *   - Smoke particles drift from the rocket exhaust nozzle
  *   - Shimmer sweeps the button face once
+ *   - Border arc intensifies
  *
- * Flags:
- *   SMOOTH_ROCKET = false → disables rocket + smoke (quick revert)
+ * Flag: SMOOTH_ROCKET = false → disables rocket + smoke for quick revert
  */
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'framer-motion';
 
 const SMOOTH_ROCKET = true;
 
-// ── Smoke particle config — hardcoded to avoid random re-render drift ─────────
+// ── Smoke particle config — fixed values to avoid random re-render drift ───────
 const SMOKE = [
-  { id: 0, delay: 0,    dx: -5,  dy: 18, size: 5, dur: 1.4 },
-  { id: 1, delay: 0.32, dx:  8,  dy: 22, size: 4, dur: 1.2 },
-  { id: 2, delay: 0.6,  dx: -2,  dy: 16, size: 6, dur: 1.5 },
-  { id: 3, delay: 0.88, dx:  11, dy: 20, size: 4, dur: 1.3 },
-  { id: 4, delay: 1.15, dx: -9,  dy: 24, size: 5, dur: 1.4 },
+  { id: 0, delay: 0,    dx: -5,  dy: 14, size: 5, dur: 1.4 },
+  { id: 1, delay: 0.32, dx:  7,  dy: 17, size: 4, dur: 1.2 },
+  { id: 2, delay: 0.6,  dx: -2,  dy: 13, size: 6, dur: 1.5 },
+  { id: 3, delay: 0.88, dx:  9,  dy: 16, size: 4, dur: 1.3 },
+  { id: 4, delay: 1.15, dx: -7,  dy: 19, size: 5, dur: 1.4 },
 ];
 
-// ── Available badge ───────────────────────────────────────────────────────────
-function AvailableBadge() {
-  return (
-    <motion.div
-      className="absolute bottom-full mb-3 left-1/2 flex items-center gap-2 px-3 py-[6px] rounded-full whitespace-nowrap"
-      style={{
-        transform: 'translateX(-50%)',
-        background: 'color-mix(in srgb, var(--portfolio-fg) 7%, transparent)',
-        border: '1px solid var(--portfolio-border)',
-        backdropFilter: 'blur(8px)',
-      }}
-      initial={{ opacity: 0, y: 4 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10, scale: 0.92 }}
-      transition={{ duration: 0.22, ease: [0.215, 0.61, 0.355, 1] }}
-    >
-      {/* Green pulse dot */}
-      <span className="relative flex h-[7px] w-[7px]">
-        <span
-          className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
-          style={{ background: '#22c55e', animationDuration: '1.8s' }}
-        />
-        <span
-          className="relative inline-flex rounded-full h-[7px] w-[7px]"
-          style={{ background: '#22c55e' }}
-        />
-      </span>
-      <span
-        className="text-[9px] font-bold tracking-[0.18em] uppercase"
-        style={{ color: 'var(--portfolio-fg)', opacity: 0.65 }}
-      >
-        Available
-      </span>
-    </motion.div>
-  );
-}
-
 // ── Smoke particles ───────────────────────────────────────────────────────────
+// Anchored at the exhaust nozzle: y=30.5 in SVG(0 0 30 42), rendered 44px tall
+//   → 30.5/42 × 44 ≈ 32 px from top → 12 px from bottom
 function SmokeParticles() {
   return (
-    // Anchor point: horizontally centred at the rocket exhaust (bottom)
-    <div className="absolute bottom-0 left-1/2" style={{ transform: 'translateX(-50%)', pointerEvents: 'none' }}>
+    <div
+      className="absolute left-1/2"
+      style={{ bottom: 12, transform: 'translateX(-50%)', pointerEvents: 'none' }}
+    >
       {SMOKE.map((p) => (
         <motion.div
           key={p.id}
           className="absolute rounded-full"
           style={{
-            width: p.size,
+            width:  p.size,
             height: p.size,
-            left: -p.size / 2,
-            top: 0,
+            left:   -p.size / 2,
+            top:    0,
             background: 'var(--portfolio-fg)',
           }}
           animate={{
-            x: [0, p.dx],
-            y: [0, p.dy],
-            opacity: [0, 0.35, 0],
-            scale: [0.4, 1.6, 0.6],
+            x:       [0, p.dx],
+            y:       [0, p.dy],
+            opacity: [0, 0.32, 0],
+            scale:   [0.4, 1.5, 0.5],
           }}
           transition={{
-            duration: p.dur,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: 'easeOut',
-            repeatDelay: 0.1,
+            duration:    p.dur,
+            delay:       p.delay,
+            repeat:      Infinity,
+            ease:        'easeOut',
+            repeatDelay: 0.05,
           }}
         />
       ))}
@@ -117,38 +82,15 @@ function RocketIcon() {
       style={{ color: 'var(--portfolio-fg)' }}
       aria-hidden="true"
     >
-      {/* Body */}
       <path
         d="M15 2C9.5 2 5 9 5 19.5V30L15 35.5L25 30V19.5C25 9 20.5 2 15 2Z"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
+        stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"
       />
-      {/* Porthole */}
       <circle cx="15" cy="17" r="3.5" stroke="currentColor" strokeWidth="1.4" />
-      {/* Left fin */}
-      <path
-        d="M5 26.5L1.5 35L5 32"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Right fin */}
-      <path
-        d="M25 26.5L28.5 35L25 32"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Exhaust nozzle */}
-      <path
-        d="M11 30.5H19"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
+      <path d="M5 26.5L1.5 35L5 32"  stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M25 26.5L28.5 35L25 32" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Nozzle — smoke anchors here */}
+      <path d="M11 30.5H19" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
     </svg>
   );
 }
@@ -163,6 +105,32 @@ export function ResumeCTA({
 }) {
   const [hovered, setHovered] = useState(false);
 
+  // ── Rotating border arc ───────────────────────────────────────────────────
+  // Drive a motion value 0→360, loop forever, build a conic-gradient from it.
+  const angle = useMotionValue(0);
+
+  useEffect(() => {
+    const ctrl = animate(angle, 360, {
+      duration: 4,
+      ease: 'linear',
+      repeat: Infinity,
+    });
+    return ctrl.stop;
+  }, [angle]);
+
+  // Traveling arc: dim base border + a ~25° bright spot
+  const borderBg = useTransform(angle, (a) => {
+    const intensity = hovered ? '65%' : '45%';
+    return [
+      `conic-gradient(from ${a}deg,`,
+      `  var(--portfolio-border) 0%,`,
+      `  color-mix(in srgb, var(--portfolio-fg) ${intensity}, transparent) 8%,`,
+      `  var(--portfolio-border) 16%,`,
+      `  var(--portfolio-border) 100%`,
+      `)`,
+    ].join('');
+  });
+
   return (
     <motion.div
       className={`inline-flex flex-col items-center ${className}`}
@@ -171,18 +139,13 @@ export function ResumeCTA({
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: 0.2 }}
     >
-      {/* Rocket + badge + button — all relative to this wrapper */}
+      {/* Rocket + Button row */}
       <div
         className="relative inline-flex items-center"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Available badge — visible when not hovered, exits upward on hover */}
-        <AnimatePresence>
-          {!hovered && <AvailableBadge />}
-        </AnimatePresence>
-
-        {/* Rocket — slides in from left on hover */}
+        {/* Rocket — springs in from left on hover */}
         {SMOOTH_ROCKET && (
           <AnimatePresence>
             {hovered && (
@@ -194,13 +157,12 @@ export function ResumeCTA({
                 exit={{ x: -28, opacity: 0 }}
                 transition={{ type: 'spring', stiffness: 280, damping: 22 }}
               >
-                {/* Sway + float when settled */}
                 <motion.div
                   className="relative"
                   animate={{ rotate: [-2, 2, -2], y: [0, -4, 0] }}
                   transition={{
                     rotate: { duration: 3.5, repeat: Infinity, ease: 'easeInOut' },
-                    y: { duration: 2.2, repeat: Infinity, ease: 'easeInOut' },
+                    y:      { duration: 2.2, repeat: Infinity, ease: 'easeInOut' },
                   }}
                 >
                   <RocketIcon />
@@ -211,63 +173,48 @@ export function ResumeCTA({
           </AnimatePresence>
         )}
 
-        {/* ── Glassmorphic button ── */}
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative overflow-hidden px-5 md:px-7 py-[10px] md:py-3 rounded-xl text-xs md:text-sm font-bold tracking-[0.14em] inline-flex items-center gap-0"
-          style={{
-            background: hovered
-              ? 'color-mix(in srgb, var(--portfolio-fg) 10%, transparent)'
-              : 'color-mix(in srgb, var(--portfolio-fg) 5%, transparent)',
-            backdropFilter: 'blur(14px) saturate(160%)',
-            WebkitBackdropFilter: 'blur(14px) saturate(160%)',
-            border: '1px solid color-mix(in srgb, var(--portfolio-fg) 18%, transparent)',
-            boxShadow: hovered
-              ? '0 8px 32px color-mix(in srgb, var(--portfolio-bg) 40%, transparent), inset 0 1px 0 color-mix(in srgb, var(--portfolio-fg) 12%, transparent)'
-              : '0 4px 16px color-mix(in srgb, var(--portfolio-bg) 30%, transparent), inset 0 1px 0 color-mix(in srgb, var(--portfolio-fg) 8%, transparent)',
-            color: 'var(--portfolio-fg)',
-            transition: 'background 0.25s, box-shadow 0.25s',
-          }}
+        {/* ── Animated border wrapper ── */}
+        {/* p-[1px] exposes 1 px of the conic-gradient bg as the border */}
+        <motion.div
+          className="relative p-[1px] rounded-xl overflow-hidden"
+          style={{ background: borderBg }}
         >
-          {/* Shimmer sweep — once per hover enter */}
-          <AnimatePresence>
-            {hovered && (
-              <motion.div
-                key="shimmer"
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    'linear-gradient(90deg, transparent 0%, var(--portfolio-fg) 50%, transparent 100%)',
-                  opacity: 0.07,
-                }}
-                initial={{ x: '-100%' }}
-                animate={{ x: '120%' }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.55, ease: 'easeOut' }}
-              />
-            )}
-          </AnimatePresence>
+          {/* ── Glassmorphic anchor button ── */}
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative rounded-[10px] overflow-hidden px-5 md:px-7 py-[10px] md:py-3 text-xs md:text-sm font-bold tracking-[0.14em] inline-flex items-center"
+            style={{
+              background:           'color-mix(in srgb, var(--portfolio-fg) 6%, transparent)',
+              backdropFilter:       'blur(14px) saturate(160%)',
+              WebkitBackdropFilter: 'blur(14px) saturate(160%)',
+              boxShadow:            'inset 0 1px 0 color-mix(in srgb, var(--portfolio-fg) 10%, transparent)',
+              color:                'var(--portfolio-fg)',
+              transition:           'background 0.25s',
+            }}
+          >
+            {/* Shimmer sweep — fires once on hover enter */}
+            <AnimatePresence>
+              {hovered && (
+                <motion.div
+                  key="shimmer"
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent 0%, var(--portfolio-fg) 50%, transparent 100%)',
+                    opacity: 0.07,
+                  }}
+                  initial={{ x: '-100%' }}
+                  animate={{ x: '120%' }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.55, ease: 'easeOut' }}
+                />
+              )}
+            </AnimatePresence>
 
-          {/* Label */}
-          <span className="relative z-10 flex items-center">
-            RESUME
-
-            {/* ↗ arrow slides in after text on hover */}
-            <span
-              className="inline-block overflow-hidden"
-              style={{
-                width: hovered ? '1.4em' : '0',
-                opacity: hovered ? 1 : 0,
-                transition: 'width 0.22s cubic-bezier(0.215,0.61,0.355,1), opacity 0.22s',
-                marginLeft: hovered ? '0.35em' : '0',
-              }}
-            >
-              ↗
-            </span>
-          </span>
-        </a>
+            <span className="relative z-10">RESUME</span>
+          </a>
+        </motion.div>
       </div>
     </motion.div>
   );
