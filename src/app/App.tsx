@@ -1788,7 +1788,7 @@ export default function App() {
           className="min-h-screen py-24 md:py-32 px-6 md:px-12 flex items-center"
         >
           <div className="max-w-7xl mx-auto w-full">
-            <div className="flex items-start justify-between gap-6 md:gap-12 mb-8">
+            <div className="flex items-center justify-between gap-6 md:gap-12 mb-8">
               <ParallaxText speed={0.15}>
                 <SplitTextReveal
                   text="LET'S BUILD together"
@@ -1797,7 +1797,7 @@ export default function App() {
                   styledWords={{ "together": "font-['Playfair_Display'] italic font-normal tracking-normal" }}
                 />
               </ParallaxText>
-              <ResumeCTA href="/Umang_Agarwal_CV.pdf" className="flex-shrink-0 mt-2" />
+              <ResumeCTA href="/Umang_Agarwal_CV.pdf" className="flex-shrink-0" />
             </div>
             <LineReveal className="mb-12 md:mb-16" />
 
