@@ -23,6 +23,7 @@ import {
   ScrollBlur,
 } from './components/mobile-interactions';
 import { HeaderNameAnimation } from './components/HeaderNameAnimation';
+import { UAParticles } from './components/UAParticles';
 
 const SECTIONS = ['hero', 'work', 'press', 'recommendations', 'about', 'contact'];
 
@@ -1183,14 +1184,17 @@ export default function App() {
             className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center"
             style={isMobile ? undefined : { opacity: heroOpacity }}
           >
-            <motion.span
-              className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 text-[20rem] md:text-[30rem] font-black opacity-[0.02] select-none leading-none pointer-events-none hidden md:block"
+            {/* UA particle field — same position as the old watermark span.
+                Canvas fills the hero section; text is drawn right-aligned inside.
+                pointer-events-none so it never blocks hero interactions. */}
+            <motion.div
+              className="absolute inset-0 pointer-events-none hidden md:block"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.02 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 2, delay: 0.5 }}
             >
-              UA
-            </motion.span>
+              <UAParticles className="w-full h-full" />
+            </motion.div>
 
             {/* ScrollBlur disabled on mobile: the continuous RAF loop + CSS filter
                 forces GPU compositing layer updates that block iOS from registering
