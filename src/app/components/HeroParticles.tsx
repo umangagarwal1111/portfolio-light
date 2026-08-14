@@ -30,13 +30,20 @@ const DAMPING         = 0.88;  // velocity decay (lower = more friction)
 const DOT_R           = 1.0;   // particle radius in CSS px
 const DOT_ALPHA       = 0.13;  // opacity per dot — subtle against bg
 
+// ── smooth stop ───────────────────────────────────────────────────────────────
+// When true, repulsion fades out gradually after cursor stops/leaves instead
+// of cutting off instantly. Set false to revert to original behaviour.
+const SMOOTH_STOP  = true;
+const STOP_DECAY   = 0.94;  // multiplier per frame (lower = faster fade)
+
 export function HeroParticles({ className = '' }: { className?: string }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pts       = useRef<Particle[]>([]);
-  const mouse     = useRef({ x: -9999, y: -9999 });
-  const raf       = useRef(0);
-  const fg        = useRef('#f0ede8');
-  const alive     = useRef(true);
+  const canvasRef      = useRef<HTMLCanvasElement>(null);
+  const pts            = useRef<Particle[]>([]);
+  const mouse          = useRef({ x: -9999, y: -9999 });
+  const raf            = useRef(0);
+  const fg             = useRef('#f0ede8');
+  const alive          = useRef(true);
+  const repulsionMult  = useRef(0); // 0 = no repulsion, 1 = full repulsion
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -105,6 +112,11 @@ export function HeroParticles({ className = '' }: { className?: string }) {
       const H = canvas.height / dpr;
       ctx.clearRect(0, 0, W, H);
 
+      // Decay repulsion multiplier each frame when smooth stop is enabled
+      if (SMOOTH_STOP && repulsionMult.current > 0) {
+        repulsionMult.current = Math.max(0, repulsionMult.current * STOP_DECAY);
+      }
+
       const { x: mx, y: my } = mouse.current;
       const particles = pts.current;
 
@@ -119,13 +131,14 @@ export function HeroParticles({ className = '' }: { className?: string }) {
         p.vx += (p.ox - p.x) * SPRING;
         p.vy += (p.oy - p.y) * SPRING;
 
-        // Cursor repulsion
+        // Cursor repulsion (scaled by repulsionMult for smooth stop)
         const dx = p.x - mx;
         const dy = p.y - my;
         const d2 = dx * dx + dy * dy;
-        if (d2 < REPULSION_R * REPULSION_R && d2 > 0) {
+        const mult = SMOOTH_STOP ? repulsionMult.current : 1;
+        if (mult > 0.001 && d2 < REPULSION_R * REPULSION_R && d2 > 0) {
           const d = Math.sqrt(d2);
-          const f = ((REPULSION_R - d) / REPULSION_R) * REPULSION_FORCE;
+          const f = ((REPULSION_R - d) / REPULSION_R) * REPULSION_FORCE * mult;
           p.vx += (dx / d) * f;
           p.vy += (dy / d) * f;
         }
@@ -148,8 +161,10 @@ export function HeroParticles({ className = '' }: { className?: string }) {
     const onMove = (e: MouseEvent) => {
       const r = canvas.getBoundingClientRect();
       mouse.current = { x: e.clientX - r.left, y: e.clientY - r.top };
+      if (SMOOTH_STOP) repulsionMult.current = 1; // restore full repulsion on move
     };
-    const onLeave = () => { mouse.current = { x: -9999, y: -9999 }; };
+    // On leave: keep last mouse position so decay drives the fade-out naturally
+    const onLeave = () => { if (!SMOOTH_STOP) mouse.current = { x: -9999, y: -9999 }; };
 
     window.addEventListener('mousemove', onMove, { passive: true });
     document.addEventListener('mouseleave', onLeave);
