@@ -23,7 +23,7 @@ import {
   ScrollBlur,
 } from './components/mobile-interactions';
 import { HeaderNameAnimation } from './components/HeaderNameAnimation';
-import { UAParticles } from './components/UAParticles';
+import { HeroParticles } from './components/HeroParticles';
 
 const SECTIONS = ['hero', 'work', 'press', 'recommendations', 'about', 'contact'];
 
@@ -1184,16 +1184,16 @@ export default function App() {
             className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center"
             style={isMobile ? undefined : { opacity: heroOpacity }}
           >
-            {/* UA particle field — same position as the old watermark span.
-                Canvas fills the hero section; text is drawn right-aligned inside.
-                pointer-events-none so it never blocks hero interactions. */}
+            {/* Full-background particle field — 7 000 dots in a soft jittered
+                grid across the entire hero. Cursor creates a ripple wake.
+                pointer-events-none so hero interactions are never blocked. */}
             <motion.div
-              className="absolute inset-0 pointer-events-none hidden md:block"
+              className="absolute inset-0 pointer-events-none"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 2, delay: 0.5 }}
+              transition={{ duration: 2, delay: 0.3 }}
             >
-              <UAParticles className="w-full h-full" />
+              <HeroParticles className="w-full h-full" />
             </motion.div>
 
             {/* ScrollBlur disabled on mobile: the continuous RAF loop + CSS filter
