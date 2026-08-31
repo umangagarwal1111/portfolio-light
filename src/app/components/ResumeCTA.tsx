@@ -152,6 +152,37 @@ function renderFrame(
   ctx.restore();
 }
 
+// ── Swoosh sound (synthesised — no audio file needed) ────────────────────────
+function playSwoosh() {
+  try {
+    const actx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const go = () => {
+      const buf  = actx.createBuffer(1, actx.sampleRate * 1.4, actx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+
+      const src    = actx.createBufferSource();
+      src.buffer   = buf;
+      const filter = actx.createBiquadFilter();
+      filter.type  = 'bandpass';
+      filter.frequency.setValueAtTime(1800, actx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(180, actx.currentTime + 1.4);
+      filter.Q.value = 1.8;
+      const gain = actx.createGain();
+      gain.gain.setValueAtTime(0, actx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.28, actx.currentTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + 1.4);
+
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(actx.destination);
+      src.start();
+      src.onended = () => actx.close();
+    };
+    if (actx.state === 'suspended') actx.resume().then(go); else go();
+  } catch (_) { /* silently ignore if audio unavailable */ }
+}
+
 // ── Rocket SVG (filled, mix-blend-mode: difference) ───────────────────────────
 function RocketIcon({ width, height }: { width: number; height: number }) {
   return (
@@ -210,6 +241,9 @@ export function ResumeCTA({ href, className = '' }: { href: string; className?: 
   const hiddenX      = ctaSize.width + ROCKET_PAD_R;
 
   useEffect(() => { phaseRef.current = phase; }, [phase]);
+
+  // Play swoosh the moment rocket launches — completely isolated from trail logic
+  useEffect(() => { if (phase === 'flying') playSwoosh(); }, [phase]);
 
   // Snapshot outer div's viewport position the moment flying begins
   useEffect(() => {
