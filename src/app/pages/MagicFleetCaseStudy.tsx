@@ -833,10 +833,10 @@ export default function MagicFleetCaseStudy() {
 
           <FadeUp delay={0.1}>
             <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-4">
-              The brief I received was fleet management — dashboards for managers, cost controls, zone levers. Research pointed somewhere else.
+              The brief was fleet management — dashboards for managers, cost controls, zone levers. But research kept pointing to riders. A manager can see the fleet, set zones, track payouts — but they can't make a rider move to a high-demand zone or accept a delivery. Only the rider can do that.
             </p>
             <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-16">
-              That shifted everything.
+              So the design problem shifted — from building a fleet management tool to building something a rider on a bike, between drops, would actually reach for.
             </p>
           </FadeUp>
 
