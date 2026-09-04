@@ -41,7 +41,7 @@ function MetricBarChart({
 
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 p-6 md:p-8">
+      <div className="p-6 md:p-8" style={{ border: '1px solid var(--portfolio-border)' }}>
         <h3 className="text-lg md:text-xl font-bold mb-8 tracking-tight">{title}</h3>
         <div className="space-y-6">
           {data.map((item, i) => (
@@ -79,7 +79,7 @@ function TimelineChart({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 p-6 md:p-8">
+      <div className="p-6 md:p-8" style={{ border: '1px solid var(--portfolio-border)' }}>
         <h3 className="text-lg md:text-xl font-bold mb-8 tracking-tight">Development Timeline</h3>
         <div className="flex items-center justify-between">
           {phases.map((phase, i) => (
@@ -116,7 +116,7 @@ function TimelineChart({
 
 // ── Section divider ───────────────────────────────────────────────
 function Divider() {
-  return <div className="w-full h-[1px] bg-black/10 my-16 md:my-24" />;
+  return <div className="w-full h-[1px] my-16 md:my-24" style={{ background: 'var(--portfolio-border)' }} />;
 }
 
 // ── Stat card ────────────────────────────────────────────────────
@@ -131,7 +131,7 @@ function StatCard({
 }) {
   return (
     <FadeUp delay={delay} className="h-full">
-      <div className="h-full border border-black/15 p-6 md:p-8 hover:border-black/30 transition-colors duration-500">
+      <div className="h-full p-6 md:p-8 transition-colors duration-500" style={{ border: '1px solid var(--portfolio-border)' }}>
         <div className="text-4xl md:text-6xl font-black tracking-tighter mb-2 text-[var(--portfolio-fg)]">
           {number}
         </div>
@@ -157,7 +157,7 @@ function ChallengeCard({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 hover:border-black/20 transition-colors duration-500">
+      <div className="transition-colors duration-500" style={{ border: '1px solid var(--portfolio-border)' }}>
         <div className="p-6 md:p-8">
           <div className="text-xs tracking-widest opacity-60 mb-4">{number}</div>
           <h3 className="text-xl md:text-2xl font-bold mb-6 tracking-tight">{title}</h3>
@@ -166,7 +166,7 @@ function ChallengeCard({
               <div className="text-xs tracking-widest opacity-65 mb-2">THE PROBLEM</div>
               <p className="text-sm md:text-base opacity-75 leading-relaxed">{description}</p>
             </div>
-            <div className="w-full h-[1px] bg-black/10" />
+            <div className="w-full h-[1px]" style={{ background: 'var(--portfolio-border)' }} />
             <div>
               <div className="text-xs tracking-widest opacity-65 mb-2">HOW WE SOLVED IT</div>
               <p className="text-sm md:text-base opacity-75 leading-relaxed">{impact}</p>
@@ -192,11 +192,11 @@ function UserPersonaCard({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border-t border-black/15 pt-8">
+      <div className="pt-8" style={{ borderTop: '1px solid var(--portfolio-border)' }}>
         <div className="text-xs tracking-widest opacity-60 mb-3">USER ROLE</div>
         <h3 className="text-2xl md:text-3xl font-bold mb-4 tracking-tight">{role}</h3>
         <p className="opacity-75 leading-relaxed mb-6 text-sm md:text-base">{description}</p>
-        <div className="bg-black/[0.04] p-4 border-l-2 border-black/30">
+        <div className="p-4 border-l-2" style={{ background: 'color-mix(in srgb, var(--portfolio-fg) 5%, transparent)', borderColor: 'color-mix(in srgb, var(--portfolio-fg) 35%, transparent)' }}>
           <div className="text-xs tracking-widest opacity-65 mb-2">PRIMARY NEED</div>
           <p className="text-sm opacity-75 leading-relaxed italic">"{painPoint}"</p>
         </div>
@@ -217,7 +217,7 @@ function LearningCard({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 p-6 md:p-8">
+      <div className="p-6 md:p-8" style={{ border: '1px solid var(--portfolio-border)' }}>
         <h3 className="text-lg md:text-xl font-bold mb-3 tracking-tight">{title}</h3>
         <p className="opacity-75 leading-relaxed text-sm md:text-base">{body}</p>
       </div>
@@ -243,24 +243,35 @@ function FeatureCard({
 }) {
   return (
     <FadeUp delay={delay}>
-      <div className="border border-black/15 hover:border-black/20 transition-colors duration-500 overflow-hidden">
-        <CaseImage
-          src={imageUrl}
-          alt={`Feature ${number}: ${title}`}
-          label={`FEATURE SCREENSHOT — ${title.toUpperCase()} (export from Figma)`}
-          aspect="4/3"
-          className="border-b border-black/15"
-          contain
-        />
-        <div className="p-6 md:p-8">
+      <div className="transition-colors duration-500 overflow-hidden" style={{ border: '1px solid var(--portfolio-border)' }}>
+        <div className="px-5 pt-2 pb-1 md:px-6 md:pt-3 md:pb-1">
           <div className="text-xs tracking-widest opacity-60 mb-4">{number}</div>
           <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight">{title}</h3>
           <p className="text-sm md:text-base opacity-75 leading-relaxed mb-4">{description}</p>
-          <div className="bg-black/[0.04] p-4 border-l-2 border-black/30">
+          <div className="p-4 border-l-2" style={{ background: 'color-mix(in srgb, var(--portfolio-fg) 5%, transparent)', borderColor: 'color-mix(in srgb, var(--portfolio-fg) 35%, transparent)' }}>
             <div className="text-xs tracking-widest opacity-65 mb-2">INSIGHT</div>
             <p className="text-sm opacity-75 leading-relaxed italic">"{insight}"</p>
           </div>
         </div>
+        {imageUrl ? (
+          <div style={{ overflow: 'hidden', borderTop: '1px solid var(--portfolio-border)' }}>
+            <img
+              src={imageUrl}
+              alt={`Feature ${number}: ${title}`}
+              className="w-full h-auto block"
+              style={{ marginTop: '-120px', marginBottom: '-120px' }}
+            />
+          </div>
+        ) : (
+          <CaseImage
+            src={undefined}
+            alt={`Feature ${number}: ${title}`}
+            label={`FEATURE SCREENSHOT — ${title.toUpperCase()} (export from Figma)`}
+            aspect="16/9"
+            className=""
+            style={{ borderTop: '1px solid var(--portfolio-border)' }}
+          />
+        )}
       </div>
     </FadeUp>
   );
@@ -466,7 +477,7 @@ function CaseImage({
   if (src) {
     return (
       <div
-        className={`w-full overflow-hidden bg-black/[0.03] ${className}`}
+        className={`w-full overflow-hidden ${className}`} style={{ background: 'color-mix(in srgb, var(--portfolio-fg) 3%, transparent)' }}
         style={{ aspectRatio: aspect }}
       >
         <img
@@ -479,10 +490,10 @@ function CaseImage({
   }
   return (
     <div
-      className={`w-full border border-dashed border-black/20 bg-black/[0.02] flex flex-col items-center justify-center gap-2 ${className}`}
+      className={`w-full flex flex-col items-center justify-center gap-2 ${className}`} style={{ border: '1px dashed color-mix(in srgb, var(--portfolio-fg) 20%, transparent)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}
       style={{ aspectRatio: aspect }}
     >
-      <div className="w-8 h-8 border border-black/20 flex items-center justify-center">
+      <div className="w-8 h-8 flex items-center justify-center" style={{ border: '1px solid color-mix(in srgb, var(--portfolio-fg) 20%, transparent)' }}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <rect x="1" y="1" width="14" height="14" stroke="var(--portfolio-fg)" strokeOpacity="0.3" strokeWidth="1" />
           <line x1="1" y1="1" x2="15" y2="15" stroke="var(--portfolio-fg)" strokeOpacity="0.2" strokeWidth="1" />
@@ -518,17 +529,12 @@ export default function MagicFleetCaseStudy() {
   }, []);
 
   const sections: NavSection[] = [
-    { id: 'cs-situation',     label: 'Situation'     },
-    { id: 'cs-challenge',     label: 'Challenge'     },
-    { id: 'cs-users',         label: 'Research'      },
-    { id: 'cs-design',        label: 'Design'        },
-    { id: 'cs-features',      label: 'Features'      },
-    { id: 'cs-impact',        label: 'Impact'        },
-    { id: 'cs-architecture',  label: 'Architecture'  },
-    { id: 'cs-monetization',  label: 'Monetization'  },
-    { id: 'cs-learnings',     label: 'Learnings'     },
-    { id: 'cs-outcomes',      label: 'Outcomes'      },
-    { id: 'cs-reflection',    label: 'Reflection'    },
+    { id: 'cs-context',    label: 'Context'    },
+    { id: 'cs-discovery',  label: 'Discovery'  },
+    { id: 'cs-craft',      label: 'Craft'      },
+    { id: 'cs-impact',     label: 'Impact'     },
+    { id: 'cs-system',     label: 'System'     },
+    { id: 'cs-reflection', label: 'Reflection' },
   ];
 
   return (
@@ -608,7 +614,7 @@ export default function MagicFleetCaseStudy() {
 
           <FadeUp delay={0.2}>
             <p className="text-lg md:text-2xl max-w-3xl leading-relaxed opacity-75">
-              MagicPin's growth was being capped by third-party delivery providers — unpredictable pricing, availability gaps at peak hours, and zero control over the last-mile experience. MagicFleet was the answer: a purpose-built, in-house fleet management platform that returned control over cost, reliability, and the rider relationship. Now live across 7 major metros with 300K+ registered riders.
+              I designed MagicFleet from scratch — a purpose-built, in-house fleet platform that returned control over cost, reliability, and the rider relationship to MagicPin. Now live across 7 major metros, handling 50% of all food delivery orders on the platform.
             </p>
           </FadeUp>
         </section>
@@ -642,40 +648,27 @@ export default function MagicFleetCaseStudy() {
           </div>
         </section>
 
-        {/* ── THE SITUATION ── */}
-        <section id="cs-situation">
+        {/* ── BEAT 1: WHY THIS EXISTED ── */}
+        <section id="cs-context">
           <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">THE SITUATION</div>
+            <div className="text-xs tracking-widest opacity-65 mb-4">CONTEXT</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
               WHY WE BUILT<br />THIS FROM SCRATCH
             </h2>
           </FadeUp>
-          <div className="grid md:grid-cols-2 gap-12">
-            <FadeUp delay={0.1}>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75">
-                MagicPin was scaling fast — but its delivery operations were entirely dependent on third-party logistics
-                providers. That dependency came with compounding problems: surge pricing during peak hours ate into
-                margins, availability gaps meant unfulfilled orders exactly when demand was highest, and competing
-                platforms were being prioritised over MagicPin on the same provider networks.
-              </p>
-            </FadeUp>
-            <FadeUp delay={0.2}>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75">
-                There was no delivery data ownership — no visibility into route efficiency, rider behaviour, or failure
-                reasons. Geographic expansion was gated on whether a provider covered the area. And the last-mile
-                experience, the moment customers judge MagicPin, was entirely outside our control. The decision to
-                build an in-house fleet platform wasn't a product bet — it was a strategic necessity.
-              </p>
-            </FadeUp>
-          </div>
 
-          <FadeUp delay={0.3} className="mt-12 pt-12 border-t border-black/15">
+          <FadeUp delay={0.1}>
+            <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-16">
+              MagicPin was scaling food delivery but had no control over it. Every order ran through third-party logistics providers — surge pricing we absorbed but couldn't predict, geographic coverage that gated our expansion, rider behaviour we couldn't influence, and delivery data we didn't own. The decision to build an in-house fleet platform wasn't a product bet. It was a strategic necessity.
+            </p>
+          </FadeUp>
+
+          <FadeUp delay={0.2}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-0" style={{ border: '1px solid var(--portfolio-border)' }}>
 
               {/* 01 — Surge pricing */}
               <div className="p-8 flex flex-col" style={{ borderRight: '1px solid var(--portfolio-border)', borderBottom: '1px solid var(--portfolio-border)' }}>
                 <div className="text-[10px] tracking-widest opacity-65 mb-6">01 — COST CONTROL</div>
-                {/* Viz */}
                 <div className="flex-1 flex flex-col justify-center mb-6" style={{ minHeight: '120px' }}>
                   <div className="flex items-end gap-1.5 h-20 mb-2">
                     {[
@@ -702,7 +695,7 @@ export default function MagicFleetCaseStudy() {
                     <span>↑ Peak hours</span>
                     <span>10pm</span>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 flex-wrap">
                     <div className="flex items-center gap-1.5">
                       <div className="w-2.5 h-2.5 rounded-sm" style={{ background: 'var(--portfolio-fg)', opacity: 0.25 }} />
                       <span className="text-[9px] opacity-65">3PL: surge cost absorbed by us</span>
@@ -719,10 +712,9 @@ export default function MagicFleetCaseStudy() {
                 </div>
               </div>
 
-              {/* 02 — Routes & rider behaviour */}
+              {/* 02 — Routes */}
               <div className="p-8 flex flex-col" style={{ borderBottom: '1px solid var(--portfolio-border)' }}>
                 <div className="text-[10px] tracking-widest opacity-65 mb-6">02 — ROUTE & RIDER CONTROL</div>
-                {/* Viz */}
                 <div className="flex-1 flex flex-col justify-center mb-6" style={{ minHeight: '120px' }}>
                   <div className="grid grid-cols-2 gap-6 mb-4">
                     <div>
@@ -756,7 +748,6 @@ export default function MagicFleetCaseStudy() {
               {/* 03 — Expansion */}
               <div className="p-8 flex flex-col" style={{ borderRight: '1px solid var(--portfolio-border)' }}>
                 <div className="text-[10px] tracking-widest opacity-65 mb-6">03 — GEOGRAPHIC EXPANSION</div>
-                {/* Viz */}
                 <div className="flex-1 flex flex-col justify-center mb-6" style={{ minHeight: '120px' }}>
                   <div className="grid grid-cols-2 gap-6">
                     <div>
@@ -786,7 +777,6 @@ export default function MagicFleetCaseStudy() {
               {/* 04 — Rider accountability */}
               <div className="p-8 flex flex-col">
                 <div className="text-[10px] tracking-widest opacity-65 mb-6">04 — RIDER ACCOUNTABILITY</div>
-                {/* Viz */}
                 <div className="flex-1 flex flex-col justify-center mb-6 space-y-2.5" style={{ minHeight: '120px' }}>
                   {[
                     { score: '100%', label: 'No verification needed', color: '#22c55e', w: '100%' },
@@ -812,15 +802,15 @@ export default function MagicFleetCaseStudy() {
             </div>
           </FadeUp>
 
-          <FadeUp delay={0.4} className="mt-12">
-            <div className="grid md:grid-cols-3 gap-8 pt-12 border-t border-black/15">
+          <FadeUp delay={0.3} className="mt-12">
+            <div className="grid md:grid-cols-3 gap-8 pt-12" style={{ borderTop: '1px solid var(--portfolio-border)' }}>
               <div>
                 <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">300K+</div>
                 <p className="text-sm md:text-base opacity-75">Registered riders on the platform</p>
               </div>
               <div>
-                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">50K+</div>
-                <p className="text-sm md:text-base opacity-75">Monthly active riders</p>
+                <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">50%</div>
+                <p className="text-sm md:text-base opacity-75">Of all food delivery orders on MagicPin now run on MagicFleet</p>
               </div>
               <div>
                 <div className="text-5xl md:text-6xl font-black text-[var(--portfolio-fg)] mb-2 tracking-tighter">7</div>
@@ -832,81 +822,148 @@ export default function MagicFleetCaseStudy() {
 
         <Divider />
 
-        {/* ── THE CHALLENGE ── */}
-        <section id="cs-challenge">
+        {/* ── BEAT 2: THE REAL PROBLEM ── */}
+        <section id="cs-discovery">
           <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">THE CHALLENGE</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
-              FOUR PROBLEMS<br />ONE PLATFORM HAD TO SOLVE
+            <div className="text-xs tracking-widest opacity-65 mb-4">DISCOVERY</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
+              THE REAL<br />PROBLEM
             </h2>
-            <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              The core product challenge was rider-centric: how do you onboard riders at scale,
-              keep them earning, help them understand their own performance, and support them
-              when things go wrong — all from a single mobile app?
+          </FadeUp>
+
+          <FadeUp delay={0.1}>
+            <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-4">
+              The brief I received was fleet management — dashboards for managers, cost controls, zone levers. Research pointed somewhere else.
+            </p>
+            <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-4">
+              The platform would only work if riders actually wanted to use it. A rider who doesn't open the app breaks the whole system. So the real design problem wasn't how to manage a fleet from the top — it was how to make an app that a delivery rider on a bike, between drops, would actually reach for.
+            </p>
+            <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-16">
+              That shifted everything.
             </p>
           </FadeUp>
 
-          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-            <ChallengeCard
-              number="01"
-              title="Onboarding Riders at Scale"
-              description="We needed to grow the rider supply fast — across 7 metros simultaneously. The onboarding process involved document verification, KYC, vehicle checks, and training. Done manually or through fragmented tools, this would bottleneck growth before it started."
-              impact="We designed a streamlined in-app onboarding flow for managers — step-by-step rider registration, document upload, and instant status tracking. What used to take days of back-and-forth dropped to a single guided session."
-              delay={0}
-            />
-            <ChallengeCard
-              number="02"
-              title="Helping Riders Earn More Per Day"
-              description="A rider earning more per day is a rider who stays. But riders had no visibility into where demand was highest, when to be online, or how to stack more orders into a single trip. They were flying blind on the decisions that most affected their income."
-              impact="We built surge zone maps, high-demand hour indicators, and multi-order trip support directly into the rider home screen. Riders could now make active decisions about where and when to be — lifting orders per rider per month from ~15 to ~28."
-              delay={0.05}
-            />
-            <ChallengeCard
-              number="03"
-              title="Making Performance & Financials Legible"
-              description="Riders couldn't see how their earnings were broken down, what their on-time rate was, or why their performance score changed. Without that visibility, they had no way to improve — and no reason to trust the platform enough to stay."
-              impact="We designed a transparent earnings ledger (base pay, surge, bonuses, deductions — line by line) and a clear performance dashboard with on-time rate, acceptance rate, and ratings. Rider retention improved from 32% to 48% within months of launch."
-              delay={0.1}
-            />
-            <ChallengeCard
-              number="04"
-              title="Faster Support When Deliveries Go Wrong"
-              description="When a delivery issue arose — wrong address, customer unavailable, payment problem — riders had to call a support number and wait. Every minute spent on hold was a delivery stalled. High resolution times meant disrupted SLAs and frustrated riders."
-              impact="We built an in-app issue reporting flow with categorised problem types, photo evidence, and real-time status updates. Riders no longer needed to call. Issue resolution time dropped from ~120 minutes to ~42 minutes."
-              delay={0.15}
-            />
-          </div>
+          {/* ── Competitor comparison ── */}
+          <FadeUp delay={0.2} className="mb-16">
+            <div className="text-xs tracking-widest opacity-65 mb-6">THE STRATEGIC UNLOCK</div>
+            <div className="grid md:grid-cols-2 gap-0" style={{ border: '1px solid var(--portfolio-border)' }}>
 
-          {/* HMW */}
-          <FadeUp delay={0.2} className="mt-12">
-            <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
-              <div className="text-xs tracking-widest opacity-65 mb-4">CORE QUESTION</div>
-              <p className="text-2xl md:text-4xl font-bold leading-tight opacity-90">
-                "How do we design an app that makes riders want to join, earn more, stay longer,
-                and reach out when they need help — all in one place?"
+              {/* Competitor side */}
+              <div className="p-8" style={{ borderRight: '1px solid var(--portfolio-border)' }}>
+                <div className="text-[10px] tracking-widest opacity-50 mb-5">INDUSTRY APPROACH</div>
+
+                {/* Visual: grid of individual rider dots */}
+                <div className="mb-6">
+                  <div className="text-[9px] opacity-55 mb-3">1 activation = 1 rider</div>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {Array.from({ length: 18 }).map((_, i) => (
+                      <div key={i} className="flex flex-col items-center gap-1">
+                        <div className="w-6 h-6 rounded-full border flex items-center justify-center text-[8px]"
+                          style={{ borderColor: 'var(--portfolio-border-strong)', opacity: 0.5 }}>
+                          🛵
+                        </div>
+                        <div className="w-3 h-[1px]" style={{ background: 'var(--portfolio-fg)', opacity: 0.15 }} />
+                        <div className="w-2 h-2 rounded-sm" style={{ background: '#ef4444', opacity: 0.4 }} />
+                      </div>
+                    ))}
+                    <div className="flex flex-col items-center gap-1 opacity-40">
+                      <div className="text-[10px] opacity-60">···</div>
+                    </div>
+                  </div>
+                  <div className="text-[9px] opacity-45 italic">Each rider required a separate acquisition event</div>
+                </div>
+
+                <div style={{ borderTop: '1px solid var(--portfolio-border)' }} className="pt-5 space-y-2">
+                  <div className="flex justify-between text-[10px]">
+                    <span className="opacity-55">App built for</span>
+                    <span className="font-bold opacity-75">Riders only</span>
+                  </div>
+                  <div className="flex justify-between text-[10px]">
+                    <span className="opacity-55">Onboarding unit</span>
+                    <span className="font-bold opacity-75">1 individual rider</span>
+                  </div>
+                  <div className="flex justify-between text-[10px]">
+                    <span className="opacity-55">Activation cost</span>
+                    <span className="font-bold" style={{ color: '#ef4444' }}>High — per rider</span>
+                  </div>
+                  <div className="flex justify-between text-[10px]">
+                    <span className="opacity-55">To onboard 1,000 riders</span>
+                    <span className="font-bold opacity-75">1,000 activations</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Our approach */}
+              <div className="p-8">
+                <div className="text-[10px] tracking-widest opacity-50 mb-5">OUR APPROACH</div>
+
+                {/* Visual: manager nodes each connecting to rider clusters */}
+                <div className="mb-6">
+                  <div className="text-[9px] opacity-55 mb-3">1 manager = 100–2,000 riders</div>
+                  <div className="space-y-3 mb-3">
+                    {[
+                      { riders: 8, label: '2,000 riders' },
+                      { riders: 5, label: '500 riders'   },
+                      { riders: 3, label: '100 riders'   },
+                    ].map((row, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        {/* Manager node */}
+                        <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[9px] shrink-0 font-bold"
+                          style={{ borderColor: '#22c55e', color: '#22c55e' }}>
+                          M
+                        </div>
+                        {/* Arrow */}
+                        <div className="text-[10px] opacity-40">→</div>
+                        {/* Rider dots */}
+                        <div className="flex items-center gap-1 flex-wrap">
+                          {Array.from({ length: row.riders }).map((_, j) => (
+                            <div key={j} className="w-5 h-5 rounded-full flex items-center justify-center text-[7px]"
+                              style={{ background: 'var(--portfolio-border-strong)', opacity: 0.7 }}>
+                              🛵
+                            </div>
+                          ))}
+                          <span className="text-[8px] opacity-50 ml-1">{row.label}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-[9px] opacity-45 italic">One manager onboards their entire existing fleet</div>
+                </div>
+
+                <div style={{ borderTop: '1px solid var(--portfolio-border)' }} className="pt-5 space-y-2">
+                  <div className="flex justify-between text-[10px]">
+                    <span className="opacity-55">App built for</span>
+                    <span className="font-bold opacity-75">Riders + Managers</span>
+                  </div>
+                  <div className="flex justify-between text-[10px]">
+                    <span className="opacity-55">Onboarding unit</span>
+                    <span className="font-bold opacity-75">Fleet (via manager)</span>
+                  </div>
+                  <div className="flex justify-between text-[10px]">
+                    <span className="opacity-55">Activation cost</span>
+                    <span className="font-bold" style={{ color: '#22c55e' }}>Low — per fleet</span>
+                  </div>
+                  <div className="flex justify-between text-[10px]">
+                    <span className="opacity-55">To onboard 1,000 riders</span>
+                    <span className="font-bold" style={{ color: '#22c55e' }}>2–10 manager relationships</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Callout stat */}
+            <div className="mt-4 p-6" style={{ background: 'color-mix(in srgb, var(--portfolio-fg) 3%, transparent)', border: '1px solid var(--portfolio-border)' }}>
+              <p className="text-sm md:text-base opacity-75 leading-relaxed">
+                Riders aren't exclusive to any one platform — they work across Swiggy, Zomato, and others simultaneously, picking up orders wherever demand is that day. Some operate independently. Others are part of organized fleets, associated with a manager who allocates work, handles payouts, and coordinates schedules.
+                <br /><br />
+                That second group was the unlock. For riders who did have a manager, <strong className="opacity-100" style={{ color: 'var(--portfolio-fg)' }}>the trust relationship already existed</strong> — riders follow their manager's direction. A manager could tell their fleet: "MagicFleet orders are live, pick them up." And they would. We didn't need to build that trust from scratch. One manager relationship brought in hundreds of already-working riders at a fraction of the cost of acquiring them one by one.
               </p>
             </div>
           </FadeUp>
-        </section>
 
-        <Divider />
-
-        {/* ── USERS ── */}
-        <section id="cs-users">
-          <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">USER RESEARCH</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
-              TWO USERS,<br />ONE PLATFORM
-            </h2>
-            <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              MagicFleet is a single mobile app with two interfaces. Your role — manager or rider — is
-              determined at login, and the entire experience adapts accordingly. Managers onboard and oversee
-              their team of riders. Riders are the primary users by volume. All order assignment and routing
-              is handled automatically in the backend. Today, only riders are active on the platform.
-            </p>
-          </FadeUp>
-
-          <div className="grid md:grid-cols-2 gap-0 md:gap-8">
+          {/* Personas */}
+          <div className="grid md:grid-cols-2 gap-0 md:gap-8 mb-12">
             <UserPersonaCard
               role="Fleet Manager"
               description="Uses the same app as riders but with a manager view unlocked at login. Onboards riders, monitors fleet performance, tracks payouts, and handles KYC. Lower interaction frequency — checks in periodically, not continuously."
@@ -922,9 +979,8 @@ export default function MagicFleetCaseStudy() {
           </div>
 
           {/* User screens */}
-          <FadeUp delay={0.15} className="mt-10">
+          <FadeUp delay={0.15} className="mb-16">
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Fleet Manager screens */}
               <div>
                 <div className="text-[10px] tracking-widest opacity-55 mb-3">FLEET MANAGER — APP SCREENS</div>
                 <img
@@ -933,7 +989,6 @@ export default function MagicFleetCaseStudy() {
                   className="w-full rounded-lg object-contain"
                 />
               </div>
-              {/* Delivery Rider screens */}
               <div>
                 <div className="text-[10px] tracking-widest opacity-55 mb-3">DELIVERY RIDER — APP SCREENS</div>
                 <img
@@ -944,39 +999,81 @@ export default function MagicFleetCaseStudy() {
               </div>
             </div>
           </FadeUp>
+
+          {/* What this meant for design */}
+          <FadeUp delay={0.2}>
+            <div className="text-xs tracking-widest opacity-65 mb-6">WHAT THIS MEANT FOR DESIGN</div>
+          </FadeUp>
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+            <ChallengeCard
+              number="01"
+              title="Onboarding Riders at Scale"
+              description="We needed to grow rider supply fast across 7 metros simultaneously. Document verification, KYC, vehicle checks — done manually, this would bottleneck growth before it started."
+              impact="Streamlined in-app onboarding flow for managers — step-by-step registration, document upload, instant status tracking. What took days dropped to a single guided session."
+              delay={0}
+            />
+            <ChallengeCard
+              number="02"
+              title="Helping Riders Earn More Per Day"
+              description="A rider earning more per day is a rider who stays. But riders had no visibility into where demand was highest or how to stack more orders into a single trip. They were flying blind."
+              impact="Built surge zone maps, demand hour indicators, and multi-order trip support directly into the rider home screen. Orders per rider per month went from ~15 to ~28."
+              delay={0.05}
+            />
+            <ChallengeCard
+              number="03"
+              title="Making Performance & Financials Legible"
+              description="Riders couldn't see how their earnings were broken down or why their performance score changed. Without visibility, they had no way to improve — and no reason to trust the platform enough to stay."
+              impact="Transparent earnings ledger (base pay, surge, bonuses, deductions — line by line) and a clear performance dashboard. Rider retention improved from 32% to 48%."
+              delay={0.1}
+            />
+            <ChallengeCard
+              number="04"
+              title="Faster Support When Deliveries Go Wrong"
+              description="When an issue arose, riders had to call a support number and wait. Every minute on hold was a delivery stalled and a rider frustrated."
+              impact="In-app issue reporting with categorised types, photo evidence, and real-time status. Issue resolution time dropped from ~120 minutes to ~42 minutes."
+              delay={0.15}
+            />
+          </div>
         </section>
 
         <Divider />
 
-        {/* ── DESIGN APPROACH ── */}
-        <section id="cs-design">
+        {/* ── BEAT 3: THE CRAFT ── */}
+        <section id="cs-craft">
           <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">DESIGN APPROACH</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              THREE CORE<br />PRINCIPLES
+            <div className="text-xs tracking-widest opacity-65 mb-4">CRAFT</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
+              HOW WE<br />DESIGNED IT
             </h2>
           </FadeUp>
 
-          <div className="space-y-0">
+          <FadeUp delay={0.1}>
+            <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-16">
+              One platform. Two very different users with opposite contexts. Fleet managers want aggregation and control. Riders want speed, clarity, and to not think. Every design decision had to work for both.
+            </p>
+          </FadeUp>
+
+          {/* 3 Principles */}
+          <div className="space-y-0 mb-16">
             {[
               {
                 step: '01',
                 title: 'Decision-First Design',
-                body: 'Every interface was designed around decision-making, not data display. We asked: "What decision does this user need to make?" Then we provided exactly the information they needed — no more, no less. Hierarchy matters more than completeness.',
+                body: 'Every screen was designed around a decision the user needed to make — not data they might want to see. We asked: what does this person need to act? Then we gave them exactly that. Hierarchy over completeness.',
               },
               {
                 step: '02',
                 title: 'Progressive Disclosure',
-                body: 'Instead of overwhelming screens, we used progressive disclosure. Show the critical few metrics at first. Provide drill-downs for detail. Let users go as deep as they need without forcing them to wade through irrelevant information.',
+                body: 'Show the critical few at first glance. Drill down for detail. Riders on a bike have 3 seconds of attention between drops — the most important thing had to be unmissable, everything else had to be one tap away.',
               },
               {
                 step: '03',
-                title: 'Real-Time Responsiveness',
-                body: 'In logistics, speed is survival. Every interaction was optimized for instant feedback. No loading states longer than necessary. Data syncs in the background. Offline-first architecture means the app never feels broken.',
+                title: 'Offline-First',
+                body: 'Poor connectivity is the default for a rider on the road, not an edge case. The app had to feel fully functional even when sync was delayed. Data loads in the background; the interface never blocks.',
               },
             ].map((item, i) => (
               <FadeUp key={item.step} delay={i * 0.05}>
-                <div className="border-t border-black/15 py-8 grid md:grid-cols-[120px_1fr] gap-4 md:gap-12">
+                <div className="py-8 grid md:grid-cols-[120px_1fr] gap-4 md:gap-12" style={{ borderTop: '1px solid var(--portfolio-border)' }}>
                   <div className="text-xs tracking-widest opacity-60 pt-1">{item.step}</div>
                   <div>
                     <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight">{item.title}</h3>
@@ -987,59 +1084,46 @@ export default function MagicFleetCaseStudy() {
             ))}
           </div>
 
-          {/* Design Principle Visualization */}
-          <FadeUp delay={0.2} className="mt-12">
-            <div className="border border-black/15 p-8 md:p-12 bg-black/[0.02]">
-              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Information Hierarchy Model</h3>
+          {/* Information Hierarchy */}
+          <FadeUp delay={0.2} className="mb-16">
+            <div className="p-8 md:p-12" style={{ border: '1px solid var(--portfolio-border)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
+              <div className="text-xs tracking-widest opacity-65 mb-2">INFORMATION HIERARCHY MODEL</div>
+              <p className="text-sm opacity-60 mb-6 max-w-xl">The pyramid defined what earned screen real estate. Critical = always visible. Important = above the fold. Contextual = one tap away. Nothing was placed without a reason.</p>
               <VizInfoHierarchy />
             </div>
           </FadeUp>
-        </section>
 
-        <Divider />
-
-        {/* ── KEY FEATURES ── */}
-        <section id="cs-features">
-          <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">CORE FEATURES</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              KEY PRODUCT<br />SOLUTIONS
-            </h2>
-          </FadeUp>
-
-          <div className="grid gap-6">
+          {/* Feature cards — craft paired with screens */}
+          <div className="grid gap-11">
             <FeatureCard
               number="01"
               title="Live GPS Tracking & Analytics"
-              description="Real-time rider location tracking with contextual analytics. Not just where riders are, but what they're doing, how long they've been there, and predictive ETA for next deliveries."
+              description="Real-time rider location with contextual analytics — not just where riders are, but what they're doing and predictive ETA for next deliveries. Managers see the fleet at a glance; riders see only what affects their next decision."
               insight="Context changes everything. Raw GPS coordinates are meaningless without understanding what the rider is actually doing."
               imageUrl="/case-studies/magicfleet/gps-tracking-screens.png"
               delay={0}
             />
-
             <FeatureCard
               number="02"
               title="Rider Earnings & Incentives"
-              description="A transparent earnings dashboard for riders showing real-time earnings, bonus structure, and performance feedback. Gamified incentives drive engagement and performance improvement."
-              insight="Riders who see their earnings rise perform better. Transparency is a feature, not a detail."
+              description="A transparent earnings dashboard showing real-time earnings, bonus structure, and performance feedback — broken down line by line. Riders who understand their earnings have a reason to improve them."
+              insight="Transparency is a feature. When riders could see exactly what they earned and why, retention went from 32% to 48%."
               imageUrl="/case-studies/magicfleet/rider-earnings-screens.png"
               delay={0.1}
             />
-
             <FeatureCard
               number="03"
               title="Incident Reporting & Resolution"
-              description="A low-friction system for reporting delivery incidents (cancelled, delayed, damaged). Enables rapid issue escalation, category tracking, and automated resolution workflows."
-              insight="Most incidents don't need manual intervention. Automate the 80% of routine issues so teams can focus on the 20% that need human judgment."
+              description="Low-friction in-app issue reporting with categorised problem types, photo evidence, and real-time status updates. Designed to handle 80% of cases without any human intervention."
+              insight="Automating the routine freed up the team to focus on what actually needed judgment. Resolution time dropped from 120 to 42 minutes."
               imageUrl="/case-studies/magicfleet/incident-reporting-screens.png"
               delay={0.1}
             />
-
             <FeatureCard
               number="04"
               title="Rider Mobile App"
-              description="A lightweight, offline-friendly app for riders. Shows current assignment, route, earnings, performance, and feedback. Designed for low-data environments and quick interactions on the move."
-              insight="Every extra second of load time on mobile means riders will switch apps. Offline-first isn't optional — it's essential."
+              description="Lightweight, offline-friendly, designed for one-handed use in motion. Current order, route, earnings, performance, feedback — in that priority order. Every extra tap had to be justified."
+              insight="If it works for a rider checking his phone at a red light with one hand, it works everywhere. Design up from the hardest context."
               imageUrl="/case-studies/magicfleet/rider-mobile-app-screens.png"
               delay={0.2}
             />
@@ -1048,16 +1132,15 @@ export default function MagicFleetCaseStudy() {
 
         <Divider />
 
-        {/* ── IMPACT METRICS ── */}
+        {/* ── BEAT 4: WHAT SHIPPED & WHAT CHANGED ── */}
         <section id="cs-impact">
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">IMPACT</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              OPERATIONAL METRICS<br />THAT MATTER
+              WHAT SHIPPED<br />& WHAT CHANGED
             </h2>
           </FadeUp>
 
-          {/* Before/After metric rows */}
           <div style={{ border: '1px solid var(--portfolio-border)' }}>
             {[
               {
@@ -1073,7 +1156,6 @@ export default function MagicFleetCaseStudy() {
                 before: '₹68', after: '₹54', delta: '−21%',
                 barBefore: 68, barAfter: 54,
                 note: 'Surge control · route optimisation · multi-drop trips',
-                invert: true,
               },
               {
                 label: 'Rider Retention',
@@ -1095,7 +1177,6 @@ export default function MagicFleetCaseStudy() {
                 before: '~120 min', after: '~42 min', delta: '−65%',
                 barBefore: 100, barAfter: 35,
                 note: 'In-app reporting replaced phone-based escalation',
-                invert: true,
               },
               {
                 label: 'High Demand Zone Fulfilment',
@@ -1150,196 +1231,96 @@ export default function MagicFleetCaseStudy() {
 
         <Divider />
 
-        {/* ── SYSTEM THINKING ── */}
-        <section id="cs-architecture">
+        {/* ── BEAT 5: HOW THE SYSTEM WORKS ── */}
+        <section id="cs-system">
           <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">ARCHITECTURE</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">
-              HOW THE SYSTEM<br />WORKS TOGETHER
+            <div className="text-xs tracking-widest opacity-65 mb-4">SYSTEM</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-10">
+              HOW THE SYSTEM<br />WORKS
             </h2>
           </FadeUp>
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+
+          <FadeUp delay={0.1}>
+            <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-12">
+              One codebase, one app — role determined at login. Riders get a lightweight, action-focused interface; managers get a fleet-level view. All order assignment and routing is automated in the backend — neither user sees or controls it directly. Built for eventual consistency, so the system always converges to the correct state even when connectivity drops.
+            </p>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
             <FadeUp delay={0.1}>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75 mb-6">
-                MagicFleet is one app that adapts at login. Riders get a lightweight, action-focused interface —
-                current order, earnings, performance. Managers get a fleet-level view of their registered riders —
-                who's active, collective performance, payouts. All assignment and routing happens in the backend
-                automatically; neither user sees or controls it. Data from rider activity flows up to the manager
-                view in near real-time, with offline sync for connectivity gaps.
-              </p>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75">
-                The system is built for <strong className="text-[var(--portfolio-fg)] opacity-100">eventual consistency</strong> — accepting
-                that not all data will be immediately synchronized, but ensuring that the system converges to the
-                correct state. This is essential for reliability in poor connectivity environments.
-              </p>
-            </FadeUp>
-            <FadeUp delay={0.2}>
-              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '200px' }}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '220px' }}>
                 <VizDataFlow />
+              </div>
+            </FadeUp>
+            <FadeUp delay={0.15}>
+              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '220px' }}>
+                <VizUserGroups />
               </div>
             </FadeUp>
           </div>
 
-          {/* Platform Overview Infographic */}
-          <FadeUp delay={0.3} className="mt-12">
-            <div className="border border-black/15 p-8 md:p-12">
-              <h3 className="text-lg md:text-xl font-bold mb-6 tracking-tight">Platform Ecosystem Overview</h3>
-              <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '240px' }}>
-                <VizUserGroups />
-              </div>
+          <FadeUp delay={0.2}>
+            <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '240px' }}>
+              <VizPaymentSystem />
             </div>
           </FadeUp>
         </section>
 
         <Divider />
 
-        {/* ── PAYMENT & INCENTIVES SYSTEM ── */}
-        <section id="cs-monetization">
+        {/* ── BEAT 6: WHAT THIS TAUGHT ME ── */}
+        <section id="cs-reflection" className="pb-24 md:pb-32">
           <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">MONETIZATION</div>
+            <div className="text-xs tracking-widest opacity-65 mb-4">REFLECTION</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              PAYMENTS,<br />INCENTIVES & TRUST
+              WHAT THIS<br />TAUGHT ME
             </h2>
           </FadeUp>
 
-          <FadeUp delay={0.1} className="mb-12">
-            <div className="border" style={{ borderColor: 'var(--portfolio-border-strong)', height: '240px' }}>
-              <VizPaymentSystem />
-            </div>
-          </FadeUp>
-
-          <div className="space-y-6">
+          <div className="space-y-0 mb-16">
             {[
               {
-                title: 'Transparent Earnings',
-                body: 'Every rider knows exactly how they earn. Per-delivery rates, bonuses, incentives — all clearly displayed. This transparency drives trust and encourages good behaviour.',
+                title: 'Offline is the default, not the edge case.',
+                body: 'Riders are on the road. Poor connectivity is their normal state, not an exception. Designing offline-first from the beginning — not retrofitting it later — is what made the app feel reliable. A system that breaks when connectivity drops is a broken system.',
               },
               {
-                title: 'Dynamic Incentive Structure',
-                body: 'Incentives adapt based on operational needs. Need more deliveries in an area? Offer location-based bonuses. Trying to reduce cancellations? Reward completion rate. The system is flexible enough to respond to real-world needs.',
+                title: 'Transparency is a behavioral lever.',
+                body: 'When riders could see their earnings broken down line by line and their performance in real time, they improved. They made better decisions about when to be online, where to go, what to accept. Visibility changed behavior more than any incentive structure we designed.',
               },
               {
-                title: 'Fast, Reliable Payouts',
-                body: 'Riders get paid daily (or even same-shift in some markets). Fast payouts reduce churn and build trust. A rider who gets paid the day they work is more likely to return tomorrow.',
-              },
-              {
-                title: 'Performance Visibility',
-                body: 'Riders see their performance metrics in real-time — on-time rate, cancellation rate, customer ratings. This feedback loop drives continuous improvement.',
+                title: "The most important design decision I made wasn't a screen.",
+                body: 'Building in-house at all — owning the fleet data, the cost structure, the rider relationship — was what made everything else possible. Understanding why a product exists, the business constraint it solves, is what separates work that looks good from work that actually matters.',
               },
             ].map((item, i) => (
-              <FadeUp key={item.title} delay={i * 0.04}>
-                <div className="border-t border-black/15 py-8 grid md:grid-cols-[1fr_2fr] gap-4 md:gap-12">
-                  <h3 className="text-lg md:text-xl font-bold tracking-tight">{item.title}</h3>
+              <FadeUp key={item.title} delay={i * 0.08}>
+                <div className="py-10 grid md:grid-cols-[1fr_2fr] gap-4 md:gap-16" style={{ borderTop: '1px solid var(--portfolio-border)' }}>
+                  <h3 className="text-lg md:text-xl font-bold tracking-tight leading-snug opacity-90">{item.title}</h3>
                   <p className="opacity-75 leading-relaxed text-sm md:text-base">{item.body}</p>
                 </div>
               </FadeUp>
             ))}
           </div>
-        </section>
 
-        <Divider />
-
-        {/* ── LEARNINGS ── */}
-        <section id="cs-learnings">
-          <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">LEARNINGS</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              WHAT WE<br />LEARNED
-            </h2>
-          </FadeUp>
-
-          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-            <LearningCard
-              title="Offline is Non-Negotiable"
-              body="In logistics, poor connectivity is not an edge case — it's the default. Design for offline-first, sync opportunistically. A system that feels broken offline is a broken system."
-              delay={0}
-            />
-            <LearningCard
-              title="Design for the Hardest Context"
-              body="Riders check their phones between deliveries — in motion, one hand, 3 seconds of attention. If the design works for them, it works for everyone. Design up from the hardest constraint, not down from the easiest."
-              delay={0.05}
-            />
-            <LearningCard
-              title="Transparency Drives Performance"
-              body="When riders see their earnings, performance, and feedback — they improve. Transparency isn't a feature; it's a behavioural lever. Use it."
-              delay={0.1}
-            />
-            <LearningCard
-              title="Real-Time = Responsibility"
-              body="Real-time visibility means real-time accountability. Be careful what you measure — you'll get what you incentivize. Data transparency without thoughtful incentive design backfires."
-              delay={0.15}
-            />
-            <LearningCard
-              title="Automation Shifts the Design Problem"
-              body="When assignment and routing is automated, the design problem moves from 'how do I make the decision?' to 'how do I trust the decision?' Surfacing the logic behind auto-assignments reduced rider complaints more than any UI change."
-              delay={0.2}
-            />
-            <LearningCard
-              title="Scale Changes Design"
-              body="What works for 100 riders breaks at 100k. Aggregations, sampling, and progressive disclosure become design requirements, not nice-to-haves."
-              delay={0.25}
-            />
-          </div>
-        </section>
-
-        <Divider />
-
-        {/* ── OUTCOMES ── */}
-        <section id="cs-outcomes">
-          <FadeUp>
-            <div className="text-xs tracking-widest opacity-65 mb-4">OUTCOMES</div>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              RESULTS &<br />NEXT STEPS
-            </h2>
-          </FadeUp>
-
-          <div className="grid md:grid-cols-3 gap-4 text-sm opacity-75 mb-12">
-            <FadeUp delay={0} className="border-t border-black/15 pt-6">
-              <div className="font-bold mb-2">Post-Launch Iteration</div>
-              <p>Launched MVP and iterating based on real operational feedback. Early metrics are tracking ahead of projections.</p>
-            </FadeUp>
-            <FadeUp delay={0.05} className="border-t border-black/15 pt-6">
-              <div className="font-bold mb-2">Scaling to More Cities</div>
-              <p>Rolling out to additional cities, learning from regional differences in operations, rider behaviour, and connectivity patterns.</p>
-            </FadeUp>
-            <FadeUp delay={0.1} className="border-t border-black/15 pt-6">
-              <div className="font-bold mb-2">Predictive Capabilities</div>
-              <p>Building in predictive analytics — demand forecasting, churn prediction, optimal shift scheduling powered by ML models.</p>
-            </FadeUp>
-          </div>
-        </section>
-
-        <Divider />
-
-        {/* ── CONCLUSION ── */}
-        <section id="cs-reflection" className="pb-24 md:pb-32">
-          <FadeUp>
-            <div className="border border-black/20 p-8 md:p-12 bg-black/[0.02]">
-              <div className="text-xs tracking-widest opacity-65 mb-4">REFLECTION</div>
-              <p className="text-2xl md:text-3xl font-bold leading-tight opacity-85 mb-6">
-                The best design decision on MagicFleet wasn't a screen or an interaction — it was the decision to build at all.
-              </p>
-              <p className="text-lg md:text-xl leading-relaxed opacity-75">
-                Owning the fleet meant owning the data, the cost structure, and the rider relationship. The design work
-                was only possible because the strategic call was made first. This taught me that as a designer, understanding
-                why a product exists — the business constraint it solves, not just the user problem it addresses — is what
-                separates work that looks good from work that actually matters.
+          <FadeUp delay={0.3}>
+            <div className="p-8 md:p-12" style={{ border: '1px solid var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
+              <p className="text-2xl md:text-3xl font-bold leading-tight opacity-85">
+                "The best design decision on MagicFleet wasn't a screen or an interaction — it was the decision to build at all."
               </p>
             </div>
           </FadeUp>
         </section>
 
-        {/* ── FOOTER / NEXT ── */}
+        {/* ── FOOTER ── */}
         <section className="pb-24 md:pb-32">
           <FadeUp delay={0.1}>
-            <div className="border border-black/15 p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-black/[0.02]">
+            <div className="p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-6" style={{ border: '1px solid var(--portfolio-border)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
               <div>
                 <p className="text-xs tracking-widest opacity-65 mb-2">CASE STUDIES</p>
                 <p className="text-2xl md:text-3xl font-bold tracking-tight opacity-85">More work coming soon</p>
               </div>
               <button
                 onClick={() => navigate('/')}
-                className="border border-black/30 px-8 py-4 text-sm tracking-widest hover:bg-[#111110] hover:text-[#F7F4F0] transition-all duration-300 whitespace-nowrap"
+                className="px-8 py-4 text-sm tracking-widest transition-all duration-300 whitespace-nowrap" style={{ border: '1px solid color-mix(in srgb, var(--portfolio-fg) 30%, transparent)' }} onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'var(--portfolio-fg)'; (e.currentTarget as HTMLButtonElement).style.color = 'var(--portfolio-bg)'; }} onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = ''; (e.currentTarget as HTMLButtonElement).style.color = ''; }}
               >
                 ← BACK TO HOME
               </button>
