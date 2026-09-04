@@ -835,9 +835,6 @@ export default function MagicFleetCaseStudy() {
             <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-4">
               The brief I received was fleet management — dashboards for managers, cost controls, zone levers. Research pointed somewhere else.
             </p>
-            <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-4">
-              The platform would only work if riders actually wanted to use it. A rider who doesn't open the app breaks the whole system. So the real design problem wasn't how to manage a fleet from the top — it was how to make an app that a delivery rider on a bike, between drops, would actually reach for.
-            </p>
             <p className="text-lg md:text-xl leading-relaxed opacity-75 max-w-3xl mb-16">
               That shifted everything.
             </p>
