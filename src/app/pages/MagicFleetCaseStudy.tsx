@@ -593,7 +593,7 @@ export default function MagicFleetCaseStudy() {
         <section className="pt-20 md:pt-44 pb-16 md:pb-24">
           <FadeUp>
             <div className="flex flex-wrap gap-6 mb-10 text-xs tracking-widest opacity-65">
-              <span>2023 — 2024</span>
+              <span>2024 — 2025</span>
               <span>·</span>
               <span>WEB & MOBILE</span>
               <span>·</span>
