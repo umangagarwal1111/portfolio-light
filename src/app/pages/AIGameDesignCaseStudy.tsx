@@ -790,21 +790,6 @@ export default function AIGameDesignCaseStudy() {
               10 original games shipped in 10 weeks. A team of 2 designers, a weekly release cadence,
               and an AI workflow that changed how we think about creative velocity — and what quality actually requires.
             </p>
-            <p className="text-base md:text-lg max-w-2xl leading-relaxed opacity-50 mt-4">
-              AI collapsed the execution time. Every decision about what made a game worth returning to was still a design call.
-            </p>
-          </FadeUp>
-
-          <FadeUp delay={0.35} className="mt-12">
-            <div className="border overflow-hidden" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
-              <img
-                src="/games/metro-dash.png"
-                alt="Metro Dash — game title screen"
-                className="w-full h-auto block"
-                style={{ maxHeight: '520px', objectFit: 'contain', objectPosition: 'center' }}
-              />
-            </div>
-            <p className="text-xs tracking-widest opacity-40 mt-3">METRO DASH — CAMPAIGN PEAK · 95/100 QUALITY · 22K DAU · 68% D3 RETENTION</p>
           </FadeUp>
         </section>
 
@@ -842,12 +827,14 @@ export default function AIGameDesignCaseStudy() {
               number="03"
               title="The Team Was Already Over Capacity"
               description="Two designers covering game design, asset creation, dev coordination, QA, and analytics review simultaneously. At traditional task allocation, 3 of 5 work areas ran above 100% capacity. Hiring wasn't the answer — headcount can't solve a process problem."
+              visualization={<VizResourceConstraints />}
               delay={0.1}
             />
             <ChallengeCard
               number="04"
               title="Handoffs Were the Hidden Cost"
               description="Sequential design → review → handoff → dev → QA meant every single revision restarted the clock. With a 7-day window, one round of back-and-forth consumed 20% of the entire cycle — before a pixel of the actual game had changed."
+              visualization={<VizCoreProblem />}
               delay={0.15}
             />
           </div>
@@ -907,17 +894,6 @@ export default function AIGameDesignCaseStudy() {
               </div>
             </FadeUp>
           </div>
-
-          <FadeUp delay={0.3} className="mt-12">
-            <div className="border overflow-hidden" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
-              <img
-                src="/games/metro-level-intros.png"
-                alt="Metro Dash — all 7 level intro screens showing real Delhi Metro stations"
-                className="w-full h-auto block"
-              />
-            </div>
-            <p className="text-xs tracking-widest opacity-40 mt-3">METRO DASH · 7 LEVELS · 7 REAL DELHI METRO STATIONS — MILLENNIUM CITY CENTRE TO TECHNOPOLIS</p>
-          </FadeUp>
         </section>
 
         <Divider />
@@ -1078,20 +1054,8 @@ export default function AIGameDesignCaseStudy() {
             ))}
           </div>
 
-          {/* Metro Game Flow — proves cultural design end-to-end */}
-          <FadeUp delay={0.2} className="mt-4">
-            <div className="border overflow-hidden" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
-              <img
-                src="/games/metro-game-flow.png"
-                alt="Metro Dash full UX flow — lobby to gameplay to Pro/Noob Metro Driver result"
-                className="w-full h-auto block"
-              />
-            </div>
-            <p className="text-xs tracking-widest opacity-40 mt-3">METRO DASH · FULL UX FLOW — APP HOME → LOBBY → ONBOARDING → GAMEPLAY → "YOU'RE A PRO METRO DRIVER"</p>
-          </FadeUp>
-
           {/* Quality trend — shows the decisions compounding */}
-          <FadeUp delay={0.25} className="mt-6">
+          <FadeUp delay={0.2}>
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <h3 className="text-lg md:text-xl font-bold mb-2 tracking-tight">Quality Across the Campaign</h3>
               <p className="text-sm opacity-60 mb-6">Faster cycles improved quality — not despite speed, because of it. More iterations means more learning.</p>
@@ -1111,16 +1075,17 @@ export default function AIGameDesignCaseStudy() {
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
               SAME MECHANIC,<br />DIFFERENT GAME
             </h2>
-            <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
+            <p className="text-lg opacity-75 max-w-2xl mb-6 leading-relaxed">
               Underneath Metro Dash is a Snake clone. The gameplay loop — collect, grow, don't crash — never changed.
               What changed was everything around it. That's where the design work lived.
             </p>
           </FadeUp>
 
           <FadeUp delay={0.1}>
-            <p className="text-base opacity-60 max-w-3xl mb-8 leading-relaxed">
-              Using real Delhi Metro stations as the level structure was an intentional design decision — not a theme applied after the fact.
-              Riders navigate routes they actually commute. Station names they recognise. That familiarity is what made players want to reach the next level.
+            <p className="text-base opacity-55 max-w-3xl mb-12 leading-relaxed">
+              Using real Delhi Metro stations as the level structure was intentional — not a theme applied after the fact.
+              Riders navigate routes they actually commute. Station names they recognise.
+              That familiarity is what made players want to reach the next level.
               Seven stations, seven levels: Millennium City Centre, MG Road, Outer Ring Road, AIIMS, and beyond.
               The geography of the city became the progression mechanic.
             </p>
@@ -1128,39 +1093,61 @@ export default function AIGameDesignCaseStudy() {
 
           <div className="grid md:grid-cols-2 gap-4 md:gap-6">
             <FadeUp delay={0.15}>
-              <div className="flex flex-col gap-3">
-                <div className="border overflow-hidden rounded-[1.5rem] mx-auto" style={{ borderColor: 'var(--portfolio-border-strong)', width: '260px' }}>
-                  <video
-                    src="/games/metro-dash-start.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-auto block"
-                  />
+              <div className="border overflow-hidden h-full flex flex-col" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <div className="p-6 md:p-8 border-b" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                  <div className="text-xs tracking-widest opacity-65 mb-2">EARLY BUILD</div>
+                  <p className="text-sm opacity-60 leading-relaxed">
+                    Raw mechanic — broken assets, placeholder sky, basic grid. The Snake loop was there but nothing else was.
+                  </p>
                 </div>
-                <div>
-                  <div className="text-xs tracking-widest opacity-65 mb-1">EARLY BUILD</div>
-                  <p className="text-sm opacity-60 leading-relaxed">Raw mechanic — broken assets, placeholder sky, basic grid. The Snake loop was there but nothing else was.</p>
+                <div className="flex-1 flex items-center justify-center p-8">
+                  <div
+                    className="overflow-hidden"
+                    style={{
+                      borderRadius: '1.75rem',
+                      border: '1px solid var(--portfolio-border-strong)',
+                      width: '200px',
+                    }}
+                  >
+                    <video
+                      src="/games/metro-dash-start.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-auto block"
+                    />
+                  </div>
                 </div>
               </div>
             </FadeUp>
 
             <FadeUp delay={0.2}>
-              <div className="flex flex-col gap-3">
-                <div className="border overflow-hidden rounded-[1.5rem] mx-auto" style={{ borderColor: 'var(--portfolio-border-strong)', width: '260px' }}>
-                  <video
-                    src="/games/metro-dash-finish.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-auto block"
-                  />
+              <div className="border overflow-hidden h-full flex flex-col" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                <div className="p-6 md:p-8 border-b" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+                  <div className="text-xs tracking-widest mb-2" style={{ color: '#22c55e' }}>90% COMPLETE</div>
+                  <p className="text-sm opacity-60 leading-relaxed">
+                    Connaught Place background, metro train cars as the snake body, station attendants as collectibles. Same mechanic — entirely different experience.
+                  </p>
                 </div>
-                <div>
-                  <div className="text-xs tracking-widest mb-1" style={{ color: '#22c55e' }}>90% COMPLETE</div>
-                  <p className="text-sm opacity-60 leading-relaxed">Connaught Place background, metro train cars as the snake body, station attendants as collectibles. Same mechanic — entirely different experience.</p>
+                <div className="flex-1 flex items-center justify-center p-8">
+                  <div
+                    className="overflow-hidden"
+                    style={{
+                      borderRadius: '1.75rem',
+                      border: '1px solid var(--portfolio-border-strong)',
+                      width: '200px',
+                    }}
+                  >
+                    <video
+                      src="/games/metro-dash-finish.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-auto block"
+                    />
+                  </div>
                 </div>
               </div>
             </FadeUp>
