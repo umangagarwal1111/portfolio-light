@@ -290,7 +290,7 @@ function VizTeamEfficiency() {
       <div className="text-[10px] tracking-widest opacity-60 mb-5">OUTPUT COMPARISON — BEFORE vs. AFTER AI</div>
       <div className="grid grid-cols-2 gap-4">
         <div className="border rounded p-4" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
-          <div className="text-[9px] tracking-widest opacity-50 mb-3">BEFORE (2023)</div>
+          <div className="text-[9px] tracking-widest opacity-50 mb-3">BEFORE (2026)</div>
           <div className="text-3xl font-black opacity-70">1–2</div>
           <div className="text-[9px] opacity-50 mt-0.5">games / month</div>
           <div className="mt-3 space-y-1">
@@ -787,11 +787,10 @@ export default function AIGameDesignCaseStudy() {
 
           <FadeUp delay={0.2}>
             <p className="text-lg md:text-2xl max-w-3xl leading-relaxed opacity-75">
-              10 original games shipped in 10 weeks. A team of 2 designers, a weekly release cadence,
-              and an AI workflow that changed how we think about creative velocity — and what quality actually requires.
+              magicPin ran a gaming campaign from Feb to Apr 2026. One new game every week, shipped from brief to live. The team was small, the timeline was brutal, and we had no existing playbook for this.
             </p>
             <p className="text-base md:text-lg max-w-2xl leading-relaxed opacity-50 mt-4">
-              AI collapsed the execution time. Every decision about what made a game worth returning to was still a design call.
+              AI didn't just help us move faster — it changed how we worked entirely.
             </p>
           </FadeUp>
 
@@ -826,28 +825,28 @@ export default function AIGameDesignCaseStudy() {
             <ChallengeCard
               number="01"
               title="The Timeline Was Impossible"
-              description="Traditional game dev averaged 8 weeks per game. 10 games at that rate would take 80 weeks — the year only has 52. Even at peak efficiency with the old workflow, this campaign was mathematically impossible without a fundamentally different approach."
+              description="One week per game sounds manageable until you count the hours. Design, dev, QA, and ship — all in 5 working days. At a normal pace, that's a 3-week job."
               visualization={<VizTimelinePressure />}
               delay={0}
             />
             <ChallengeCard
               number="02"
               title="Speed Was Breaking Quality"
-              description="Early attempts to accelerate showed a consistent pattern: games shipped fast had high Day 1 numbers, but weak Day 3 retention. Speed was creating novelty, not habit. We were making disposable experiences — good for a spike, useless for a campaign."
+              description="When we moved faster, quality dropped. The first few games were rough. Retention numbers showed it — players weren't coming back on Day 3."
               visualization={<VizQualityDilemma />}
               delay={0.05}
             />
             <ChallengeCard
               number="03"
               title="The Team Was Already Over Capacity"
-              description="Two designers covering game design, asset creation, dev coordination, QA, and analytics review simultaneously. At traditional task allocation, 3 of 5 work areas ran above 100% capacity. Hiring wasn't the answer — headcount can't solve a process problem."
+              description="The same people doing design were also reviewing dev, writing briefs, and managing feedback. There was no room to be thoughtful — just reactive."
               visualization={<VizResourceConstraints />}
               delay={0.1}
             />
             <ChallengeCard
               number="04"
               title="Handoffs Were the Hidden Cost"
-              description="Sequential design → review → handoff → dev → QA meant every single revision restarted the clock. With a 7-day window, one round of back-and-forth consumed 20% of the entire cycle — before a pixel of the actual game had changed."
+              description="Every time a file moved from design to dev, something got lost or delayed. The invisible tax on every game was the back-and-forth between tools and people."
               visualization={<VizCoreProblem />}
               delay={0.15}
             />
@@ -857,8 +856,7 @@ export default function AIGameDesignCaseStudy() {
             <div className="border p-8 md:p-12" style={{ borderColor: 'var(--portfolio-border-strong)', background: 'color-mix(in srgb, var(--portfolio-fg) 2%, transparent)' }}>
               <div className="text-xs tracking-widest opacity-65 mb-4">HOW MIGHT WE</div>
               <p className="text-2xl md:text-4xl font-bold leading-tight opacity-90">
-                "How might we design and ship a culturally relevant game every week — without the quality
-                that drives Day 3 retention being the thing we trade away for speed?"
+                "How might we ship one high-quality game every week — without burning out the team or watching retention crater?"
               </p>
             </div>
           </FadeUp>
@@ -953,7 +951,7 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE APPROACH</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              FINDING THE<br />WORKFLOW
+              HOW WE<br />FIGURED IT OUT
             </h2>
           </FadeUp>
 
@@ -962,32 +960,32 @@ export default function AIGameDesignCaseStudy() {
               {
                 step: '01',
                 title: 'Audit the Bottleneck First',
-                body: 'Before touching any tool, we mapped where time actually went. The answer wasn\'t design — it was the gaps between design and everything else. Handoff, review cycles, and context-switching between design and dev were consuming more hours than the creative work itself.',
+                body: 'Before reaching for any new tools, we traced where time was actually going. The answer wasn\'t design or dev — it was the gap between them.',
               },
               {
                 step: '02',
                 title: 'Tool Experimentation — 3 Weeks, 5 Tools',
-                body: 'We ran structured experiments with every relevant AI tool: Stitch, Lovable, Cursor, Figma Make, Codex. Each got a real game brief and a 2-day trial. Most failed for specific reasons — wrong abstraction level, no mobile support, too opinionated about output format. We killed them fast.',
+                body: 'Over 3 weeks, we tested 5 tools: Stitch, Lovable, Cursor, Figma Make, and Codex. We ran each one against a real game brief. Most either couldn\'t match the visual fidelity we needed or broke down when the brief changed mid-build. Figma Make and Codex were the two that held up.',
               },
               {
                 step: '03',
                 title: 'The Breakthrough: Parallel, Not Sequential',
-                body: 'The winning insight wasn\'t any single tool — it was running Figma Make and Codex simultaneously rather than one feeding the other. Design and dev happening in parallel, both working from the same brief, meant the handoff moment nearly disappeared. Changes in Figma propagated to the build without a formal handoff cycle.',
+                body: 'The shift that changed everything: design assets and game code were being built at the same time. Figma Make handled the visual layer while Codex built the game — no handoff, no waiting. This removed our dependency on the dev team for execution. They stayed in the loop for what actually needed them: language decisions, technical constraints, edge cases the AI couldn\'t self-correct. Everything else, AI handled in parallel. Cycle time dropped from 5 days to 3.',
               },
               {
                 step: '04',
                 title: 'Codifying the Process',
-                body: 'Once the workflow was proven on Game 5 (Dhurandhargiri — 3.5 days, strong metrics), we documented it in detail. Brief format, Figma Make prompting conventions, Codex integration patterns, QA checklist. The goal: any team member should be able to pick it up without a handover conversation.',
+                body: 'Once the parallel workflow proved out on Game 4, we wrote it down as a repeatable loop: brief → Figma Make → parallel Codex dev → QA → ship. Every person on the team knew the sequence. Onboarding a new contributor went from days to hours.',
               },
               {
                 step: '05',
                 title: 'Mid-Campaign Brief Change',
-                body: 'After Game 3, data showed a clear problem: Day 1 engagement was strong, Day 3 retention was weak. We were optimising for the wrong metric. We changed the brief mid-campaign — every game from Game 4 onwards was designed for Day 3 return, not Day 1 spike. That meant progression mechanics, save states, and social sharing at achievement moments, not just at game-over.',
+                body: 'Around Game 5, the briefs shifted — themes got more culturally specific and needed real research before any design could start. If we waited until the design phase to figure out the cultural context, we\'d lose a day. So we moved that research upstream: the first thing that happened when a brief arrived wasn\'t opening Figma, it was understanding the cultural layer — who the game is for, what references they\'d recognize, what would feel authentic. That became a fixed step in the process, not an afterthought.',
               },
               {
                 step: '06',
                 title: 'Stable Cadence by Game 7',
-                body: 'By the BDSM Room (Game 7), the workflow was stable at 3 days per game — consistently. Quality was improving each iteration, not declining. The last 3 games averaged a quality score of 93/100 vs 77/100 for the first 3. Faster cycles and better quality at the same time.',
+                body: 'By Game 7 the workflow was locked. Three days per game, no exceptions. The last three games averaged a quality score of 93/100 — compared to 77/100 for the first three. Same team, same tools, better process.',
               },
             ].map((item, i) => (
               <FadeUp key={item.step} delay={i * 0.05}>
@@ -1030,11 +1028,10 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">THE CAMPAIGN</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
-              10 WEEKS,<br />10 GAMES
+              10 GAMES,<br />TRACKED
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              Real data from every game. Select any game to see engagement, DAU, retention, quality, and
-              dev efficiency. Watch the numbers improve as the workflow matured — faster cycles, better output.
+              Here's how each game actually performed — DAU, retention, quality score, and week-on-week change. The improvement across the campaign is the proof of concept.
             </p>
           </FadeUp>
 
@@ -1048,7 +1045,7 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">KEY DECISIONS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
-              THREE BETS THAT<br />SHAPED THE CAMPAIGN
+              THREE BETS THAT<br />CHANGED THE CAMPAIGN
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
               Not tool choices — design decisions. Each one had a real cost and a clear reason.
@@ -1060,23 +1057,23 @@ export default function AIGameDesignCaseStudy() {
               {
                 number: '01',
                 title: 'Parallel Workflow Over Sequential',
-                decision: 'Run Figma Make and Codex simultaneously from the same brief, rather than design feeding dev in sequence. Both working in parallel, converging at QA.',
-                tradeoff: 'Required tighter brief discipline. If the brief was ambiguous, parallel work diverged expensively — you\'d get design and dev going in different directions. Brief quality became a forcing function.',
-                outcome: 'Cut cycle time from 8 weeks to 3–4 days. The handoff moment effectively disappeared. Engineering rework dropped to near zero on games 7–10.',
+                decision: 'Run design and dev simultaneously instead of handing off when design is done. Both working from the same brief, converging at QA.',
+                tradeoff: 'Dev had to work from evolving files. More communication overhead upfront.',
+                outcome: 'Cycle time dropped from 5 days to 3. Never went back.',
               },
               {
                 number: '02',
                 title: 'Changing the Metric Mid-Campaign',
-                decision: 'After Game 3 showed weak Day 3 retention despite strong Day 1 numbers, we changed the brief. Every game from Game 4 onwards was explicitly designed for D3 return — progression mechanics, save states, social triggers at achievement moments.',
-                tradeoff: 'Games got marginally more complex to brief and design. Some stakeholders pushed back on the metric shift — they were tracking Day 1 reach, not Day 3 retention. Had to make the case that novelty spikes don\'t compound but retention does.',
-                outcome: 'Metro Dash hit 68% D3 retention vs 38% on Game 1. Same DAU ceiling, completely different product behaviour. The campaign ended with a habit-forming game rather than a series of novelty experiences.',
+                decision: 'Stop optimizing for Day 1 retention. Start tracking Day 3.',
+                tradeoff: 'Early games looked worse on D1. Stakeholder conversations got harder.',
+                outcome: 'D3 retention grew from 38% on Game 1 to 68% on Metro Dash. Better signal, better games.',
               },
               {
                 number: '03',
                 title: 'Cultural Relevance as a Mechanic, Not a Skin',
-                decision: 'Stopped applying culture as a theme layered on top of a generic game structure. Started treating the cultural moment as a design constraint — the game mechanics themselves had to express the moment.',
-                tradeoff: 'Harder to concept and harder to brief engineers unfamiliar with the cultural context. Required more research upfront per game. Some briefs took longer to write than early games took to build.',
-                outcome: 'Highest engagement scores correlated directly with cultural accuracy. Her Holi Game (91%) and The BDSM Room (92%) — both built around culturally specific mechanics — outperformed games where culture was applied as a visual skin.',
+                decision: 'Build the cultural layer into how the game works — not just how it looks.',
+                tradeoff: 'More research, more asset production, harder briefs. Cultural accuracy isn\'t a shortcut.',
+                outcome: 'The three highest-performing games were the three most culturally specific ones. Her Holi scored 91%, BDSM Room 92%, Metro Dash 93% — the campaign\'s highest engagement. The games where culture wasn\'t decorative consistently outperformed the ones where it was.',
               },
             ].map((item, i) => (
               <FadeUp key={item.number} delay={i * 0.06}>
@@ -1126,18 +1123,13 @@ export default function AIGameDesignCaseStudy() {
               SAME MECHANIC,<br />DIFFERENT GAME
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-6 leading-relaxed">
-              Underneath Metro Dash is a Snake clone. The gameplay loop — collect, grow, don't crash — never changed.
-              What changed was everything around it. That's where the design work lived.
+              Metro Dash is a Snake clone underneath. Collect, grow, don't crash — the loop never changed. What changed was everything around it.
             </p>
           </FadeUp>
 
           <FadeUp delay={0.1}>
             <p className="text-base opacity-55 max-w-3xl mb-12 leading-relaxed">
-              Using real Delhi Metro stations as the level structure was intentional — not a theme applied after the fact.
-              Riders navigate routes they actually commute. Station names they recognise.
-              That familiarity is what made players want to reach the next level.
-              Seven stations, seven levels: Millennium City Centre, MG Road, Outer Ring Road, AIIMS, and beyond.
-              The geography of the city became the progression mechanic.
+              The eight levels are Delhi Metro stations. Each one has a different character archetype, a different visual palette, a different crowd to dodge. The geography isn't a skin. It's the progression mechanic.
             </p>
           </FadeUp>
 
@@ -1147,7 +1139,7 @@ export default function AIGameDesignCaseStudy() {
                 <div className="p-6 md:p-8 border-b" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
                   <div className="text-xs tracking-widest opacity-65 mb-2">EARLY BUILD</div>
                   <p className="text-sm opacity-60 leading-relaxed">
-                    Raw mechanic — broken assets, placeholder sky, basic grid. The Snake loop was there but nothing else was.
+                    Three weeks in. The snake mechanic works but the assets are placeholders — flat sky, no characters. You can feel the potential and also the distance left to close.
                   </p>
                 </div>
                 <div className="flex-1 flex items-center justify-center p-8">
@@ -1177,7 +1169,7 @@ export default function AIGameDesignCaseStudy() {
                 <div className="p-6 md:p-8 border-b" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
                   <div className="text-xs tracking-widest mb-2" style={{ color: '#22c55e' }}>90% COMPLETE</div>
                   <p className="text-sm opacity-60 leading-relaxed">
-                    Connaught Place background, metro train cars as the snake body, station attendants as collectibles. Same mechanic — entirely different experience.
+                    Connaught Place station. Metro train cars as the snake body. Character obstacles on the platform. This is what the brief was actually asking for — and this is what AI made possible to ship in a week.
                   </p>
                 </div>
                 <div className="flex-1 flex items-center justify-center p-8">
@@ -1214,9 +1206,7 @@ export default function AIGameDesignCaseStudy() {
               HOW WE<br />WORK NOW
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              The workflow that came out of this campaign is now documented and used to onboard new designers
-              and collaborators into the game design process. It covers the full cycle — from brief to ship —
-              with AI tool integration annotated at every step.
+              After 10 games, the workflow isn't experimental anymore — it's documented. This is the loop we run every time: brief arrives Monday, game ships Friday. Two tools, three days, one repeatable process.
             </p>
           </FadeUp>
 
@@ -1270,8 +1260,7 @@ export default function AIGameDesignCaseStudy() {
               WHAT THE<br />NUMBERS SAY
             </h2>
             <p className="text-lg opacity-75 max-w-2xl mb-12 leading-relaxed">
-              Metrics from the full 10-week campaign. Baseline from the previous game design cycle (2023)
-              before AI workflow was introduced.
+              Across 10 games, over 10 weeks. The numbers track the trajectory — from rough early builds to a stable, high-quality production engine.
             </p>
           </FadeUp>
 
@@ -1301,24 +1290,24 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-4">LEARNINGS</div>
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-12">
-              WHAT WE<br />LEARNED
+              WHAT<br />STUCK
             </h2>
           </FadeUp>
 
           <div className="grid md:grid-cols-3 gap-4 md:gap-6">
             <LearningCard
-              title="Design for Day 3, Not Day 1"
-              body="Day 1 numbers measure reach and novelty — they're easy to hit. Day 3 retention measures whether you made something worth returning to. Those require different design decisions: progression, save states, social triggers at achievement moments. We only got there by changing the metric we optimised for."
+              title="Process Before Tools"
+              body="We tried 5 tools before we found the right two. What made them work wasn't the tools themselves — it was having a workflow they could slot into."
               delay={0}
             />
             <LearningCard
-              title="AI Gives You More Options, Not Better Judgment"
-              body="AI compressed the time between idea and prototype. It made the volume of options cheap. But which direction serves the user, which mechanic is actually fun, whether the cultural moment is being expressed or just referenced — none of that changed. Faster cycles made the judgment harder, not easier. You have to be more decisive when options are abundant."
+              title="The Metric You Measure Shapes What You Build"
+              body="Switching from D1 to D3 retention didn't just change how we judged success — it changed what we prioritized in design."
               delay={0.05}
             />
             <LearningCard
-              title="Cultural Relevance Is a Mechanic, Not a Skin"
-              body="Games that performed best treated the cultural moment as a design constraint, not a theme. The mechanic itself had to express the moment. When we applied culture as a visual layer on a generic game structure, engagement reflected it — and not positively. The insight applies beyond games: relevance has to be structural, not decorative."
+              title="Cultural Accuracy Is Earned, Not Applied"
+              body="The games that performed best were the ones where the culture was load-bearing — not decorative. That takes research, not just good taste."
               delay={0.1}
             />
           </div>
@@ -1331,23 +1320,23 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp>
             <div className="text-xs tracking-widest opacity-65 mb-8">WHAT'S NEXT</div>
             <p className="text-lg opacity-75 max-w-2xl mb-8 leading-relaxed">
-              Three directions the campaign data is pointing to — each grounded in what we learned across 10 iterations.
+              Three things we'd try if we ran this again — each one grounded in what 10 games taught us.
             </p>
             <div className="grid md:grid-cols-3 gap-4 mb-16">
               {[
                 {
-                  hypothesis: 'Longer-form games will outperform weekly drops for retention',
-                  rationale: 'Campaign data shows diminishing novelty returns after week 8. The next experiment is a 4-week evolving game arc — same product, new mechanics unlocking weekly — rather than fresh games every 7 days.',
+                  hypothesis: 'A longer brief window could push cultural accuracy further',
+                  rationale: 'Metro Dash was the closest we got to getting the culture fully right. Even 2 extra days of research upfront — understanding the real people at each station — would have added depth we had to cut for time.',
                   status: 'In planning',
                 },
                 {
-                  hypothesis: 'Cross-platform will 3x reach without new design work',
-                  rationale: 'Games are currently mobile-only. The Figma Make + Codex workflow produces web-compatible code. Distributing to web with the same codebase is in prototype — no additional design work required.',
-                  status: 'Prototype',
+                  hypothesis: 'City-specific variants could unlock new markets',
+                  rationale: 'The Delhi Metro logic works because the geography is specific. Mumbai Local, Bengaluru Metro, Hyderabad Metro — each has its own crowd, its own character archetypes. The framework scales.',
+                  status: 'Exploratory',
                 },
                 {
-                  hypothesis: 'This workflow generalises beyond games',
-                  rationale: 'The parallel Figma Make + Codex model was built for weekly game sprints but the constraint structure — tight brief, parallel execution, data-driven iteration — applies to any high-velocity design sprint. Testing on merchant landing page production next.',
+                  hypothesis: 'A/B testing cultural depth vs generic would prove the engagement delta',
+                  rationale: 'We know from results that cultural games outperformed generic ones. What we don\'t have is a controlled test — same mechanic, same production quality, one culturally specific and one not. That\'s the experiment that would prove it with data.',
                   status: 'Exploratory',
                 },
               ].map((item, i) => (
