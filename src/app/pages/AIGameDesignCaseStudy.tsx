@@ -798,7 +798,7 @@ export default function AIGameDesignCaseStudy() {
           <FadeUp delay={0.35} className="mt-12">
             <div className="border overflow-hidden" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
               <img
-                src="/games/metro-game-flow.png"
+                src="/games/metro-dash-game-flow.png"
                 alt="Metro Dash — full game flow from lobby to gameplay to result"
                 className="w-full h-auto block"
               />
