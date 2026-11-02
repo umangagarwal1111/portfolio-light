@@ -921,7 +921,7 @@ export default function AIGameDesignCaseStudy() {
           </FadeUp>
 
           <FadeUp delay={0.4} className="mt-10">
-            <p className="text-base md:text-lg leading-relaxed opacity-70 max-w-3xl mb-8">
+            <p className="text-base md:text-lg leading-relaxed opacity-70 mb-8">
               Each character in each level was designed around who you'd actually see at that station. Corporate Paglu at Millennium City Centre because that's Gurgaon's office belt. Design Bro at Hauz Khas because NIFT is 5 minutes away. Test Result Guy at AIIMS because that's the only station where everyone around you is either anxious or exhausted. The collectibles aren't themed props. They're the real soul of each station. That specificity is what made players feel like the game was made for them.
             </p>
 
