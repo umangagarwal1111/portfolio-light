@@ -919,6 +919,31 @@ export default function AIGameDesignCaseStudy() {
             </div>
             <p className="text-xs tracking-widest opacity-40 mt-3">METRO DASH · 8 LEVELS · MILLENNIUM CITY CENTRE · MG ROAD · ARJAN GARH · QUTUB MINAR · HAUZ KHAS · AIIMS · RAJIV CHOWK · VISHWAVIDYALAY</p>
           </FadeUp>
+
+          <FadeUp delay={0.4} className="mt-10">
+            <p className="text-base md:text-lg leading-relaxed opacity-70 max-w-3xl mb-8">
+              Each character in each level was designed around who you'd actually see at that station. Corporate Paglu at Millennium City Centre because that's Gurgaon's office belt. Design Bro at Hauz Khas because NIFT is 5 minutes away. Test Result Guy at AIIMS because that's the only station where everyone around you is either anxious or exhausted. The collectibles aren't themed props — they're the real cast of each location. That specificity is what made players feel like the game was made for them.
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ background: 'var(--portfolio-border-strong)' }}>
+              {[
+                { station: 'MILLENNIUM CITY CENTRE', characters: 'Corporate Paglu', rationale: "Gurgaon's IT corridor — every morning train is packed with laptop bags and ID cards." },
+                { station: 'MG ROAD', characters: 'School Masi, Late Lata', rationale: 'Dense residential area — school runs and late-to-work commutes define the early trains.' },
+                { station: 'ARJAN GARH', characters: 'Daily Commuter', rationale: 'Edge of the metro network where the city transitions — peripheral workers heading inward.' },
+                { station: 'QUTUB MINAR', characters: 'Couple Duo, Global Explorer', rationale: "India's most visited monument — tourists, weekend couples, international visitors." },
+                { station: 'HAUZ KHAS', characters: 'Design Bro', rationale: "NIFT is 5 minutes away. Hauz Khas Village is Delhi's creative quarter." },
+                { station: 'AIIMS', characters: 'Test Result Guy, Care Champion', rationale: "Delhi's largest public hospital — patients clutching reports, staff between shifts." },
+                { station: 'RAJIV CHOWK', characters: 'All archetypes', rationale: "Delhi's busiest interchange — every type of Delhi commuter passes through here." },
+                { station: 'VISHWAVIDYALAY', characters: 'Study Squad', rationale: 'Delhi University north campus — students are the overwhelming majority here.' },
+              ].map((s) => (
+                <div key={s.station} className="p-5 md:p-6 flex flex-col gap-2" style={{ background: 'var(--portfolio-bg)' }}>
+                  <div className="text-[10px] tracking-widest opacity-50">{s.station}</div>
+                  <div className="text-sm font-bold leading-tight">{s.characters}</div>
+                  <div className="text-xs opacity-55 leading-relaxed">{s.rationale}</div>
+                </div>
+              ))}
+            </div>
+          </FadeUp>
         </section>
 
         <Divider />
