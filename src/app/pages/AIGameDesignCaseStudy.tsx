@@ -908,6 +908,17 @@ export default function AIGameDesignCaseStudy() {
               </div>
             </FadeUp>
           </div>
+
+          <FadeUp delay={0.3} className="mt-12">
+            <div className="border overflow-hidden" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <img
+                src="/games/metro-level-introductions.png"
+                alt="Metro Dash — 8 level intro screens, each a real Delhi Metro station"
+                className="w-full h-auto block"
+              />
+            </div>
+            <p className="text-xs tracking-widest opacity-40 mt-3">METRO DASH · 8 LEVELS · MILLENNIUM CITY CENTRE · MG ROAD · ARJAN GARH · QUTUB MINAR · HAUZ KHAS · AIIMS · RAJIV CHOWK · VISHWAVIDYALAY</p>
+          </FadeUp>
         </section>
 
         <Divider />
