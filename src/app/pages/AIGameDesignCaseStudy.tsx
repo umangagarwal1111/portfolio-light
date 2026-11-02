@@ -917,7 +917,7 @@ export default function AIGameDesignCaseStudy() {
                 className="w-full h-auto block"
               />
             </div>
-            <p className="text-xs tracking-widest opacity-40 mt-3">METRO DASH · 8 LEVELS · MILLENNIUM CITY CENTRE · MG ROAD · ARJAN GARH · QUTUB MINAR · HAUZ KHAS · AIIMS · RAJIV CHOWK · VISHWAVIDYALAY</p>
+            <p className="text-xs tracking-widest opacity-40 mt-3">METRO DASH · 8 LEVELS · YELLOW LINE</p>
           </FadeUp>
 
           <FadeUp delay={0.4} className="mt-10">
