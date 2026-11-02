@@ -790,6 +790,20 @@ export default function AIGameDesignCaseStudy() {
               10 original games shipped in 10 weeks. A team of 2 designers, a weekly release cadence,
               and an AI workflow that changed how we think about creative velocity — and what quality actually requires.
             </p>
+            <p className="text-base md:text-lg max-w-2xl leading-relaxed opacity-50 mt-4">
+              AI collapsed the execution time. Every decision about what made a game worth returning to was still a design call.
+            </p>
+          </FadeUp>
+
+          <FadeUp delay={0.35} className="mt-12">
+            <div className="border overflow-hidden" style={{ borderColor: 'var(--portfolio-border-strong)' }}>
+              <img
+                src="/games/metro-game-flow.png"
+                alt="Metro Dash — full game flow from lobby to gameplay to result"
+                className="w-full h-auto block"
+              />
+            </div>
+            <p className="text-xs tracking-widest opacity-40 mt-3">METRO DASH · FULL GAME FLOW — LOBBY · ONBOARDING · GAMEPLAY · LEVEL INTROS · RESULT STATES</p>
           </FadeUp>
         </section>
 
